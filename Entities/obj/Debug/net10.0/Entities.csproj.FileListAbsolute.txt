@@ -1,0 +1,11 @@
+c:\Adham Web\MVC_Projects\StockApp\Entities\bin\Debug\net10.0\Entities.deps.json
+c:\Adham Web\MVC_Projects\StockApp\Entities\bin\Debug\net10.0\Entities.dll
+c:\Adham Web\MVC_Projects\StockApp\Entities\bin\Debug\net10.0\Entities.pdb
+c:\Adham Web\MVC_Projects\StockApp\Entities\obj\Debug\net10.0\Entities.GeneratedMSBuildEditorConfig.editorconfig
+c:\Adham Web\MVC_Projects\StockApp\Entities\obj\Debug\net10.0\Entities.AssemblyInfoInputs.cache
+c:\Adham Web\MVC_Projects\StockApp\Entities\obj\Debug\net10.0\Entities.AssemblyInfo.cs
+c:\Adham Web\MVC_Projects\StockApp\Entities\obj\Debug\net10.0\Entities.csproj.CoreCompileInputs.cache
+c:\Adham Web\MVC_Projects\StockApp\Entities\obj\Debug\net10.0\Entities.dll
+c:\Adham Web\MVC_Projects\StockApp\Entities\obj\Debug\net10.0\refint\Entities.dll
+c:\Adham Web\MVC_Projects\StockApp\Entities\obj\Debug\net10.0\Entities.pdb
+c:\Adham Web\MVC_Projects\StockApp\Entities\obj\Debug\net10.0\ref\Entities.dll

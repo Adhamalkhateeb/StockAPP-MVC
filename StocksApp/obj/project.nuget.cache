@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "a4aIjVavS/w=",
+  "success": true,
+  "projectFilePath": "C:\\Adham Web\\MVC_Projects\\StockApp\\StocksApp\\StocksApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\adham\\.nuget\\packages\\fluentvalidation\\11.11.0\\fluentvalidation.11.11.0.nupkg.sha512",
+    "C:\\Users\\adham\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.1\\fluentvalidation.aspnetcore.11.3.1.nupkg.sha512",
+    "C:\\Users\\adham\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.11.0\\fluentvalidation.dependencyinjectionextensions.11.11.0.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,30 @@
+﻿@model StockTrade
+@{
+    ViewBag.Title = "Trading";
+    ViewBag.CurrentUrl = "~/Trade/Index";
+}
+<form method="post">
+
+    <div class="trading-panel">
+        <div class="box">
+
+            <div class="stock-title">
+                @Model.StockName (@Model.StockSymbol)
+            </div>
+
+            <div class="stock-price-main">
+                <span class="price">$@Model.Price.ToString("N")</span>
+            </div>
+
+            <div class="date"></div>
+
+
+
+        </div>
+    </div>
+    <input type="hidden" name="StockSymbol" id="StockSymbol" value="@Model.StockSymbol" />
+    <input type="hidden" id="FinnhubToken" value="@ViewBag.FinnhubToken" />
+</form>
+
+<script src="~/Scripts/FinnhubScript.js">
+</script>

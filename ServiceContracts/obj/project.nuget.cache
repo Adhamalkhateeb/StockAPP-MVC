@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "dUhq2Huulps=",
+  "success": true,
+  "projectFilePath": "C:\\Adham Web\\MVC_Projects\\StockApp\\ServiceContracts\\ServiceContracts.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\adham\\.nuget\\packages\\fluentvalidation\\11.11.0\\fluentvalidation.11.11.0.nupkg.sha512",
+    "C:\\Users\\adham\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.1\\fluentvalidation.aspnetcore.11.3.1.nupkg.sha512",
+    "C:\\Users\\adham\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.11.0\\fluentvalidation.dependencyinjectionextensions.11.11.0.nupkg.sha512",
+    "C:\\Users\\adham\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\2.1.0\\microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}

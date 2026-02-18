@@ -1,0 +1,253 @@
+/* ================================
+   GLOBAL RESET
+================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    min-height: 100vh;
+    color: #1a1a1a;
+}
+
+/* ================================
+   LAYOUT
+================================ */
+
+.container {
+    width: 100%;
+}
+
+.page-content {
+    padding: 30px;
+}
+
+/* ================================
+   TOP BAR
+================================ */
+
+#top-bar-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    color: #ffffff;
+    margin-bottom: 30px;
+}
+
+.app-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.app-title i {
+    margin-right: 8px;
+    color: #00e5ff;
+}
+
+/* ================================
+   TRADING PANEL
+================================ */
+
+.trading-panel {
+    max-width: 900px;
+    margin: auto;
+}
+
+.box {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 35px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    transition: all 0.3s ease;
+}
+
+.box:hover {
+    transform: translateY(-6px);
+}
+
+.stock-title {
+    font-size: 2.6rem;
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: #0a8ac6;
+}
+
+/* ================================
+   PRICE GRID
+================================ */
+
+.price-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.price-card {
+    background: #f7f9fb;
+    border-radius: 16px;
+    padding: 22px;
+    text-align: center;
+    transition: all 0.25s ease;
+    border: 1px solid #ececec;
+}
+
+.price-card span {
+    font-size: 0.9rem;
+    color: #777;
+    letter-spacing: 0.5px;
+}
+
+.price-card h2 {
+    margin-top: 12px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #111;
+}
+
+.price-card:hover {
+    background: #e3f2fd;
+    transform: scale(1.05);
+}
+
+/* ================================
+   MAIN STOCK PRICE
+================================ */
+
+.stock-price-main {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: #00c853;
+}
+
+/* ================================
+   BUTTONS
+================================ */
+
+.button {
+    padding: 10px 30px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.button-primary {
+    background: #0a8ac6;
+    color: white;
+}
+
+.button-primary:hover {
+    background: #066a99;
+}
+
+.button-success {
+    background: #00c853;
+    color: white;
+}
+
+.button-success:hover {
+    background: #009624;
+}
+
+.button-danger {
+    background: #ff3d00;
+    color: white;
+}
+
+.button-danger:hover {
+    background: #c30000;
+}
+
+/* ================================
+   FORMS
+================================ */
+
+.form-input {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    transition: 0.3s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #0a8ac6;
+    box-shadow: 0 0 8px rgba(10,138,198,0.4);
+}
+
+/* ================================
+   TABLE (ORDERS)
+================================ */
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.table thead {
+    background: #0a8ac6;
+    color: white;
+}
+
+.table th, .table td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #eee;
+    transition: 0.2s;
+}
+
+.table tbody tr:hover {
+    background: #f5faff;
+}
+
+/* ================================
+   UTILITIES
+================================ */
+
+.text-green { color: #00c853; }
+.text-red { color: #ff3d00; }
+.text-center { text-align: center; }
+.mt { margin-top: 20px; }
+.mb { margin-bottom: 20px; }
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 768px) {
+    .box {
+        padding: 20px;
+    }
+
+    .stock-title {
+        font-size: 2rem;
+    }
+
+    .stock-price-main {
+        font-size: 2.5rem;
+    }
+
+    #top-bar-div {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
