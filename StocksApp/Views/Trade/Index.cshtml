@@ -34,26 +34,29 @@
                     <div class="flex flex-direction-vertical">
                         <h3 class="text-grey mb">New Order</h3>
 
-                        <label for="Quantity" class="mt">Quantity:</label>
+                        <label asp-for="Quantity" class="mt">Quantity:</label>
                         <div class="w-25">
-                            <input type="number" name="Quantity" id="Quantity" value="@Model.Quantity" min="1" max="100000"
-                                   placeholder="Quantity" required="required" class="form-input mb" autofocus="autofocus" />
+                            <input min="1" max="100000" asp-for="Quantity" placeholder="Quantity" class="form-input mb"
+                                   autofocus="autofocus" />
+                            <span asp-validation-for="Quantity" class="text-red"></span>
                         </div>
                     </div>
 
                     <div class="button-panel">
 
-                        <button type="submit" formaction="~/Trade/SellOrder"
+                        <button type="submit" asp-action="SellOrder" asp-controller="Trade"
                                 class="button button-red-back trading-button sell-button">
                             <i class="fa-solid fa-arrow-down"></i>
                             <span>Sell</span>
                         </button>
 
-                        <button type="submit" formaction="~/Trade/BuyOrder"
+                        <button type="submit" asp-action="BuyOrder" asp-controller="Trade"
                                 class="button button-green-back trading-button buy-button">
                             <i class="fa-solid fa-arrow-up"></i>
                             <span>Buy</span>
                         </button>
+
+                        <div asp-validation-summary="All" class="text-red"></div>
 
                         @if (ViewBag.Errors != null)
                         {
@@ -84,4 +87,20 @@
     @section Scripts {
         <script src="~/Scripts/FinnhubScript.js">
         </script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+                integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+                crossorigin="anonymous" referrerpolicy="no-referrer" asp-fallback-test="jQuery"
+                asp-fallback-src="~/jquery.min"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js"
+                integrity="sha512-KFHXdr2oObHKI9w4Hv1XPKc898mE4kgYx58oqsc/JqqdLMDI4YjOLzom+EMlW8HFUd0QfjfAvxSL6sEq/a42fQ=="
+                crossorigin="anonymous" referrerpolicy="no-referrer" asp-fallback-test="jQuery.validator"
+                asp-fallback-src="~/jquery.validate.min"></script>
+
+        <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"
+        integrity="sha512-xq+Vm8jC94ynOikewaQXMEkJIOBp7iArs3IhFWSWdRT3Pq8wFz46p+ZDFAR7kHnSFf+zUv52B3prRYnbDRdgog=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" asp-fallback-test="jQuery.validator.unobtrusive"
+        asp-fallback-src="~/jquery.validate.unobtrusive.min"></script>
     }

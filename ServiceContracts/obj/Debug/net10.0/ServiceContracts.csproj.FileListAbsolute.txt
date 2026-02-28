@@ -13,3 +13,4 @@ c:\Adham Web\MVC_Projects\StockApp\ServiceContracts\obj\Debug\net10.0\ServiceCon
 c:\Adham Web\MVC_Projects\StockApp\ServiceContracts\bin\Debug\net10.0\Entities.dll
 c:\Adham Web\MVC_Projects\StockApp\ServiceContracts\bin\Debug\net10.0\Entities.pdb
 c:\Adham Web\MVC_Projects\StockApp\ServiceContracts\obj\Debug\net10.0\ServiceC.04662A29.Up2Date
+c:\Adham Web\MVC_Projects\StockApp\ServiceContracts\obj\Debug\net10.0\ServiceContracts.sourcelink.json

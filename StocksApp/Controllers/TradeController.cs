@@ -1,6 +1,8 @@
 using System.Formats.Asn1;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Rotativa.AspNetCore;
+using Rotativa.AspNetCore.Options;
 using ServiceContracts;
 using ServiceContracts.DTOs;
 using ServiceContracts.Interfaces;
@@ -43,9 +45,9 @@ namespace StocksApp.Controllers
             if (string.IsNullOrEmpty(_tradingOptions.DefaultStockSymbol))
                 _tradingOptions.DefaultStockSymbol = "MSFT";
 
-            var companyProfile = await _finnhubService.GetCompanyProfile(_tradingOptions.DefaultStockSymbol);
+            var companyProfile = await _finnhubService.GetCompanyProfileAsync(_tradingOptions.DefaultStockSymbol);
 
-            var stockQuote = await _finnhubService.GetStockPriceQuote(_tradingOptions.DefaultStockSymbol!);
+            var stockQuote = await _finnhubService.GetStockPriceQuoteAsync(_tradingOptions.DefaultStockSymbol!);
 
             StockTrade stockTrade = new StockTrade() { StockSymbol = _tradingOptions.DefaultStockSymbol };
 
@@ -142,6 +144,26 @@ namespace StocksApp.Controllers
             var sellOrderResponse = await _stocksService.CreateSellOrderAsync(request);
 
             return RedirectToAction(nameof(Orders));
+        }
+
+
+        [Route("OrdersPDF")]
+        public async Task<IActionResult> OrdersPDF()
+        {
+            var orders = new List<OrderResponse>();
+
+            orders.AddRange(await _stocksService.GetBuyOrdersAsync());
+            orders.AddRange(await _stocksService.GetSellOrdersAsync());
+
+            orders = orders.OrderByDescending(o => o.DateAndTimeOfOrder).ToList();
+
+            ViewBag.TradingOptions = _tradingOptions;
+
+            return new ViewAsPdf("OrdersPDF", orders, ViewData)
+            {
+                PageMargins = new Margins { Right = 20, Bottom = 20, Left = 20, Top = 20 },
+                PageOrientation = Orientation.Landscape
+            };
         }
 
     }

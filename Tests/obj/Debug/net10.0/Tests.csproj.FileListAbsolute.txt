@@ -107,3 +107,4 @@ c:\Adham Web\MVC_Projects\StockApp\Tests\bin\Debug\net10.0\Services.pdb
 c:\Adham Web\MVC_Projects\StockApp\Tests\bin\Debug\net10.0\Entities.pdb
 C:\Adham Web\MVC_Projects\StockApp\Tests\bin\Debug\net10.0\Castle.Core.dll
 C:\Adham Web\MVC_Projects\StockApp\Tests\bin\Debug\net10.0\Moq.dll
+c:\Adham Web\MVC_Projects\StockApp\Tests\obj\Debug\net10.0\Tests.sourcelink.json

@@ -31,6 +31,8 @@ public abstract class OrderResponse
 
     public double TradeAmount { get; set; }
 
+    public OrderType TypeOfOrder { get; set; }
+
     /// <summary>
     /// Returns an int value that represents unique stock id of the current object
     /// </summary>

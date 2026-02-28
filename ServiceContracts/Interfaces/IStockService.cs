@@ -6,7 +6,7 @@ namespace ServiceContracts.Interfaces;
 /// <summary>
 /// Represents Stocks service that includes operations like buy order, sell order
 /// </summary>
-public interface IStockService
+public interface IStocksService
 {
 
     /// <summary>
@@ -14,7 +14,7 @@ public interface IStockService
     /// </summary>
     /// <param name="request">Buy Order Object</param>
     /// <returns>Created buy Order</returns>
-    Task<BuyOrderResponse> CreateBuyOrderAsync(BuyOrderRequest? request);
+    Task<BuyOrderResponse> CreateBuyOrderAsync(BuyOrderRequest request);
 
     /// <summary>
     /// Create a Sell Order 
@@ -22,7 +22,7 @@ public interface IStockService
     /// <param name="buyOrderRequest">Sell Order Object</param>
     /// <returns>Created sell Order</returns>
 
-    Task<SellOrderResponse> CreateSellOrderAsync(SellOrderRequest? request);
+    Task<SellOrderResponse> CreateSellOrderAsync(SellOrderRequest request);
 
 
     /// <summary>

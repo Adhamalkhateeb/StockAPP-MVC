@@ -10,13 +10,14 @@ public static class OrderExtensions
     {
         return new BuyOrderResponse
         {
-            BuyOrderID = buyOrder.BuyOrderID,
+            BuyOrderID = buyOrder.Id,
             StockSymbol = buyOrder.StockSymbol,
             StockName = buyOrder.StockName,
             Quantity = buyOrder.Quantity,
             Price = buyOrder.Price,
             DateAndTimeOfOrder = buyOrder.DateAndTimeOfOrder,
-            TradeAmount = buyOrder.Price * buyOrder.Quantity
+            TradeAmount = buyOrder.Price * buyOrder.Quantity,
+            TypeOfOrder = OrderType.BuyOrder
         };
     }
 
@@ -25,13 +26,14 @@ public static class OrderExtensions
     {
         return new SellOrderResponse
         {
-            SellOrderID = sellOrder.SellOrderID,
+            SellOrderID = sellOrder.Id,
             StockSymbol = sellOrder.StockSymbol,
             StockName = sellOrder.StockName,
             Quantity = sellOrder.Quantity,
             Price = sellOrder.Price,
             DateAndTimeOfOrder = sellOrder.DateAndTimeOfOrder,
-            TradeAmount = sellOrder.Price * sellOrder.Quantity
+            TradeAmount = sellOrder.Price * sellOrder.Quantity,
+            TypeOfOrder = OrderType.SellOrder
         };
     }
 }

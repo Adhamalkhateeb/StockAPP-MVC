@@ -9,3 +9,5 @@ c:\Adham Web\MVC_Projects\StockApp\Entities\obj\Debug\net10.0\Entities.dll
 c:\Adham Web\MVC_Projects\StockApp\Entities\obj\Debug\net10.0\refint\Entities.dll
 c:\Adham Web\MVC_Projects\StockApp\Entities\obj\Debug\net10.0\Entities.pdb
 c:\Adham Web\MVC_Projects\StockApp\Entities\obj\Debug\net10.0\ref\Entities.dll
+c:\Adham Web\MVC_Projects\StockApp\Entities\obj\Debug\net10.0\Entities.sourcelink.json
+C:\Adham Web\MVC_Projects\StockApp\Entities\obj\Debug\net10.0\Entities.csproj.AssemblyReference.cache

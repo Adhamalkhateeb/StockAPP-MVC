@@ -12,7 +12,7 @@ namespace Tests;
 public class StocksServiceTests
 {
 
-    private IStockService _sut;
+    private IStocksService _sut;
     private readonly Mock<IValidator<OrderRequest>> _validatorMock;
 
     public StocksServiceTests()

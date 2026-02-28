@@ -14,7 +14,7 @@ public class FinnhubService : IFinnhubService
         _config = configuration;
     }
 
-    public async Task<Dictionary<string, object>?> GetCompanyProfile(string stockSymbol)
+    public async Task<Dictionary<string, object>?> GetCompanyProfileAsync(string stockSymbol)
     {
         using var httpClient = _httpClientFactory.CreateClient();
 
@@ -35,7 +35,7 @@ public class FinnhubService : IFinnhubService
         return responseDict;
     }
 
-    public async Task<Dictionary<string, object>?> GetStockPriceQuote(string stockSymbol)
+    public async Task<Dictionary<string, object>?> GetStockPriceQuoteAsync(string stockSymbol)
     {
         using var httpClient = _httpClientFactory.CreateClient();
 

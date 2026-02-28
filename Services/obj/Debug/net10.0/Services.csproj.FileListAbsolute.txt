@@ -15,3 +15,4 @@ C:\Adham Web\MVC_Projects\StockApp\Services\obj\Debug\net10.0\Services.pdb
 C:\Adham Web\MVC_Projects\StockApp\Services\obj\Debug\net10.0\ref\Services.dll
 c:\Adham Web\MVC_Projects\StockApp\Services\bin\Debug\net10.0\Entities.dll
 c:\Adham Web\MVC_Projects\StockApp\Services\bin\Debug\net10.0\Entities.pdb
+c:\Adham Web\MVC_Projects\StockApp\Services\obj\Debug\net10.0\Services.sourcelink.json
