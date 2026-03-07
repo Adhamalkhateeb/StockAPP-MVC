@@ -1,6 +1,4 @@
-using System;
-using Entities;
-using ServiceContracts.DTOs;
+using Core.DTOs;
 
 namespace StocksApp.Models;
 

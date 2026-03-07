@@ -5,7 +5,6 @@
 /// </summary>
 public class BuyOrder
 {
-
     /// <summary>
     /// The unique ID of the buy order
     /// </summary>
@@ -34,5 +33,5 @@ public class BuyOrder
     /// <summary>
     /// The price of each stock (share)
     /// </summary>
-    public double Price { get; set; }
+    public decimal Price { get; set; }
 }

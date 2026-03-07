@@ -33,5 +33,5 @@ public class SellOrder
     /// <summary>
     /// The price of each stock (share)
     /// </summary>
-    public double Price { get; set; }
+    public decimal Price { get; set; }
 }

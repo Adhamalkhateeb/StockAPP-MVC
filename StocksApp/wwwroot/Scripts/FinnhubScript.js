@@ -1,7 +1,6 @@
 const token = document.querySelector("#FinnhubToken").value;
 const socket = new WebSocket(`wss://ws.finnhub.io?token=${token}`);
-var stockSymbol = document.getElementById("StockSymbol").value; //get symbol from input hidden
-
+let stockSymbol = document.getElementById("StockSymbol").value;
 // Connection opened. Subscribe to a symbol
 socket.addEventListener("open", function (event) {
   socket.send(JSON.stringify({ type: "subscribe", symbol: stockSymbol }));
@@ -14,20 +13,6 @@ socket.addEventListener("message", function (event) {
     $(".price").text(event.data.msg);
     return; //exit the function
   }
-
-  //data received from server
-  //console.log('Message from server ', event.data);
-
-  /* Sample response:
-    {"data":[{"p":220.89,"s":"MSFT","t":1575526691134,"v":100}],"type":"trade"}
-    type: message type
-    data: [ list of trades ]
-    s: symbol of the company
-    p: Last price
-    t: UNIX milliseconds timestamp
-    v: volume (number of orders)
-    c: trade conditions (if any)
-    */
 
   var eventData = JSON.parse(event.data);
   if (eventData) {
@@ -53,5 +38,5 @@ var unsubscribe = function (symbol) {
 
 //when the page is being closed, unsubscribe from the WebSocket
 window.onunload = function () {
-  unsubscribe(stockSsymbol);
+  unsubscribe(stocksSymbol);
 };

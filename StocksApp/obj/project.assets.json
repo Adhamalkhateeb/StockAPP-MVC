@@ -38,7 +38,7 @@
           }
         }
       },
-      "FluentValidation/11.11.0": {
+      "FluentValidation/12.1.1": {
         "type": "package",
         "compile": {
           "lib/net8.0/FluentValidation.dll": {
@@ -994,18 +994,18 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Configuration.ConfigurationManager/9.0.4": {
+      "System.Configuration.ConfigurationManager/10.0.3": {
         "type": "package",
         "dependencies": {
-          "System.Security.Cryptography.ProtectedData": "9.0.4"
+          "System.Security.Cryptography.ProtectedData": "10.0.3"
         },
         "compile": {
-          "lib/net9.0/_._": {
+          "lib/net10.0/System.Configuration.ConfigurationManager.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net9.0/System.Configuration.ConfigurationManager.dll": {
+          "lib/net10.0/System.Configuration.ConfigurationManager.dll": {
             "related": ".xml"
           }
         },
@@ -1068,20 +1068,34 @@
           }
         }
       },
-      "System.Security.Cryptography.ProtectedData/9.0.4": {
+      "System.Security.Cryptography.ProtectedData/10.0.3": {
         "type": "package",
         "compile": {
-          "lib/net9.0/System.Security.Cryptography.ProtectedData.dll": {
+          "lib/net10.0/System.Security.Cryptography.ProtectedData.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net9.0/System.Security.Cryptography.ProtectedData.dll": {
+          "lib/net10.0/System.Security.Cryptography.ProtectedData.dll": {
             "related": ".xml"
           }
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Entities": "1.0.0",
+          "FluentValidation": "12.1.1"
+        },
+        "compile": {
+          "bin/placeholder/Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Core.dll": {}
         }
       },
       "Entities/1.0.0": {
@@ -1097,12 +1111,40 @@
           "bin/placeholder/Entities.dll": {}
         }
       },
+      "Repoistories/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "RepositoryContracts": "1.0.0",
+          "System.Configuration.ConfigurationManager": "10.0.3"
+        },
+        "compile": {
+          "bin/placeholder/Repoistories.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Repoistories.dll": {}
+        }
+      },
+      "RepositoryContracts/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Core": "1.0.0",
+          "Entities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/RepositoryContracts.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RepositoryContracts.dll": {}
+        }
+      },
       "ServiceContracts/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "Entities": "1.0.0",
-          "FluentValidation.AspNetCore": "11.3.1"
+          "FluentValidation.AspNetCore": "11.3.1",
+          "RepositoryContracts": "1.0.0"
         },
         "compile": {
           "bin/placeholder/ServiceContracts.dll": {}
@@ -1167,29 +1209,19 @@
         "lib/netstandard2.0/Azure.Identity.xml"
       ]
     },
-    "FluentValidation/11.11.0": {
-      "sha512": "cyIVdQBwSipxWG8MA3Rqox7iNbUNUTK5bfJi9tIdm4CAfH71Oo5ABLP4/QyrUwuakqpUEPGtE43BDddvEehuYw==",
+    "FluentValidation/12.1.1": {
+      "sha512": "EPpkIe1yh1a0OXyC100oOA8WMbZvqUu5plwhvYcb7oSELfyUZzfxV48BLhvs3kKo4NwG7MGLNgy1RJiYtT8Dpw==",
       "type": "package",
-      "path": "fluentvalidation/11.11.0",
+      "path": "fluentvalidation/12.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
         "fluent-validation-icon.png",
-        "fluentvalidation.11.11.0.nupkg.sha512",
+        "fluentvalidation.12.1.1.nupkg.sha512",
         "fluentvalidation.nuspec",
-        "lib/net5.0/FluentValidation.dll",
-        "lib/net5.0/FluentValidation.xml",
-        "lib/net6.0/FluentValidation.dll",
-        "lib/net6.0/FluentValidation.xml",
-        "lib/net7.0/FluentValidation.dll",
-        "lib/net7.0/FluentValidation.xml",
         "lib/net8.0/FluentValidation.dll",
-        "lib/net8.0/FluentValidation.xml",
-        "lib/netstandard2.0/FluentValidation.dll",
-        "lib/netstandard2.0/FluentValidation.xml",
-        "lib/netstandard2.1/FluentValidation.dll",
-        "lib/netstandard2.1/FluentValidation.xml"
+        "lib/net8.0/FluentValidation.xml"
       ]
     },
     "FluentValidation.AspNetCore/11.3.1": {
@@ -3073,21 +3105,22 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Configuration.ConfigurationManager/9.0.4": {
-      "sha512": "dvjqKp+2LpGid6phzrdrS/2mmEPxFl3jE1+L7614q4ZChKbLJCpHXg6sBILlCCED1t//EE+un/UdAetzIMpqnw==",
+    "System.Configuration.ConfigurationManager/10.0.3": {
+      "sha512": "69ZT/MYxQSxwdiiHRtI08noXiG5drj/bXDDZISmeWkNUtbIfYgmTiof16tCVOLTdmSQY7W7gwxkMliKdreWHGQ==",
       "type": "package",
-      "path": "system.configuration.configurationmanager/9.0.4",
+      "path": "system.configuration.configurationmanager/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
-        "LICENSE.TXT",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
         "buildTransitive/net461/System.Configuration.ConfigurationManager.targets",
         "buildTransitive/net462/_._",
         "buildTransitive/net8.0/_._",
         "buildTransitive/netcoreapp2.0/System.Configuration.ConfigurationManager.targets",
+        "lib/net10.0/System.Configuration.ConfigurationManager.dll",
+        "lib/net10.0/System.Configuration.ConfigurationManager.xml",
         "lib/net462/System.Configuration.ConfigurationManager.dll",
         "lib/net462/System.Configuration.ConfigurationManager.xml",
         "lib/net8.0/System.Configuration.ConfigurationManager.dll",
@@ -3096,7 +3129,7 @@
         "lib/net9.0/System.Configuration.ConfigurationManager.xml",
         "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll",
         "lib/netstandard2.0/System.Configuration.ConfigurationManager.xml",
-        "system.configuration.configurationmanager.9.0.4.nupkg.sha512",
+        "system.configuration.configurationmanager.10.0.3.nupkg.sha512",
         "system.configuration.configurationmanager.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -3187,15 +3220,14 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Security.Cryptography.ProtectedData/9.0.4": {
-      "sha512": "o94k2RKuAce3GeDMlUvIXlhVa1kWpJw95E6C9LwW0KlG0nj5+SgCiIxJ2Eroqb9sLtG1mEMbFttZIBZ13EJPvQ==",
+    "System.Security.Cryptography.ProtectedData/10.0.3": {
+      "sha512": "JCKbH/CN5l0CSoJBILEvJmNQVp5vV+FY3q2ue4K9p4eDT4mFEv0bjTQCV+MD6Qk1b/qk9fWmZZKhG1TklbXw1Q==",
       "type": "package",
-      "path": "system.security.cryptography.protecteddata/9.0.4",
+      "path": "system.security.cryptography.protecteddata/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
-        "LICENSE.TXT",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
         "buildTransitive/net461/System.Security.Cryptography.ProtectedData.targets",
@@ -3204,6 +3236,8 @@
         "buildTransitive/netcoreapp2.0/System.Security.Cryptography.ProtectedData.targets",
         "lib/MonoAndroid10/_._",
         "lib/MonoTouch10/_._",
+        "lib/net10.0/System.Security.Cryptography.ProtectedData.dll",
+        "lib/net10.0/System.Security.Cryptography.ProtectedData.xml",
         "lib/net462/System.Security.Cryptography.ProtectedData.dll",
         "lib/net462/System.Security.Cryptography.ProtectedData.xml",
         "lib/net8.0/System.Security.Cryptography.ProtectedData.dll",
@@ -3216,15 +3250,30 @@
         "lib/xamarinmac20/_._",
         "lib/xamarintvos10/_._",
         "lib/xamarinwatchos10/_._",
-        "system.security.cryptography.protecteddata.9.0.4.nupkg.sha512",
+        "system.security.cryptography.protecteddata.10.0.3.nupkg.sha512",
         "system.security.cryptography.protecteddata.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "Core/1.0.0": {
+      "type": "project",
+      "path": "../Core/Core.csproj",
+      "msbuildProject": "../Core/Core.csproj"
     },
     "Entities/1.0.0": {
       "type": "project",
       "path": "../Entities/Entities.csproj",
       "msbuildProject": "../Entities/Entities.csproj"
+    },
+    "Repoistories/1.0.0": {
+      "type": "project",
+      "path": "../Repoistories/Repoistories.csproj",
+      "msbuildProject": "../Repoistories/Repoistories.csproj"
+    },
+    "RepositoryContracts/1.0.0": {
+      "type": "project",
+      "path": "../RepositoryContracts/RepositoryContracts.csproj",
+      "msbuildProject": "../RepositoryContracts/RepositoryContracts.csproj"
     },
     "ServiceContracts/1.0.0": {
       "type": "project",
@@ -3239,47 +3288,55 @@
   },
   "projectFileDependencyGroups": {
     "net10.0": [
+      "Core >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 10.0.3",
+      "Repoistories >= 1.0.0",
+      "RepositoryContracts >= 1.0.0",
       "Rotativa.AspNetCore >= 1.4.0",
+      "ServiceContracts >= 1.0.0",
       "Services >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\adham\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "/home/adhamalkhateeb/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Adham Web\\MVC_Projects\\StockApp\\StocksApp\\StocksApp.csproj",
+      "projectUniqueName": "/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/StocksApp/StocksApp.csproj",
       "projectName": "StocksApp",
-      "projectPath": "C:\\Adham Web\\MVC_Projects\\StockApp\\StocksApp\\StocksApp.csproj",
-      "packagesPath": "C:\\Users\\adham\\.nuget\\packages\\",
-      "outputPath": "C:\\Adham Web\\MVC_Projects\\StockApp\\StocksApp\\obj\\",
+      "projectPath": "/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/StocksApp/StocksApp.csproj",
+      "packagesPath": "/home/adhamalkhateeb/.nuget/packages/",
+      "outputPath": "/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/StocksApp/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\adham\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.1.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/home/adhamalkhateeb/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\DevExpress 20.1\\Components\\System\\Components\\Packages": {},
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "/usr/lib64/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Adham Web\\MVC_Projects\\StockApp\\Services\\Services.csproj": {
-              "projectPath": "C:\\Adham Web\\MVC_Projects\\StockApp\\Services\\Services.csproj"
+            "/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Core/Core.csproj": {
+              "projectPath": "/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Core/Core.csproj"
+            },
+            "/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/Repoistories.csproj": {
+              "projectPath": "/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/Repoistories.csproj"
+            },
+            "/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/RepositoryContracts/RepositoryContracts.csproj": {
+              "projectPath": "/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/RepositoryContracts/RepositoryContracts.csproj"
+            },
+            "/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/ServiceContracts/ServiceContracts.csproj": {
+              "projectPath": "/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/ServiceContracts/ServiceContracts.csproj"
+            },
+            "/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Services/Services.csproj": {
+              "projectPath": "/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Services/Services.csproj"
             }
           }
         }
@@ -3330,7 +3387,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/10.0.103/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

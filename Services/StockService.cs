@@ -1,58 +1,47 @@
-using System;
-using Entities;
-using FluentValidation;
-using Microsoft.AspNetCore.Server.HttpSys;
-using Microsoft.EntityFrameworkCore;
-using ServiceContracts.DTOs;
-using ServiceContracts.Extensions;
-using ServiceContracts.Interfaces;
+using Core.DTOs;
+using Core.Enums;
+using Core.Extensions;
+using ServiceContracts;
 using Services.Helpers;
 
 namespace Services;
 
 public class StockService : IStocksService
 {
+    private readonly IStocksRepository _stocksRepository;
 
-    private readonly StockMarketDbContext _context;
-
-    public StockService(StockMarketDbContext context)
+    public StockService(IStocksRepository stocksRepository)
     {
-        _context = context;
+        _stocksRepository = stocksRepository;
     }
-    public async Task<BuyOrderResponse> CreateBuyOrderAsync(BuyOrderRequest request)
+
+    public async Task<BuyOrderResponse> CreateBuyOrderAsync(BuyOrderRequest? request)
     {
         await ValidateRequest(request);
 
-        var newBuyOrder = request.ToBuyOrder();
-        newBuyOrder.Id = Guid.NewGuid();
+        var buyOrder = request!.ToBuyOrder();
+        buyOrder.Id = Guid.NewGuid();
 
-        _context.BuyOrders.Add(newBuyOrder);
-        await _context.SaveChangesAsync();
+        buyOrder = await _stocksRepository.CreateBuyOrderAsync(buyOrder);
 
-        return newBuyOrder.ToBuyOrderResponse();
-
+        return buyOrder.ToBuyOrderResponse();
     }
 
-    public async Task<SellOrderResponse> CreateSellOrderAsync(SellOrderRequest request)
+    public async Task<SellOrderResponse> CreateSellOrderAsync(SellOrderRequest? request)
     {
         await ValidateRequest(request);
 
+        var sellOrder = request!.ToSellOrder();
+        sellOrder.Id = Guid.NewGuid();
 
-        var newSellOrder = request.ToSellOrder();
-        newSellOrder.Id = Guid.NewGuid();
+        sellOrder = await _stocksRepository.CreateSellOrderAsync(sellOrder);
 
-        _context.SellOrders.Add(newSellOrder);
-        await _context.SaveChangesAsync();
-
-        return newSellOrder.ToSellOrderResponse();
-
+        return sellOrder.ToSellOrderResponse();
     }
 
     public async Task<List<BuyOrderResponse>> GetBuyOrdersAsync()
     {
-        var buyOrders = await _context.BuyOrders
-            .AsNoTracking()
-            .OrderByDescending(bo => bo.DateAndTimeOfOrder)
+        var buyOrders = (await _stocksRepository.GetBuyOrdersAsync())
             .Select(buyOrder => new BuyOrderResponse
             {
                 BuyOrderID = buyOrder.Id,
@@ -62,19 +51,16 @@ public class StockService : IStocksService
                 Price = buyOrder.Price,
                 DateAndTimeOfOrder = buyOrder.DateAndTimeOfOrder,
                 TradeAmount = buyOrder.Price * buyOrder.Quantity,
-                TypeOfOrder = OrderType.BuyOrder
+                TypeOfOrder = OrderType.BuyOrder,
             })
-            .ToListAsync();
-
+            .ToList();
 
         return buyOrders;
     }
 
     public async Task<List<SellOrderResponse>> GetSellOrdersAsync()
     {
-        var sellOrders = await _context.SellOrders
-            .AsNoTracking()
-            .OrderByDescending(bo => bo.DateAndTimeOfOrder)
+        var sellOrders = (await _stocksRepository.GetSellOrdersAsync())
             .Select(sellOrder => new SellOrderResponse
             {
                 SellOrderID = sellOrder.Id,
@@ -84,9 +70,9 @@ public class StockService : IStocksService
                 Price = sellOrder.Price,
                 DateAndTimeOfOrder = sellOrder.DateAndTimeOfOrder,
                 TradeAmount = sellOrder.Price * sellOrder.Quantity,
-                TypeOfOrder = OrderType.SellOrder
+                TypeOfOrder = OrderType.SellOrder,
             })
-            .ToListAsync();
+            .ToList();
 
         return sellOrders;
     }
@@ -95,6 +81,6 @@ public class StockService : IStocksService
     {
         ArgumentNullException.ThrowIfNull(request);
 
-        ValidationHelper.ModelValidation(request);
+        ValidationHelper.Validate(request);
     }
 }

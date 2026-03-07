@@ -18,7 +18,7 @@
 <body>
     <div class="container">
         <div class="page-content">
-            <div class="margin-bottom">
+            <div class="mb">
                 <div class="flex" id="top-bar-div">
                     <div class="flex-1" id="app-title-div">
                         <h1 class="app-title">
@@ -35,28 +35,36 @@
                         <button class="button button-blue-back ml login-button">Login</button>
                     </div>
                 </div>
-
             </div>
 
 
             <div class="navbar mb">
                 <ul>
-                    @if (ViewBag.CurrentUrl == "~/Trade/Index")
+                    @if (ViewBag.CurrentUrl == "~/Stocks/Explore")
                     {
-                        <li><a href="~/Trade/Index" class="nav-active">Trade</a></li>
+                        <li><a asp-action="@nameof(StocksController.Explore)" asp-controller="Stocks" class="nav-active">Explore</a></li>
                     }
                     else
                     {
-                        <li><a href="~/Trade/Index">Trade</a></li>
+                        <li><a asp-action="@nameof(StocksController.Explore)" asp-controller="Stocks">Explore</a></li>
+                    }
+
+                    @if (ViewBag.CurrentUrl == "~/Trade/Index")
+                    {
+                        <li><a asp-action="@nameof(TradeController.Index)" asp-controller="Trade" class="nav-active">Trade</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-action="@nameof(TradeController.Index)" asp-controller="Trade">Trade</a></li>
                     }
 
                     @if (ViewBag.CurrentUrl == "~/Trade/Orders")
                     {
-                        <li><a href="~/Trade/Orders" class="nav-active">Orders</a></li>
+                        <li><a asp-action="@nameof(TradeController.Orders)" asp-controller="Trade" class="nav-active">Orders</a></li>
                     }
                     else
                     {
-                        <li><a href="~/Trade/Orders">Orders</a></li>
+                        <li><a asp-action="@nameof(TradeController.Orders)" asp-controller="Trade"> Orders</a></li>
                     }
                 </ul>
             </div>

@@ -1,58 +1,80 @@
-﻿using ServiceContracts;
-using System.Text.Json;
-using Microsoft.Extensions.Configuration;
+﻿using Core.DTOs;
+using RepositoryContracts;
+using ServiceContracts;
 
-
-
-public class FinnhubService : IFinnhubService
+namespace Services
 {
-    private readonly IHttpClientFactory _httpClientFactory;
-    private readonly IConfiguration _config;
-    public FinnhubService(IHttpClientFactory httpClientFactory, IConfiguration configuration)
+    /// <summary>
+    /// Implementation of <see cref="IFinnhubService"/> that wraps <see cref="IFinnhubRepository"/>
+    /// and provides stock, company, and search services.
+    /// </summary>
+    public class FinnhubService : IFinnhubService
     {
-        _httpClientFactory = httpClientFactory;
-        _config = configuration;
-    }
+        private readonly IFinnhubRepository _finnhubRepository;
 
-    public async Task<Dictionary<string, object>?> GetCompanyProfileAsync(string stockSymbol)
-    {
-        using var httpClient = _httpClientFactory.CreateClient();
+        /// <summary>
+        /// Initializes a new instance of <see cref="FinnhubService"/>.
+        /// </summary>
+        public FinnhubService(IFinnhubRepository finnhubRepository)
+        {
+            _finnhubRepository = finnhubRepository;
+        }
 
-        var responseMessage = await httpClient.GetAsync(
-            $"https://finnhub.io/api/v1/stock/profile2?symbol={stockSymbol}&token={_config["FinnhubToken"]}"
-        );
+        /// <inheritdoc/>
+        public async Task<CompanyProfileResponse?> GetCompanyProfileAsync(string stockSymbol)
+        {
+            var result = await _finnhubRepository.GetCompanyProfileAsync(stockSymbol);
 
-        responseMessage.EnsureSuccessStatusCode();
+            if (result == null)
+                return null;
 
-        var response = await responseMessage.Content.ReadAsStringAsync();
+            return result;
+        }
 
-        var responseDict = JsonSerializer.Deserialize<Dictionary<string, object>?>(response) ??
-        throw new InvalidOperationException("No response returned from Finnhub server");
+        /// <inheritdoc/>
+        public async Task<StockQuoteResponse?> GetStockPriceQuoteAsync(string stockSymbol)
+        {
+            var result = await _finnhubRepository.GetStockPriceQuoteAsync(stockSymbol);
 
-        if (responseDict.ContainsKey("error"))
-            throw new InvalidOperationException(Convert.ToString(responseDict["error"]));
+            if (result == null)
+                return null;
 
-        return responseDict;
-    }
+            return result;
+        }
 
-    public async Task<Dictionary<string, object>?> GetStockPriceQuoteAsync(string stockSymbol)
-    {
-        using var httpClient = _httpClientFactory.CreateClient();
+        /// <inheritdoc/>
+        public async Task<List<StockSymbolResponse>?> GetStocksAsync(
+            string exchange,
+            string? mic = null,
+            string? securityType = null,
+            string? currency = null
+        )
+        {
+            var result = await _finnhubRepository.GetStocksAsync(
+                exchange,
+                mic,
+                securityType,
+                currency
+            );
 
-        var responseMessage = await httpClient.GetAsync(
-            $"https://finnhub.io/api/v1/quote?symbol={stockSymbol}&token={_config["FinnhubToken"]}"
-        );
+            if (result == null || result.Count == 0)
+                return null;
 
-        responseMessage.EnsureSuccessStatusCode();
+            return result;
+        }
 
-        var response = await responseMessage.Content.ReadAsStringAsync();
+        /// <inheritdoc/>
+        public async Task<SymbolLookupResultDto?> SearchStocksAsync(
+            string query,
+            string? exchange = null
+        )
+        {
+            var result = await _finnhubRepository.SearchStocksAsync(query, exchange);
 
-        var responseDict = JsonSerializer.Deserialize<Dictionary<string, object>?>(response)
-                            ?? throw new InvalidOperationException("No response returned from Finnhub server");
+            if (result == null || result.Result == null || result.Result.Count == 0)
+                return null;
 
-        if (responseDict.ContainsKey("error"))
-            throw new InvalidOperationException(Convert.ToString(responseDict["error"]));
-
-        return responseDict;
+            return result;
+        }
     }
 }

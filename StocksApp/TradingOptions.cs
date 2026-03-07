@@ -9,4 +9,5 @@ public class TradingOptions
 {
     public string? DefaultStockSymbol { get; set; }
     public uint? DefaultOrderQuantity { get; set; }
+    public List<string> PopularStocks { get; set; } = new List<string>();
 }

@@ -38,7 +38,7 @@
           }
         }
       },
-      "FluentValidation/11.11.0": {
+      "FluentValidation/12.1.1": {
         "type": "package",
         "compile": {
           "lib/net8.0/FluentValidation.dll": {
@@ -861,6 +861,20 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
+      "Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Entities": "1.0.0",
+          "FluentValidation": "12.1.1"
+        },
+        "compile": {
+          "bin/placeholder/Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Core.dll": {}
+        }
+      },
       "Entities/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -874,12 +888,26 @@
           "bin/placeholder/Entities.dll": {}
         }
       },
+      "RepositoryContracts/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Core": "1.0.0",
+          "Entities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/RepositoryContracts.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RepositoryContracts.dll": {}
+        }
+      },
       "ServiceContracts/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "Entities": "1.0.0",
-          "FluentValidation.AspNetCore": "11.3.1"
+          "FluentValidation.AspNetCore": "11.3.1",
+          "RepositoryContracts": "1.0.0"
         },
         "compile": {
           "bin/placeholder/ServiceContracts.dll": {}
@@ -931,29 +959,19 @@
         "lib/netstandard2.0/Azure.Identity.xml"
       ]
     },
-    "FluentValidation/11.11.0": {
-      "sha512": "cyIVdQBwSipxWG8MA3Rqox7iNbUNUTK5bfJi9tIdm4CAfH71Oo5ABLP4/QyrUwuakqpUEPGtE43BDddvEehuYw==",
+    "FluentValidation/12.1.1": {
+      "sha512": "EPpkIe1yh1a0OXyC100oOA8WMbZvqUu5plwhvYcb7oSELfyUZzfxV48BLhvs3kKo4NwG7MGLNgy1RJiYtT8Dpw==",
       "type": "package",
-      "path": "fluentvalidation/11.11.0",
+      "path": "fluentvalidation/12.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
         "fluent-validation-icon.png",
-        "fluentvalidation.11.11.0.nupkg.sha512",
+        "fluentvalidation.12.1.1.nupkg.sha512",
         "fluentvalidation.nuspec",
-        "lib/net5.0/FluentValidation.dll",
-        "lib/net5.0/FluentValidation.xml",
-        "lib/net6.0/FluentValidation.dll",
-        "lib/net6.0/FluentValidation.xml",
-        "lib/net7.0/FluentValidation.dll",
-        "lib/net7.0/FluentValidation.xml",
         "lib/net8.0/FluentValidation.dll",
-        "lib/net8.0/FluentValidation.xml",
-        "lib/netstandard2.0/FluentValidation.dll",
-        "lib/netstandard2.0/FluentValidation.xml",
-        "lib/netstandard2.1/FluentValidation.dll",
-        "lib/netstandard2.1/FluentValidation.xml"
+        "lib/net8.0/FluentValidation.xml"
       ]
     },
     "FluentValidation.AspNetCore/11.3.1": {
@@ -2116,10 +2134,20 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "Core/1.0.0": {
+      "type": "project",
+      "path": "../Core/Core.csproj",
+      "msbuildProject": "../Core/Core.csproj"
+    },
     "Entities/1.0.0": {
       "type": "project",
       "path": "../Entities/Entities.csproj",
       "msbuildProject": "../Entities/Entities.csproj"
+    },
+    "RepositoryContracts/1.0.0": {
+      "type": "project",
+      "path": "../RepositoryContracts/RepositoryContracts.csproj",
+      "msbuildProject": "../RepositoryContracts/RepositoryContracts.csproj"
     },
     "ServiceContracts/1.0.0": {
       "type": "project",
@@ -2134,41 +2162,33 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\adham\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "/home/adhamalkhateeb/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Adham Web\\MVC_Projects\\StockApp\\Services\\Services.csproj",
+      "projectUniqueName": "/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Services/Services.csproj",
       "projectName": "Services",
-      "projectPath": "C:\\Adham Web\\MVC_Projects\\StockApp\\Services\\Services.csproj",
-      "packagesPath": "C:\\Users\\adham\\.nuget\\packages\\",
-      "outputPath": "C:\\Adham Web\\MVC_Projects\\StockApp\\Services\\obj\\",
+      "projectPath": "/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Services/Services.csproj",
+      "packagesPath": "/home/adhamalkhateeb/.nuget/packages/",
+      "outputPath": "/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Services/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\adham\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.1.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/home/adhamalkhateeb/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\DevExpress 20.1\\Components\\System\\Components\\Packages": {},
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "/usr/lib64/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Adham Web\\MVC_Projects\\StockApp\\ServiceContracts\\ServiceContracts.csproj": {
-              "projectPath": "C:\\Adham Web\\MVC_Projects\\StockApp\\ServiceContracts\\ServiceContracts.csproj"
+            "/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/ServiceContracts/ServiceContracts.csproj": {
+              "projectPath": "/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/ServiceContracts/ServiceContracts.csproj"
             }
           }
         }
@@ -2210,7 +2230,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/10.0.103/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",

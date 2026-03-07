@@ -32,10 +32,10 @@
                     <h3>@buyOrder.StockName (@buyOrder.StockSymbol)</h3>
                     <h5 class="mb">@buyOrder.Quantity <span class="text-grey">shares at </span>
                         $@buyOrder.Price.ToString("N")</h5>
-                        <h5 class="mb"><span class="text-grey">Trade Amount: </span> $@buyOrder.TradeAmount.ToString("N")</h5>
+                    <h5 class="mb"><span class="text-grey">Trade Amount: </span> $@buyOrder.TradeAmount.ToString("N")</h5>
 
-                        <div class="text-grey">@buyOrder.DateAndTimeOfOrder.ToString("dd MMMM yyyy hh:mm:ss tt")</div>
-                    </div>
+                    <div class="text-grey">@buyOrder.DateAndTimeOfOrder.ToString("dd MMMM yyyy hh:mm:ss tt")</div>
+                </div>
                 }
 
                 @if (Model.BuyOrders.Count == 0)
@@ -56,10 +56,10 @@
                         <h3>@sellOrder.StockName (@sellOrder.StockSymbol)</h3>
                         <h5 class="mb">@sellOrder.Quantity <span class="text-grey">shares at </span>
                             $@sellOrder.Price.ToString("N")</h5>
-                            <h5 class="mb"><span class="text-grey">Trade Amount: </span> $@sellOrder.TradeAmount.ToString("N")</h5>
+                        <h5 class="mb"><span class="text-grey">Trade Amount: </span> $@sellOrder.TradeAmount.ToString("N")</h5>
 
-                            <div class="text-grey">@sellOrder.DateAndTimeOfOrder.ToString("dd MMMM yyyy hh:mm:ss tt")</div>
-                        </div>
+                        <div class="text-grey">@sellOrder.DateAndTimeOfOrder.ToString("dd MMMM yyyy hh:mm:ss tt")</div>
+                    </div>
                     }
 
                     @if (Model.SellOrders.Count == 0)

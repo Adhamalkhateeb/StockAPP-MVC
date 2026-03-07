@@ -1,25 +1,28 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using FluentValidation;
 
 namespace Services.Helpers;
 
 public class ValidationHelper
 {
-    /// <summary>
-    /// Persons model validations using ValidationContext and throws ArgumentException in case of any validation errors
-    /// </summary>
-    /// <param name="obj">Model object to validate</param>
-    /// <exception cref="ArgumentException">When one or more validation errors found</exception>
-    internal static void ModelValidation(object obj)
+    public static void Validate<T>(T obj)
+        where T : class
     {
+        var validatorType = typeof(AbstractValidator<>).MakeGenericType(typeof(T));
+        var validator = (IValidator<T>?)
+            Activator.CreateInstance(
+                AppDomain
+                    .CurrentDomain.GetAssemblies()
+                    .SelectMany(a => a.GetTypes())
+                    .First(t => !t.IsAbstract && validatorType.IsAssignableFrom(t))
+            );
 
-        ValidationContext validationContext = new ValidationContext(obj);
-        List<ValidationResult> validationResults = new List<ValidationResult>();
+        if (validator is null)
+            throw new InvalidOperationException($"No validator found for {typeof(T).Name}");
 
-        bool isValid = Validator.TryValidateObject(obj, validationContext, validationResults, true);
-        if (!isValid)
-        {
-            throw new ArgumentException(validationResults.FirstOrDefault()?.ErrorMessage);
-        }
+        var result = validator.Validate(obj);
+        if (!result.IsValid)
+            throw new ArgumentException(result.Errors.First().ErrorMessage);
     }
 }
