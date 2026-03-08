@@ -12,7 +12,7 @@ namespace StocksApp.Controllers
     public class TradeController : Controller
     {
         private readonly TradingOptions _tradingOptions;
-
+        private readonly ILogger<TradeController> _logger;
         private readonly IFinnhubService _finnhubService;
         private readonly IStocksService _stocksService;
         private readonly IConfiguration _configuration;
@@ -25,12 +25,14 @@ namespace StocksApp.Controllers
         /// <param name="finnhubService">Injecting FinnhubService</param>
         /// <param name="configuration">Injecting IConfiguration</param>
         public TradeController(
+            ILogger<TradeController> logger,
             IOptions<TradingOptions> tradingOptions,
             IStocksService stocksService,
             IFinnhubService finnhubService,
             IConfiguration configuration
         )
         {
+            _logger = logger;
             _tradingOptions = tradingOptions.Value;
             _stocksService = stocksService;
             _finnhubService = finnhubService;
@@ -41,8 +43,16 @@ namespace StocksApp.Controllers
         [Route("~/[controller]/{stockSymbol?}")]
         public async Task<IActionResult> Index(string? stockSymbol)
         {
+            _logger.LogInformation("Trade index requested for symbol {StockSymbol}", stockSymbol);
+
             if (string.IsNullOrEmpty(stockSymbol))
+            {
                 stockSymbol = "MSFT";
+                _logger.LogInformation(
+                    "No stock symbol supplied. Falling back to default symbol {StockSymbol}",
+                    stockSymbol
+                );
+            }
 
             var companyProfile = await _finnhubService.GetCompanyProfileAsync(stockSymbol);
             var stockQuote = await _finnhubService.GetStockPriceQuoteAsync(stockSymbol);
@@ -55,8 +65,23 @@ namespace StocksApp.Controllers
                 stockTrade.StockName = companyProfile.Name;
                 stockTrade.Quantity = _tradingOptions.DefaultOrderQuantity ?? 0;
                 stockTrade.Price = stockQuote.CurrentPrice.GetValueOrDefault();
+
+                _logger.LogInformation(
+                    "Loaded trade model for symbol {StockSymbol} with company {StockName} and price {Price}",
+                    stockTrade.StockSymbol,
+                    stockTrade.StockName,
+                    stockTrade.Price
+                );
             }
-            ;
+            else
+            {
+                _logger.LogWarning(
+                    "Could not fully load trade data for symbol {StockSymbol}. CompanyProfileFound={CompanyProfileFound}, StockQuoteFound={StockQuoteFound}",
+                    stockSymbol,
+                    companyProfile != null,
+                    stockQuote != null
+                );
+            }
 
             ViewBag.FinnhubToken = _configuration["FinnhubToken"];
 
@@ -66,11 +91,19 @@ namespace StocksApp.Controllers
         [Route("[action]")]
         public async Task<IActionResult> Orders()
         {
+            _logger.LogInformation("Orders page requested");
+
             var orders = new Orders
             {
                 BuyOrders = await _stocksService.GetBuyOrdersAsync(),
                 SellOrders = await _stocksService.GetSellOrdersAsync(),
             };
+
+            _logger.LogInformation(
+                "Orders page loaded with {BuyOrdersCount} buy orders and {SellOrdersCount} sell orders",
+                orders.BuyOrders.Count,
+                orders.SellOrders.Count
+            );
 
             return View(orders);
         }
@@ -79,10 +112,23 @@ namespace StocksApp.Controllers
         [Route("[action]")]
         public async Task<IActionResult> BuyOrder(BuyOrderRequest request)
         {
+            _logger.LogInformation(
+                "Buy order request received for symbol {StockSymbol}, quantity {Quantity}, price {Price}",
+                request.StockSymbol,
+                request.Quantity,
+                request.Price
+            );
+
             request.DateAndTimeOfOrder = DateTime.UtcNow;
 
             if (!ModelState.IsValid)
             {
+                _logger.LogWarning(
+                    "Buy order validation failed for symbol {StockSymbol}. ErrorCount={ErrorCount}",
+                    request.StockSymbol,
+                    ModelState.ErrorCount
+                );
+
                 ViewBag.Errors = ModelState
                     .Values.SelectMany(v => v.Errors)
                     .Select(e => e.ErrorMessage)
@@ -101,6 +147,13 @@ namespace StocksApp.Controllers
 
             var buyOrderResponse = await _stocksService.CreateBuyOrderAsync(request);
 
+            _logger.LogInformation(
+                "Buy order created successfully. BuyOrderId={BuyOrderId}, Symbol={StockSymbol}, Quantity={Quantity}",
+                buyOrderResponse.BuyOrderID,
+                buyOrderResponse.StockSymbol,
+                buyOrderResponse.Quantity
+            );
+
             return RedirectToAction(nameof(Orders));
         }
 
@@ -108,10 +161,23 @@ namespace StocksApp.Controllers
         [Route("[action]")]
         public async Task<IActionResult> SellOrder(SellOrderRequest request)
         {
+            _logger.LogInformation(
+                "Sell order request received for symbol {StockSymbol}, quantity {Quantity}, price {Price}",
+                request.StockSymbol,
+                request.Quantity,
+                request.Price
+            );
+
             request.DateAndTimeOfOrder = DateTime.UtcNow;
 
             if (!ModelState.IsValid)
             {
+                _logger.LogWarning(
+                    "Sell order validation failed for symbol {StockSymbol}. ErrorCount={ErrorCount}",
+                    request.StockSymbol,
+                    ModelState.ErrorCount
+                );
+
                 ViewBag.Errors = ModelState
                     .Values.SelectMany(v => v.Errors)
                     .Select(e => e.ErrorMessage)
@@ -130,18 +196,32 @@ namespace StocksApp.Controllers
 
             var sellOrderResponse = await _stocksService.CreateSellOrderAsync(request);
 
+            _logger.LogInformation(
+                "Sell order created successfully. SellOrderId={SellOrderId}, Symbol={StockSymbol}, Quantity={Quantity}",
+                sellOrderResponse.SellOrderID,
+                sellOrderResponse.StockSymbol,
+                sellOrderResponse.Quantity
+            );
+
             return RedirectToAction(nameof(Orders));
         }
 
         [Route("OrdersPDF")]
         public async Task<IActionResult> OrdersPDF()
         {
+            _logger.LogInformation("Orders PDF generation requested");
+
             var orders = new List<OrderResponse>();
 
             orders.AddRange(await _stocksService.GetBuyOrdersAsync());
             orders.AddRange(await _stocksService.GetSellOrdersAsync());
 
             orders = orders.OrderByDescending(o => o.DateAndTimeOfOrder).ToList();
+
+            _logger.LogInformation(
+                "Orders PDF prepared with {OrdersCount} total orders",
+                orders.Count
+            );
 
             return new ViewAsPdf("OrdersPDF", orders, ViewData)
             {

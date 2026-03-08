@@ -6,11 +6,19 @@ using Microsoft.EntityFrameworkCore;
 using Repositories;
 using RepositoryContracts;
 using Rotativa.AspNetCore;
+using Serilog;
 using ServiceContracts;
 using Services;
 using StocksApp;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog(
+    (context, services, loggingConfig) =>
+    {
+        loggingConfig.ReadFrom.Configuration(builder.Configuration).ReadFrom.Services(services);
+    }
+);
 
 builder.Services.AddControllersWithViews();
 builder.Services.Configure<TradingOptions>(builder.Configuration.GetSection("TradingOptions"));
@@ -37,6 +45,8 @@ var app = builder.Build();
 RotativaConfiguration.Setup("/usr/bin", "");
 
 app.UseStaticFiles();
+
+app.UseSerilogRequestLogging();
 app.UseRouting();
 app.MapControllers();
 
