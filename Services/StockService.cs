@@ -1,6 +1,7 @@
 using Core.DTOs;
 using Core.Enums;
 using Core.Extensions;
+using Microsoft.Extensions.Logging;
 using ServiceContracts;
 using Services.Helpers;
 
@@ -9,14 +10,22 @@ namespace Services;
 public class StockService : IStocksService
 {
     private readonly IStocksRepository _stocksRepository;
+    private readonly ILogger<StockService> _logger;
 
-    public StockService(IStocksRepository stocksRepository)
+    public StockService(IStocksRepository stocksRepository, ILogger<StockService> logger)
     {
         _stocksRepository = stocksRepository;
+        _logger = logger;
     }
 
     public async Task<BuyOrderResponse> CreateBuyOrderAsync(BuyOrderRequest? request)
     {
+        _logger.LogInformation(
+            "Create buy order requested for symbol {StockSymbol}, quantity {Quantity}",
+            request?.StockSymbol,
+            request?.Quantity
+        );
+
         await ValidateRequest(request);
 
         var buyOrder = request!.ToBuyOrder();
@@ -24,17 +33,35 @@ public class StockService : IStocksService
 
         buyOrder = await _stocksRepository.CreateBuyOrderAsync(buyOrder);
 
+        _logger.LogInformation(
+            "Buy order persisted with id {BuyOrderId} for symbol {StockSymbol}",
+            buyOrder.Id,
+            buyOrder.StockSymbol
+        );
+
         return buyOrder.ToBuyOrderResponse();
     }
 
     public async Task<SellOrderResponse> CreateSellOrderAsync(SellOrderRequest? request)
     {
+        _logger.LogInformation(
+            "Create sell order requested for symbol {StockSymbol}, quantity {Quantity}",
+            request?.StockSymbol,
+            request?.Quantity
+        );
+
         await ValidateRequest(request);
 
         var sellOrder = request!.ToSellOrder();
         sellOrder.Id = Guid.NewGuid();
 
         sellOrder = await _stocksRepository.CreateSellOrderAsync(sellOrder);
+
+        _logger.LogInformation(
+            "Sell order persisted with id {SellOrderId} for symbol {StockSymbol}",
+            sellOrder.Id,
+            sellOrder.StockSymbol
+        );
 
         return sellOrder.ToSellOrderResponse();
     }
@@ -55,6 +82,8 @@ public class StockService : IStocksService
             })
             .ToList();
 
+        _logger.LogInformation("Retrieved {BuyOrdersCount} buy orders", buyOrders.Count);
+
         return buyOrders;
     }
 
@@ -74,13 +103,29 @@ public class StockService : IStocksService
             })
             .ToList();
 
+        _logger.LogInformation("Retrieved {SellOrdersCount} sell orders", sellOrders.Count);
+
         return sellOrders;
     }
 
     private async Task ValidateRequest(OrderRequest? request)
     {
-        ArgumentNullException.ThrowIfNull(request);
+        try
+        {
+            ArgumentNullException.ThrowIfNull(request);
 
-        ValidationHelper.Validate(request);
+            ValidationHelper.Validate(request);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(
+                ex,
+                "Order request validation failed for symbol {StockSymbol}",
+                request?.StockSymbol
+            );
+            throw;
+        }
+
+        await Task.CompletedTask;
     }
 }

@@ -6,11 +6,12 @@ using FluentAssertions;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using Moq;
 using ServiceContracts;
 using Services;
 
-namespace Tests;
+namespace Tests.ServicesTests;
 
 public class StocksServiceTests
 {
@@ -18,12 +19,14 @@ public class StocksServiceTests
 
     private readonly IFixture _fixture;
     private readonly Mock<IStocksRepository> _stockRepositoryMock;
+    private readonly Mock<ILogger<StockService>> _loggerMock;
 
     public StocksServiceTests()
     {
         _fixture = new Fixture();
         _stockRepositoryMock = new Mock<IStocksRepository>();
-        _sut = new StockService(_stockRepositoryMock.Object);
+        _loggerMock = new Mock<ILogger<StockService>>();
+        _sut = new StockService(_stockRepositoryMock.Object, _loggerMock.Object);
     }
 
     #region  CreateBuyOrder

@@ -11,6 +11,8 @@ using Moq;
 using ServiceContracts;
 using StocksApp;
 
+namespace Tests.IntegrationTests;
+
 public class StocksControllerIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly CustomWebApplicationFactory _factory;

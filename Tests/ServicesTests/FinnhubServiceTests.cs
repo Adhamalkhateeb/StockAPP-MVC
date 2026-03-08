@@ -1,27 +1,30 @@
 using AutoFixture;
 using Core.DTOs;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using Moq;
 using RepositoryContracts;
 using ServiceContracts;
 using Services;
 
-namespace Tests;
+namespace Tests.ServicesTests;
 
 public class FinnhubServiceTests
 {
     private readonly IFixture _fixture;
     private readonly Mock<IFinnhubRepository> _finnhubRepositoryMock;
+    private readonly Mock<ILogger<FinnhubService>> _loggerMock;
     private readonly IFinnhubService _sut;
 
     public FinnhubServiceTests()
     {
         _fixture = new Fixture();
         _finnhubRepositoryMock = new Mock<IFinnhubRepository>();
-        _sut = new FinnhubService(_finnhubRepositoryMock.Object);
+        _loggerMock = new Mock<ILogger<FinnhubService>>();
+        _sut = new FinnhubService(_finnhubRepositoryMock.Object, _loggerMock.Object);
     }
 
-    #region GetCompanyProfileAsync
+    #region GetCompanyProfile
 
     [Fact]
     public async Task GetCompanyProfileAsync_WhenRepositoryReturnsNull_ReturnsNull()
@@ -55,7 +58,7 @@ public class FinnhubServiceTests
 
     #endregion
 
-    #region GetStockPriceQuoteAsync
+    #region GetStockPriceQuote
 
     [Fact]
     public async Task GetStockPriceQuoteAsync_WhenRepositoryReturnsNull_ReturnsNull()
@@ -89,7 +92,7 @@ public class FinnhubServiceTests
 
     #endregion
 
-    #region GetStocksAsync
+    #region GetStocks
 
     [Fact]
     public async Task GetStocksAsync_WhenRepositoryReturnsNull_ReturnsNull()
@@ -151,7 +154,7 @@ public class FinnhubServiceTests
 
     #endregion
 
-    #region SearchStocksAsync
+    #region SearchStocks
 
     [Fact]
     public async Task SearchStocksAsync_WhenRepositoryReturnsNull_ReturnsNull()

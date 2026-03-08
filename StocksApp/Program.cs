@@ -13,13 +13,6 @@ using StocksApp;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog(
-    (context, services, loggingConfig) =>
-    {
-        loggingConfig.ReadFrom.Configuration(builder.Configuration).ReadFrom.Services(services);
-    }
-);
-
 builder.Services.AddControllersWithViews();
 builder.Services.Configure<TradingOptions>(builder.Configuration.GetSection("TradingOptions"));
 builder.Services.AddScoped<IFinnhubRepository, FinnhubRepository>();
@@ -31,6 +24,13 @@ if (!builder.Environment.IsEnvironment("Test"))
 {
     builder.Services.AddDbContext<StockMarketDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    );
+
+    builder.Host.UseSerilog(
+        (context, services, loggingConfig) =>
+        {
+            loggingConfig.ReadFrom.Configuration(builder.Configuration).ReadFrom.Services(services);
+        }
     );
 }
 
@@ -46,7 +46,12 @@ RotativaConfiguration.Setup("/usr/bin", "");
 
 app.UseStaticFiles();
 
-app.UseSerilogRequestLogging();
+if (!app.Environment.IsEnvironment("Test"))
+{
+    app.UseDeveloperExceptionPage();
+    app.UseSerilogRequestLogging();
+}
+
 app.UseRouting();
 app.MapControllers();
 

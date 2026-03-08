@@ -3,6 +3,7 @@ using System.Text.Json;
 using Core.DTOs;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using RepositoryContracts;
 
 namespace Repositories
@@ -16,6 +17,7 @@ namespace Repositories
         private readonly IHttpClientFactory _clientFactory;
         private readonly IMemoryCache _memoryCache;
         private readonly string _token;
+        private readonly ILogger<FinnhubRepository> _logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FinnhubRepository"/> class.
@@ -23,11 +25,13 @@ namespace Repositories
         public FinnhubRepository(
             IHttpClientFactory clientFactory,
             IConfiguration config,
-            IMemoryCache memoryCache
+            IMemoryCache memoryCache,
+            ILogger<FinnhubRepository> logger
         )
         {
             _clientFactory = clientFactory;
             _memoryCache = memoryCache;
+            _logger = logger;
             _token =
                 config["FinnhubToken"]
                 ?? throw new InvalidOperationException("Finnhub token cannot be empty");
@@ -36,6 +40,11 @@ namespace Repositories
         /// <inheritdoc/>
         public async Task<CompanyProfileResponse?> GetCompanyProfileAsync(string stockSymbol)
         {
+            _logger.LogInformation(
+                "Repository fetching company profile for symbol {StockSymbol}",
+                stockSymbol
+            );
+
             string cacheKey = $"finnhub:company-profile:{stockSymbol.ToUpperInvariant()}";
             return await GetOrSetCacheAsync(
                 cacheKey,
@@ -50,6 +59,11 @@ namespace Repositories
         /// <inheritdoc/>
         public async Task<StockQuoteResponse?> GetStockPriceQuoteAsync(string stockSymbol)
         {
+            _logger.LogInformation(
+                "Repository fetching quote for symbol {StockSymbol}",
+                stockSymbol
+            );
+
             string cacheKey = $"finnhub:quote:{stockSymbol.ToUpperInvariant()}";
             return await GetOrSetCacheAsync(
                 cacheKey,
@@ -69,6 +83,8 @@ namespace Repositories
             string? currency = null
         )
         {
+            _logger.LogInformation("Repository fetching stocks for exchange {Exchange}", exchange);
+
             string url =
                 $"https://finnhub.io/api/v1/stock/symbol?exchange={exchange}&token={_token}";
 
@@ -93,6 +109,8 @@ namespace Repositories
             string? exchange = null
         )
         {
+            _logger.LogInformation("Repository searching stocks for query {Query}", query);
+
             string url = $"https://finnhub.io/api/v1/search?q={query}&token={_token}";
             if (!string.IsNullOrWhiteSpace(exchange))
                 url += $"&exchange={exchange}";
@@ -110,6 +128,8 @@ namespace Repositories
         /// </summary>
         private async Task<T?> GetFinnhubApiResultAsync<T>(string api)
         {
+            _logger.LogDebug("Calling Finnhub endpoint {Endpoint}", api);
+
             var client = _clientFactory.CreateClient();
             client.Timeout = TimeSpan.FromMinutes(2);
 
@@ -118,6 +138,11 @@ namespace Repositories
                 HttpCompletionOption.ResponseHeadersRead
             );
             responseMessage.EnsureSuccessStatusCode();
+
+            _logger.LogDebug(
+                "Finnhub response received with status code {StatusCode}",
+                (int)responseMessage.StatusCode
+            );
 
             var json = await responseMessage.Content.ReadAsStringAsync();
             var options = new JsonSerializerOptions
@@ -143,12 +168,23 @@ namespace Repositories
             Func<Task<T?>> factory
         )
         {
+            if (_memoryCache.TryGetValue(cacheKey, out T? cachedValue))
+            {
+                _logger.LogDebug("Cache hit for key {CacheKey}", cacheKey);
+                return Task.FromResult(cachedValue);
+            }
+
+            _logger.LogDebug("Cache miss for key {CacheKey}", cacheKey);
+
             return _memoryCache.GetOrCreateAsync(
                     cacheKey,
                     async entry =>
                     {
                         entry.AbsoluteExpirationRelativeToNow = absoluteExpiration;
-                        return await factory();
+                        var value = await factory();
+
+                        _logger.LogDebug("Cache populated for key {CacheKey}", cacheKey);
+                        return value;
                     }
                 ) ?? throw new InvalidOperationException("Unable to store data in cache");
         }

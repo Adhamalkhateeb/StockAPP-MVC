@@ -2,16 +2,18 @@ using AutoFixture;
 using Core.DTOs;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
-using RepositoryContracts;
 using ServiceContracts;
 using StocksApp;
+
+namespace Tests.ControllersTests;
 
 public class StocksControllerTests
 {
     private readonly Mock<IFinnhubService> _mockFinnhubService;
+    private readonly Mock<ILogger<StocksController>> _mockLogger;
 
     private readonly IFixture _fixture;
 
@@ -20,6 +22,7 @@ public class StocksControllerTests
         _fixture = new Fixture();
 
         _mockFinnhubService = new Mock<IFinnhubService>();
+        _mockLogger = new Mock<ILogger<StocksController>>();
     }
 
     private StocksController CreateController(IEnumerable<string>? popularStocks = null)
@@ -32,7 +35,11 @@ public class StocksControllerTests
             )
             .Create();
 
-        return new StocksController(Options.Create(tradingOptions), _mockFinnhubService.Object);
+        return new StocksController(
+            _mockLogger.Object,
+            Options.Create(tradingOptions),
+            _mockFinnhubService.Object
+        );
     }
 
     #region  Explore

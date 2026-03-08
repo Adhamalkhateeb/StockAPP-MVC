@@ -1,13 +1,12 @@
 using AutoFixture;
 using Core.DTOs;
 using Core.Extensions;
-using Entities;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 using Rotativa.AspNetCore;
@@ -15,13 +14,15 @@ using ServiceContracts;
 using StocksApp;
 using StocksApp.Controllers;
 using StocksApp.Models;
-using Tests;
+
+namespace Tests.ControllersTests;
 
 public class TradeControllerTests
 {
     private readonly Mock<IFinnhubService> _mockFinnhubService;
     private readonly Mock<IStocksService> _mockStocksService;
     private readonly Mock<IConfiguration> _mockConfiguration;
+    private readonly Mock<ILogger<TradeController>> _mockLogger;
     private readonly IOptions<TradingOptions> _tradingOptions;
     private readonly TradeController _controller;
     private readonly IFixture _fixture;
@@ -33,6 +34,7 @@ public class TradeControllerTests
         _mockFinnhubService = new Mock<IFinnhubService>();
         _mockStocksService = new Mock<IStocksService>();
         _mockConfiguration = new Mock<IConfiguration>();
+        _mockLogger = new Mock<ILogger<TradeController>>();
 
         var tradingOptions = _fixture
             .Build<TradingOptions>()
@@ -44,6 +46,7 @@ public class TradeControllerTests
         _mockConfiguration.Setup(c => c["FinnhubToken"]).Returns("test-token");
 
         _controller = new TradeController(
+            _mockLogger.Object,
             _tradingOptions,
             _mockStocksService.Object,
             _mockFinnhubService.Object,
