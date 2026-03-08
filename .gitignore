@@ -1,0 +1,46 @@
+## Build results
+bin/
+obj/
+
+## Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Rider
+.idea/
+
+## VS Code
+.vscode/
+
+## Logs
+*.log
+
+## ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+## User secrets
+secrets.json
+
+## Environment variables
+.env
+
+## Publish
+publish/
+
+## Node (if frontend exists)
+node_modules/
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## Database
+*.mdf
+*.ldf
+
+## Resharper
+_ReSharper*/
+*.DotSettings.user
