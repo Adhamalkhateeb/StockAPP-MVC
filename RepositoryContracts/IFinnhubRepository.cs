@@ -43,6 +43,6 @@ namespace RepositoryContracts
         /// <param name="query">Query text, e.g., 'Apple' or 'US0378331005'</param>
         /// <param name="exchange">Optional exchange filter</param>
         /// <returns>Search results containing matching symbols.</returns>
-        Task<SymbolLookupResultDto?> SearchStocksAsync(string query, string? exchange = null);
+        Task<SymbolLookupResultDto> SearchStocksAsync(string query, string? exchange = null);
     }
 }

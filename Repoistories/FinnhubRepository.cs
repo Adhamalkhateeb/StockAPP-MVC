@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
+using System.Net;
 using System.Text.Json;
 using Core.DTOs;
+using Core.Exceptions;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -104,7 +106,7 @@ namespace Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<SymbolLookupResultDto?> SearchStocksAsync(
+        public async Task<SymbolLookupResultDto> SearchStocksAsync(
             string query,
             string? exchange = null
         )
@@ -116,28 +118,66 @@ namespace Repositories
                 url += $"&exchange={exchange}";
 
             string cacheKey = $"finnhub:search:{query.Trim().ToUpperInvariant()}";
-            return await GetOrSetCacheAsync(
+
+            SymbolLookupResultDto? result = await GetOrSetCacheAsync(
                 cacheKey,
                 TimeSpan.FromMinutes(10),
                 () => GetFinnhubApiResultAsync<SymbolLookupResultDto>(url)
             );
+
+            if (result == null)
+            {
+                _logger.LogWarning("Finnhub search returned null for query {Query}", query);
+                result = new SymbolLookupResultDto();
+            }
+            return result;
         }
 
         /// <summary>
         /// Sends HTTP request to Finnhub API and deserializes the JSON response into the specified DTO.
         /// </summary>
-        private async Task<T?> GetFinnhubApiResultAsync<T>(string api)
+        private async Task<T?> GetFinnhubApiResultAsync<T>(string apiUrl)
         {
-            _logger.LogDebug("Calling Finnhub endpoint {Endpoint}", api);
+            _logger.LogDebug("Calling Finnhub endpoint {Endpoint}", apiUrl);
 
             var client = _clientFactory.CreateClient();
-            client.Timeout = TimeSpan.FromMinutes(2);
+            client.Timeout = TimeSpan.FromSeconds(40);
 
-            var responseMessage = await client.GetAsync(
-                api,
-                HttpCompletionOption.ResponseHeadersRead
-            );
-            responseMessage.EnsureSuccessStatusCode();
+            HttpResponseMessage responseMessage;
+
+            try
+            {
+                responseMessage = await client.GetAsync(
+                    apiUrl,
+                    HttpCompletionOption.ResponseHeadersRead
+                );
+            }
+            catch (TaskCanceledException ex)
+            {
+                _logger.LogError(ex, "Finnhub request timed out for {ApiUrl}", apiUrl);
+                throw new InvalidOperationException(
+                    $"Finnhub request timed out for URL: {apiUrl}",
+                    ex
+                );
+            }
+
+            if (responseMessage.StatusCode == HttpStatusCode.Forbidden)
+            {
+                _logger.LogWarning("Finnhub returned 403 for {ApiUrl}", apiUrl);
+                throw new FinnhubAccessDeniedException(apiUrl);
+            }
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                _logger.LogWarning(
+                    "Finnhub returned non-success status {StatusCode} for {ApiUrl}",
+                    (int)responseMessage.StatusCode,
+                    apiUrl
+                );
+                throw new InvalidOperationException(
+                    $"Finnhub returned HTTP {(int)responseMessage.StatusCode} for URL: {apiUrl}"
+                );
+            }
 
             _logger.LogDebug(
                 "Finnhub response received with status code {StatusCode}",
@@ -145,6 +185,13 @@ namespace Repositories
             );
 
             var json = await responseMessage.Content.ReadAsStringAsync();
+
+            if (string.IsNullOrWhiteSpace(json) || json.Trim() == "{}")
+            {
+                _logger.LogWarning("Finnhub returned empty response for {ApiUrl}", apiUrl);
+                throw new InvalidOperationException("No response returned from Finnhub server");
+            }
+
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true,
@@ -155,9 +202,23 @@ namespace Repositories
                     .JsonNumberHandling
                     .AllowReadingFromString,
             };
-            var result =
-                JsonSerializer.Deserialize<T>(json, options)
-                ?? throw new InvalidOperationException("No response returned from Finnhub server");
+
+            T? result;
+            try
+            {
+                result = JsonSerializer.Deserialize<T>(json, options);
+            }
+            catch (JsonException ex)
+            {
+                _logger.LogError(ex, "Failed to deserialize Finnhub response for {ApiUrl}", apiUrl);
+                throw new InvalidOperationException(
+                    "Failed to parse response from Finnhub server",
+                    ex
+                );
+            }
+
+            if (result == null)
+                throw new InvalidOperationException("No response returned from Finnhub server");
 
             return result;
         }
@@ -168,21 +229,13 @@ namespace Repositories
             Func<Task<T?>> factory
         )
         {
-            if (_memoryCache.TryGetValue(cacheKey, out T? cachedValue))
-            {
-                _logger.LogDebug("Cache hit for key {CacheKey}", cacheKey);
-                return Task.FromResult(cachedValue);
-            }
-
-            _logger.LogDebug("Cache miss for key {CacheKey}", cacheKey);
-
             return _memoryCache.GetOrCreateAsync(
                     cacheKey,
                     async entry =>
                     {
                         entry.AbsoluteExpirationRelativeToNow = absoluteExpiration;
+                        _logger.LogDebug("Cache miss for key {CacheKey}", cacheKey);
                         var value = await factory();
-
                         _logger.LogDebug("Cache populated for key {CacheKey}", cacheKey);
                         return value;
                     }

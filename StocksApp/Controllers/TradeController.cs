@@ -54,18 +54,24 @@ namespace StocksApp.Controllers
                 );
             }
 
-            var companyProfile = await _finnhubService.GetCompanyProfileAsync(stockSymbol);
-            var stockQuote = await _finnhubService.GetStockPriceQuoteAsync(stockSymbol);
+            var snapshot = await _finnhubService.GetStockSnapshotAsync(stockSymbol);
 
-            var stockTrade = new StockTrade();
-
-            if (companyProfile != null && stockQuote != null)
+            var stockTrade = new StockTrade
             {
-                stockTrade.StockSymbol = stockSymbol;
-                stockTrade.StockName = companyProfile.Name;
-                stockTrade.Quantity = _tradingOptions.DefaultOrderQuantity ?? 0;
-                stockTrade.Price = stockQuote.CurrentPrice.GetValueOrDefault();
+                StockSymbol = stockSymbol,
+                StockName = snapshot.CompanyProfile?.Name ?? stockSymbol,
+                Quantity = _tradingOptions.DefaultOrderQuantity ?? 0,
+                Price = snapshot.StockQuote?.CurrentPrice ?? 0,
+                CanTrade = snapshot.IsLiveDataAvailable,
+                DataUnavailableMessage = snapshot.UserMessage,
+            };
 
+            if (
+                snapshot.IsLiveDataAvailable
+                && snapshot.CompanyProfile != null
+                && snapshot.StockQuote != null
+            )
+            {
                 _logger.LogInformation(
                     "Loaded trade model for symbol {StockSymbol} with company {StockName} and price {Price}",
                     stockTrade.StockSymbol,
@@ -76,10 +82,11 @@ namespace StocksApp.Controllers
             else
             {
                 _logger.LogWarning(
-                    "Could not fully load trade data for symbol {StockSymbol}. CompanyProfileFound={CompanyProfileFound}, StockQuoteFound={StockQuoteFound}",
+                    "Could not fully load trade data for symbol {StockSymbol}. CompanyProfileFound={CompanyProfileFound}, StockQuoteFound={StockQuoteFound}, AccessDenied={AccessDenied}",
                     stockSymbol,
-                    companyProfile != null,
-                    stockQuote != null
+                    snapshot.CompanyProfile != null,
+                    snapshot.StockQuote != null,
+                    snapshot.IsAccessDenied
                 );
             }
 
@@ -110,6 +117,7 @@ namespace StocksApp.Controllers
 
         [HttpPost]
         [Route("[action]")]
+        [CreateOrderActionFilterFactory]
         public async Task<IActionResult> BuyOrder(BuyOrderRequest request)
         {
             _logger.LogInformation(
@@ -120,30 +128,6 @@ namespace StocksApp.Controllers
             );
 
             request.DateAndTimeOfOrder = DateTime.UtcNow;
-
-            if (!ModelState.IsValid)
-            {
-                _logger.LogWarning(
-                    "Buy order validation failed for symbol {StockSymbol}. ErrorCount={ErrorCount}",
-                    request.StockSymbol,
-                    ModelState.ErrorCount
-                );
-
-                ViewBag.Errors = ModelState
-                    .Values.SelectMany(v => v.Errors)
-                    .Select(e => e.ErrorMessage)
-                    .ToList();
-
-                StockTrade stockTrade = new StockTrade()
-                {
-                    StockName = request.StockName,
-                    Quantity = request.Quantity,
-                    StockSymbol = request.StockSymbol,
-                    Price = request.Price,
-                };
-
-                return View("Index", stockTrade);
-            }
 
             var buyOrderResponse = await _stocksService.CreateBuyOrderAsync(request);
 
@@ -159,6 +143,7 @@ namespace StocksApp.Controllers
 
         [HttpPost]
         [Route("[action]")]
+        [CreateOrderActionFilterFactory]
         public async Task<IActionResult> SellOrder(SellOrderRequest request)
         {
             _logger.LogInformation(
@@ -169,30 +154,6 @@ namespace StocksApp.Controllers
             );
 
             request.DateAndTimeOfOrder = DateTime.UtcNow;
-
-            if (!ModelState.IsValid)
-            {
-                _logger.LogWarning(
-                    "Sell order validation failed for symbol {StockSymbol}. ErrorCount={ErrorCount}",
-                    request.StockSymbol,
-                    ModelState.ErrorCount
-                );
-
-                ViewBag.Errors = ModelState
-                    .Values.SelectMany(v => v.Errors)
-                    .Select(e => e.ErrorMessage)
-                    .ToList();
-
-                StockTrade stockTrade = new StockTrade()
-                {
-                    StockName = request.StockName,
-                    Quantity = request.Quantity,
-                    StockSymbol = request.StockSymbol,
-                    Price = request.Price,
-                };
-
-                return View("Index", stockTrade);
-            }
 
             var sellOrderResponse = await _stocksService.CreateSellOrderAsync(request);
 

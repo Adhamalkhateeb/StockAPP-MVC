@@ -10,13 +10,15 @@ public class ValidationHelper
         where T : class
     {
         var validatorType = typeof(AbstractValidator<>).MakeGenericType(typeof(T));
-        var validator = (IValidator<T>?)
-            Activator.CreateInstance(
-                AppDomain
-                    .CurrentDomain.GetAssemblies()
-                    .SelectMany(a => a.GetTypes())
-                    .First(t => !t.IsAbstract && validatorType.IsAssignableFrom(t))
-            );
+        var validatorImplType = AppDomain
+            .CurrentDomain.GetAssemblies()
+            .SelectMany(a => a.GetTypes())
+            .FirstOrDefault(t => !t.IsAbstract && validatorType.IsAssignableFrom(t));
+
+        if (validatorImplType is null)
+            throw new InvalidOperationException($"No validator found for {typeof(T).Name}");
+
+        var validator = (IValidator<T>?)Activator.CreateInstance(validatorImplType);
 
         if (validator is null)
             throw new InvalidOperationException($"No validator found for {typeof(T).Name}");

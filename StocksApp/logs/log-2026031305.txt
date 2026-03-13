@@ -1,0 +1,733 @@
+2026-03-13 05:43:24.091 +02:00 [INF] User profile is available. Using '/home/adhamalkhateeb/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2026-03-13 05:43:24.230 +02:00 [INF] Now listening on: http://localhost:5231
+2026-03-13 05:43:24.232 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-03-13 05:43:24.233 +02:00 [INF] Hosting environment: Development
+2026-03-13 05:43:24.233 +02:00 [INF] Content root path: /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/StocksApp
+2026-03-13 05:43:34.422 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/ - null null
+2026-03-13 05:43:34.499 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:43:34.555 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-13 05:43:34.585 +02:00 [INF] Explore requested for stock null. ShowAll=false
+2026-03-13 05:43:34.587 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-13 05:43:34.589 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-13 05:43:34.606 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/stock/symbol?*
+2026-03-13 05:43:34.608 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/stock/symbol?*
+2026-03-13 05:43:35.900 +02:00 [INF] Received HTTP response headers after 1285.9849ms - 200
+2026-03-13 05:43:35.902 +02:00 [INF] End processing HTTP request after 1299.6394ms - 200
+2026-03-13 05:43:38.857 +02:00 [INF] Fetched 30156 stocks for exchange US
+2026-03-13 05:43:38.868 +02:00 [INF] Explore returning 25 stocks
+2026-03-13 05:43:38.932 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-13 05:43:39.070 +02:00 [INF] Executed ViewResult - view Explore executed in 139.4328ms.
+2026-03-13 05:43:39.072 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 4516.1119ms
+2026-03-13 05:43:39.072 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:43:39.075 +02:00 [INF] HTTP GET / responded 200 in 4627.4480 ms
+2026-03-13 05:43:39.081 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/ - 200 null text/html; charset=utf-8 4660.6586ms
+2026-03-13 05:43:39.106 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/StyleSheet.css - null null
+2026-03-13 05:43:39.127 +02:00 [INF] Sending file. Request path: '/StyleSheet.css'. Physical path: '/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/StocksApp/wwwroot/StyleSheet.css'
+2026-03-13 05:43:39.128 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/StyleSheet.css - 200 9402 text/css 23.4381ms
+2026-03-13 05:43:39.182 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/favicon.ico - null null
+2026-03-13 05:43:39.187 +02:00 [INF] HTTP GET /favicon.ico responded 404 in 1.7556 ms
+2026-03-13 05:43:39.187 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/favicon.ico - 404 0 null 5.3774ms
+2026-03-13 05:43:39.188 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5231/favicon.ico, Response status code: 404
+2026-03-13 05:43:41.857 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Index - null null
+2026-03-13 05:43:41.860 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-13 05:43:41.874 +02:00 [INF] Route matched with {action = "Index", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-13 05:43:42.098 +02:00 [INF] Trade index requested for symbol null
+2026-03-13 05:43:42.098 +02:00 [INF] No stock symbol supplied. Falling back to default symbol MSFT
+2026-03-13 05:43:42.099 +02:00 [INF] Fetching company profile for symbol MSFT
+2026-03-13 05:43:42.100 +02:00 [INF] Repository fetching company profile for symbol MSFT
+2026-03-13 05:43:42.101 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-13 05:43:42.101 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-13 05:43:42.482 +02:00 [INF] Received HTTP response headers after 380.3227ms - 200
+2026-03-13 05:43:42.482 +02:00 [INF] End processing HTTP request after 381.2654ms - 200
+2026-03-13 05:43:42.501 +02:00 [INF] Company profile fetched for symbol MSFT
+2026-03-13 05:43:42.502 +02:00 [INF] Fetching quote for symbol MSFT
+2026-03-13 05:43:42.503 +02:00 [INF] Repository fetching quote for symbol MSFT
+2026-03-13 05:43:42.504 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:43:42.504 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:43:42.893 +02:00 [INF] Received HTTP response headers after 388.4635ms - 200
+2026-03-13 05:43:42.893 +02:00 [INF] End processing HTTP request after 389.3237ms - 200
+2026-03-13 05:43:42.909 +02:00 [INF] Quote fetched for symbol MSFT
+2026-03-13 05:43:42.909 +02:00 [INF] Loaded trade model for symbol MSFT with company Microsoft Corp and price 401.86
+2026-03-13 05:43:42.914 +02:00 [INF] Executing ViewResult, running view Index.
+2026-03-13 05:43:42.996 +02:00 [INF] Executed ViewResult - view Index executed in 83.735ms.
+2026-03-13 05:43:42.997 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Index (StocksApp) in 1121.9806ms
+2026-03-13 05:43:42.997 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-13 05:43:42.997 +02:00 [INF] HTTP GET /Trade/Index responded 200 in 1138.7728 ms
+2026-03-13 05:43:42.999 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Index - 200 null text/html; charset=utf-8 1141.8852ms
+2026-03-13 05:43:43.013 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Scripts/ChartScript.js - null null
+2026-03-13 05:43:43.027 +02:00 [INF] Sending file. Request path: '/Scripts/ChartScript.js'. Physical path: '/home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/StocksApp/wwwroot/Scripts/ChartScript.js'
+2026-03-13 05:43:43.027 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Scripts/ChartScript.js - 200 830 text/javascript 13.9017ms
+2026-03-13 05:43:52.791 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore - null null
+2026-03-13 05:43:52.791 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:43:52.810 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-13 05:43:52.816 +02:00 [INF] Explore requested for stock null. ShowAll=false
+2026-03-13 05:43:52.816 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-13 05:43:52.816 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-13 05:43:52.817 +02:00 [INF] Fetched 30156 stocks for exchange US
+2026-03-13 05:43:52.828 +02:00 [INF] Explore returning 25 stocks
+2026-03-13 05:43:52.829 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-13 05:43:52.833 +02:00 [INF] Executed ViewResult - view Explore executed in 4.3422ms.
+2026-03-13 05:43:52.833 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 23.0755ms
+2026-03-13 05:43:52.834 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:43:52.834 +02:00 [INF] HTTP GET /Explore responded 200 in 42.5480 ms
+2026-03-13 05:43:52.834 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore - 200 null text/html; charset=utf-8 43.6265ms
+2026-03-13 05:43:54.856 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore/XOM?showAll=False - null null
+2026-03-13 05:43:54.856 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:43:54.857 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-13 05:43:54.872 +02:00 [INF] Explore requested for stock XOM. ShowAll=false
+2026-03-13 05:43:54.873 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-13 05:43:54.873 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-13 05:43:54.873 +02:00 [INF] Fetched 30156 stocks for exchange US
+2026-03-13 05:43:54.896 +02:00 [INF] Explore returning 25 stocks
+2026-03-13 05:43:54.899 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-13 05:43:54.915 +02:00 [INF] Fetching company profile for symbol XOM
+2026-03-13 05:43:54.915 +02:00 [INF] Repository fetching company profile for symbol XOM
+2026-03-13 05:43:54.915 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-13 05:43:54.915 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-13 05:43:55.164 +02:00 [INF] Received HTTP response headers after 249.053ms - 200
+2026-03-13 05:43:55.165 +02:00 [INF] End processing HTTP request after 249.5747ms - 200
+2026-03-13 05:43:55.168 +02:00 [INF] Company profile fetched for symbol XOM
+2026-03-13 05:43:55.168 +02:00 [INF] Fetching quote for symbol XOM
+2026-03-13 05:43:55.168 +02:00 [INF] Repository fetching quote for symbol XOM
+2026-03-13 05:43:55.168 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:43:55.169 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:43:55.501 +02:00 [INF] Received HTTP response headers after 332.3693ms - 200
+2026-03-13 05:43:55.501 +02:00 [INF] End processing HTTP request after 333.05ms - 200
+2026-03-13 05:43:55.505 +02:00 [INF] Quote fetched for symbol XOM
+2026-03-13 05:43:55.521 +02:00 [INF] Executed ViewResult - view Explore executed in 622.412ms.
+2026-03-13 05:43:55.522 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 665.3418ms
+2026-03-13 05:43:55.523 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:43:55.523 +02:00 [INF] HTTP GET /Explore/XOM responded 200 in 666.2545 ms
+2026-03-13 05:43:55.523 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore/XOM?showAll=False - 200 null text/html; charset=utf-8 666.9927ms
+2026-03-13 05:43:57.651 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Index/XOM - null null
+2026-03-13 05:43:57.652 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-13 05:43:57.652 +02:00 [INF] Route matched with {action = "Index", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-13 05:43:57.663 +02:00 [INF] Trade index requested for symbol XOM
+2026-03-13 05:43:57.663 +02:00 [INF] Fetching company profile for symbol XOM
+2026-03-13 05:43:57.663 +02:00 [INF] Repository fetching company profile for symbol XOM
+2026-03-13 05:43:57.663 +02:00 [INF] Company profile fetched for symbol XOM
+2026-03-13 05:43:57.663 +02:00 [INF] Fetching quote for symbol XOM
+2026-03-13 05:43:57.663 +02:00 [INF] Repository fetching quote for symbol XOM
+2026-03-13 05:43:57.663 +02:00 [INF] Quote fetched for symbol XOM
+2026-03-13 05:43:57.663 +02:00 [INF] Loaded trade model for symbol XOM with company Exxon Mobil Corp and price 153.53
+2026-03-13 05:43:57.663 +02:00 [INF] Executing ViewResult, running view Index.
+2026-03-13 05:43:57.670 +02:00 [INF] Executed ViewResult - view Index executed in 6.5356ms.
+2026-03-13 05:43:57.670 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Index (StocksApp) in 17.2977ms
+2026-03-13 05:43:57.670 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-13 05:43:57.670 +02:00 [INF] HTTP GET /Trade/Index/XOM responded 200 in 18.9475 ms
+2026-03-13 05:43:57.670 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Index/XOM - 200 null text/html; charset=utf-8 19.4569ms
+2026-03-13 05:43:57.687 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Scripts/ChartScript.js - null null
+2026-03-13 05:43:57.688 +02:00 [INF] The file /Scripts/ChartScript.js was not modified
+2026-03-13 05:43:57.688 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Scripts/ChartScript.js - 304 null text/javascript 1.0513ms
+2026-03-13 05:44:03.101 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5231/Trade/SellOrder - application/x-www-form-urlencoded 272
+2026-03-13 05:44:03.102 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.SellOrder (StocksApp)'
+2026-03-13 05:44:03.119 +02:00 [INF] Route matched with {action = "SellOrder", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] SellOrder(Core.DTOs.SellOrderRequest) on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-13 05:44:03.201 +02:00 [INF] Sell order request received for symbol XOM, quantity 100, price 153.53
+2026-03-13 05:44:03.203 +02:00 [INF] Create sell order requested for symbol XOM, quantity 100
+2026-03-13 05:44:03.277 +02:00 [INF] Persisting sell order for symbol XOM, quantity 100
+2026-03-13 05:44:04.097 +02:00 [INF] Executed DbCommand (52ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime2), @p2='?' (Precision = 15) (Scale = 2) (DbType = Decimal), @p3='?' (DbType = Int64), @p4='?' (Size = 100), @p5='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [SellOrders] ([Id], [DateAndTimeOfOrder], [Price], [Quantity], [StockName], [StockSymbol])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-03-13 05:44:04.126 +02:00 [INF] Sell order persisted with id "3e2488db-1a72-4001-b3be-e12af7618683"
+2026-03-13 05:44:04.127 +02:00 [INF] Sell order persisted with id "3e2488db-1a72-4001-b3be-e12af7618683" for symbol XOM
+2026-03-13 05:44:04.128 +02:00 [INF] Sell order created successfully. SellOrderId="3e2488db-1a72-4001-b3be-e12af7618683", Symbol=XOM, Quantity=100
+2026-03-13 05:44:04.129 +02:00 [INF] Executing RedirectResult, redirecting to /Trade/Orders.
+2026-03-13 05:44:04.129 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.SellOrder (StocksApp) in 1009.6057ms
+2026-03-13 05:44:04.129 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.SellOrder (StocksApp)'
+2026-03-13 05:44:04.129 +02:00 [INF] HTTP POST /Trade/SellOrder responded 302 in 1027.5084 ms
+2026-03-13 05:44:04.136 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5231/Trade/SellOrder - 302 0 null 1034.2174ms
+2026-03-13 05:44:04.137 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Orders - null null
+2026-03-13 05:44:04.137 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Orders (StocksApp)'
+2026-03-13 05:44:04.146 +02:00 [INF] Route matched with {action = "Orders", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Orders() on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-13 05:44:04.148 +02:00 [INF] Orders page requested
+2026-03-13 05:44:04.517 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[DateAndTimeOfOrder], [b].[Price], [b].[Quantity], [b].[StockName], [b].[StockSymbol]
+FROM [BuyOrders] AS [b]
+ORDER BY [b].[DateAndTimeOfOrder] DESC
+2026-03-13 05:44:04.538 +02:00 [INF] Loaded 3 buy orders from database
+2026-03-13 05:44:04.539 +02:00 [INF] Retrieved 3 buy orders
+2026-03-13 05:44:04.551 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DateAndTimeOfOrder], [s].[Price], [s].[Quantity], [s].[StockName], [s].[StockSymbol]
+FROM [SellOrders] AS [s]
+ORDER BY [s].[DateAndTimeOfOrder] DESC
+2026-03-13 05:44:04.551 +02:00 [INF] Loaded 3 sell orders from database
+2026-03-13 05:44:04.552 +02:00 [INF] Retrieved 3 sell orders
+2026-03-13 05:44:04.552 +02:00 [INF] Orders page loaded with 3 buy orders and 3 sell orders
+2026-03-13 05:44:04.555 +02:00 [INF] Executing ViewResult, running view Orders.
+2026-03-13 05:44:04.567 +02:00 [INF] Executed ViewResult - view Orders executed in 12.9287ms.
+2026-03-13 05:44:04.567 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Orders (StocksApp) in 420.3105ms
+2026-03-13 05:44:04.567 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Orders (StocksApp)'
+2026-03-13 05:44:04.567 +02:00 [INF] HTTP GET /Trade/Orders responded 200 in 429.8766 ms
+2026-03-13 05:44:04.567 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Orders - 200 null text/html; charset=utf-8 430.6762ms
+2026-03-13 05:44:05.971 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Index - null null
+2026-03-13 05:44:05.971 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-13 05:44:05.972 +02:00 [INF] Route matched with {action = "Index", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-13 05:44:05.972 +02:00 [INF] Trade index requested for symbol null
+2026-03-13 05:44:05.973 +02:00 [INF] No stock symbol supplied. Falling back to default symbol MSFT
+2026-03-13 05:44:05.973 +02:00 [INF] Fetching company profile for symbol MSFT
+2026-03-13 05:44:05.973 +02:00 [INF] Repository fetching company profile for symbol MSFT
+2026-03-13 05:44:05.973 +02:00 [INF] Company profile fetched for symbol MSFT
+2026-03-13 05:44:05.973 +02:00 [INF] Fetching quote for symbol MSFT
+2026-03-13 05:44:05.973 +02:00 [INF] Repository fetching quote for symbol MSFT
+2026-03-13 05:44:05.973 +02:00 [INF] Quote fetched for symbol MSFT
+2026-03-13 05:44:05.973 +02:00 [INF] Loaded trade model for symbol MSFT with company Microsoft Corp and price 401.86
+2026-03-13 05:44:05.973 +02:00 [INF] Executing ViewResult, running view Index.
+2026-03-13 05:44:05.976 +02:00 [INF] Executed ViewResult - view Index executed in 2.957ms.
+2026-03-13 05:44:05.976 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Index (StocksApp) in 4.6769ms
+2026-03-13 05:44:05.977 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-13 05:44:05.977 +02:00 [INF] HTTP GET /Trade/Index responded 200 in 5.2997 ms
+2026-03-13 05:44:05.977 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Index - 200 null text/html; charset=utf-8 6.0185ms
+2026-03-13 05:44:09.275 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore - null null
+2026-03-13 05:44:09.275 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:44:09.276 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-13 05:44:09.276 +02:00 [INF] Explore requested for stock null. ShowAll=false
+2026-03-13 05:44:09.276 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-13 05:44:09.276 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-13 05:44:09.276 +02:00 [INF] Fetched 30156 stocks for exchange US
+2026-03-13 05:44:09.279 +02:00 [INF] Explore returning 25 stocks
+2026-03-13 05:44:09.279 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-13 05:44:09.280 +02:00 [INF] Executed ViewResult - view Explore executed in 0.6907ms.
+2026-03-13 05:44:09.280 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 4.3029ms
+2026-03-13 05:44:09.280 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:44:09.280 +02:00 [INF] HTTP GET /Explore responded 200 in 4.7859 ms
+2026-03-13 05:44:09.280 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore - 200 null text/html; charset=utf-8 5.2811ms
+2026-03-13 05:44:11.361 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore/KO?showAll=False - null null
+2026-03-13 05:44:11.361 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:44:11.361 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-13 05:44:11.362 +02:00 [INF] Explore requested for stock KO. ShowAll=false
+2026-03-13 05:44:11.362 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-13 05:44:11.362 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-13 05:44:11.362 +02:00 [INF] Fetched 30156 stocks for exchange US
+2026-03-13 05:44:11.365 +02:00 [INF] Explore returning 25 stocks
+2026-03-13 05:44:11.365 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-13 05:44:11.366 +02:00 [INF] Fetching company profile for symbol KO
+2026-03-13 05:44:11.366 +02:00 [INF] Repository fetching company profile for symbol KO
+2026-03-13 05:44:11.366 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-13 05:44:11.366 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-13 05:44:11.556 +02:00 [INF] Received HTTP response headers after 189.7388ms - 200
+2026-03-13 05:44:11.556 +02:00 [INF] End processing HTTP request after 190.1784ms - 200
+2026-03-13 05:44:11.559 +02:00 [INF] Company profile fetched for symbol KO
+2026-03-13 05:44:11.559 +02:00 [INF] Fetching quote for symbol KO
+2026-03-13 05:44:11.559 +02:00 [INF] Repository fetching quote for symbol KO
+2026-03-13 05:44:11.559 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:44:11.559 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:44:11.854 +02:00 [INF] Received HTTP response headers after 294.6786ms - 200
+2026-03-13 05:44:11.854 +02:00 [INF] End processing HTTP request after 295.0379ms - 200
+2026-03-13 05:44:11.856 +02:00 [INF] Quote fetched for symbol KO
+2026-03-13 05:44:11.857 +02:00 [INF] Executed ViewResult - view Explore executed in 492.3708ms.
+2026-03-13 05:44:11.857 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 496.1723ms
+2026-03-13 05:44:11.858 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:44:11.858 +02:00 [INF] HTTP GET /Explore/KO responded 200 in 496.7590 ms
+2026-03-13 05:44:11.858 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore/KO?showAll=False - 200 null text/html; charset=utf-8 497.2454ms
+2026-03-13 05:44:14.049 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Index/KO - null null
+2026-03-13 05:44:14.050 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-13 05:44:14.050 +02:00 [INF] Route matched with {action = "Index", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-13 05:44:14.051 +02:00 [INF] Trade index requested for symbol KO
+2026-03-13 05:44:14.051 +02:00 [INF] Fetching company profile for symbol KO
+2026-03-13 05:44:14.051 +02:00 [INF] Repository fetching company profile for symbol KO
+2026-03-13 05:44:14.051 +02:00 [INF] Company profile fetched for symbol KO
+2026-03-13 05:44:14.051 +02:00 [INF] Fetching quote for symbol KO
+2026-03-13 05:44:14.051 +02:00 [INF] Repository fetching quote for symbol KO
+2026-03-13 05:44:14.051 +02:00 [INF] Quote fetched for symbol KO
+2026-03-13 05:44:14.051 +02:00 [INF] Loaded trade model for symbol KO with company Coca-Cola Co and price 77.61
+2026-03-13 05:44:14.051 +02:00 [INF] Executing ViewResult, running view Index.
+2026-03-13 05:44:14.053 +02:00 [INF] Executed ViewResult - view Index executed in 1.4345ms.
+2026-03-13 05:44:14.053 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Index (StocksApp) in 2.986ms
+2026-03-13 05:44:14.053 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-13 05:44:14.053 +02:00 [INF] HTTP GET /Trade/Index/KO responded 200 in 3.5893 ms
+2026-03-13 05:44:14.054 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Index/KO - 200 null text/html; charset=utf-8 4.1953ms
+2026-03-13 05:44:14.074 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Scripts/ChartScript.js - null null
+2026-03-13 05:44:14.075 +02:00 [INF] The file /Scripts/ChartScript.js was not modified
+2026-03-13 05:44:14.075 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Scripts/ChartScript.js - 304 null text/javascript 0.8218ms
+2026-03-13 05:46:18.858 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore - null null
+2026-03-13 05:46:18.859 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:46:18.859 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-13 05:46:18.860 +02:00 [INF] Explore requested for stock null. ShowAll=false
+2026-03-13 05:46:18.860 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-13 05:46:18.860 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-13 05:46:18.860 +02:00 [INF] Fetched 30156 stocks for exchange US
+2026-03-13 05:46:18.866 +02:00 [INF] Explore returning 25 stocks
+2026-03-13 05:46:18.867 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-13 05:46:18.868 +02:00 [INF] Executed ViewResult - view Explore executed in 1.3591ms.
+2026-03-13 05:46:18.868 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 9.1351ms
+2026-03-13 05:46:18.869 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:46:18.869 +02:00 [INF] HTTP GET /Explore responded 200 in 10.1961 ms
+2026-03-13 05:46:18.869 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore - 200 null text/html; charset=utf-8 11.1319ms
+2026-03-13 05:46:18.902 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/StyleSheet.css - null null
+2026-03-13 05:46:18.903 +02:00 [INF] The file /StyleSheet.css was not modified
+2026-03-13 05:46:18.903 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/StyleSheet.css - 304 null text/css 1.4939ms
+2026-03-13 05:46:24.130 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore?showAll=true - null null
+2026-03-13 05:46:24.130 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:46:24.130 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-13 05:46:24.131 +02:00 [INF] Explore requested for stock null. ShowAll=true
+2026-03-13 05:46:24.131 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-13 05:46:24.131 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-13 05:46:24.131 +02:00 [INF] Fetched 30156 stocks for exchange US
+2026-03-13 05:46:24.132 +02:00 [INF] Explore returning 30156 stocks
+2026-03-13 05:46:24.132 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-13 05:46:24.362 +02:00 [INF] Executed ViewResult - view Explore executed in 230.3528ms.
+2026-03-13 05:46:24.363 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 232.179ms
+2026-03-13 05:46:24.363 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:46:24.363 +02:00 [INF] HTTP GET /Explore responded 200 in 232.8191 ms
+2026-03-13 05:46:24.366 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore?showAll=true - 200 null text/html; charset=utf-8 235.9249ms
+2026-03-13 05:46:36.877 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore/BAFBF?showAll=False - null null
+2026-03-13 05:46:36.878 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:46:36.878 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-13 05:46:36.879 +02:00 [INF] Explore requested for stock BAFBF. ShowAll=false
+2026-03-13 05:46:36.879 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-13 05:46:36.879 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-13 05:46:36.879 +02:00 [INF] Fetched 30156 stocks for exchange US
+2026-03-13 05:46:36.884 +02:00 [INF] Explore returning 25 stocks
+2026-03-13 05:46:36.884 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-13 05:46:36.885 +02:00 [INF] Fetching company profile for symbol BAFBF
+2026-03-13 05:46:36.885 +02:00 [INF] Repository fetching company profile for symbol BAFBF
+2026-03-13 05:46:36.886 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-13 05:46:36.886 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-13 05:46:37.267 +02:00 [INF] Received HTTP response headers after 379.8688ms - 200
+2026-03-13 05:46:37.267 +02:00 [INF] End processing HTTP request after 380.6349ms - 200
+2026-03-13 05:46:37.270 +02:00 [INF] Company profile fetched for symbol BAFBF
+2026-03-13 05:46:37.270 +02:00 [INF] Fetching quote for symbol BAFBF
+2026-03-13 05:46:37.270 +02:00 [INF] Repository fetching quote for symbol BAFBF
+2026-03-13 05:46:37.270 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:46:37.270 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:46:37.466 +02:00 [INF] Received HTTP response headers after 195.837ms - 200
+2026-03-13 05:46:37.466 +02:00 [INF] End processing HTTP request after 196.2509ms - 200
+2026-03-13 05:46:37.469 +02:00 [INF] Quote fetched for symbol BAFBF
+2026-03-13 05:46:37.471 +02:00 [INF] Executed ViewResult - view Explore executed in 586.7842ms.
+2026-03-13 05:46:37.471 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 592.5236ms
+2026-03-13 05:46:37.471 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:46:37.471 +02:00 [INF] HTTP GET /Explore/BAFBF responded 200 in 593.2154 ms
+2026-03-13 05:46:37.471 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore/BAFBF?showAll=False - 200 null text/html; charset=utf-8 593.805ms
+2026-03-13 05:46:43.463 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Index/BBY.L - null null
+2026-03-13 05:46:43.464 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-13 05:46:43.464 +02:00 [INF] Route matched with {action = "Index", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-13 05:46:43.465 +02:00 [INF] Trade index requested for symbol BBY.L
+2026-03-13 05:46:43.465 +02:00 [INF] Fetching company profile for symbol BBY.L
+2026-03-13 05:46:43.465 +02:00 [INF] Repository fetching company profile for symbol BBY.L
+2026-03-13 05:46:43.466 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-13 05:46:43.466 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-13 05:46:43.717 +02:00 [INF] Received HTTP response headers after 251.3668ms - 403
+2026-03-13 05:46:43.718 +02:00 [INF] End processing HTTP request after 251.9904ms - 403
+2026-03-13 05:46:43.719 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Index (StocksApp) in 254.673ms
+2026-03-13 05:46:43.719 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-13 05:46:43.719 +02:00 [ERR] HTTP GET /Trade/Index/BBY.L responded 500 in 255.5893 ms
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 403 (Forbidden).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at Repositories.FinnhubRepository.GetFinnhubApiResultAsync[T](String api) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/FinnhubRepository.cs:line 140
+   at Repositories.FinnhubRepository.<>c__DisplayClass10_0`1.<<GetOrSetCacheAsync>b__0>d.MoveNext() in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/FinnhubRepository.cs:line 184
+--- End of stack trace from previous location ---
+   at Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreateAsync[TItem](IMemoryCache cache, Object key, Func`2 factory, MemoryCacheEntryOptions createOptions)
+   at Repositories.FinnhubRepository.GetCompanyProfileAsync(String stockSymbol) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/FinnhubRepository.cs:line 49
+   at Services.FinnhubService.GetCompanyProfileAsync(String stockSymbol) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Services/FinnhubService.cs:line 34
+   at StocksApp.Controllers.TradeController.Index(String stockSymbol) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/StocksApp/Controllers/TradeController.cs:line 57
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-03-13 05:46:43.743 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 403 (Forbidden).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at Repositories.FinnhubRepository.GetFinnhubApiResultAsync[T](String api) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/FinnhubRepository.cs:line 140
+   at Repositories.FinnhubRepository.<>c__DisplayClass10_0`1.<<GetOrSetCacheAsync>b__0>d.MoveNext() in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/FinnhubRepository.cs:line 184
+--- End of stack trace from previous location ---
+   at Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreateAsync[TItem](IMemoryCache cache, Object key, Func`2 factory, MemoryCacheEntryOptions createOptions)
+   at Repositories.FinnhubRepository.GetCompanyProfileAsync(String stockSymbol) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/FinnhubRepository.cs:line 49
+   at Services.FinnhubService.GetCompanyProfileAsync(String stockSymbol) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Services/FinnhubService.cs:line 34
+   at StocksApp.Controllers.TradeController.Index(String stockSymbol) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/StocksApp/Controllers/TradeController.cs:line 57
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-03-13 05:46:43.768 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Index/BBY.L - 500 null text/html; charset=utf-8 304.5172ms
+2026-03-13 05:46:49.159 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore/BAC?showAll=False - null null
+2026-03-13 05:46:49.160 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:46:49.160 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-13 05:46:49.161 +02:00 [INF] Explore requested for stock BAC. ShowAll=false
+2026-03-13 05:46:49.161 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-13 05:46:49.161 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-13 05:46:49.161 +02:00 [INF] Fetched 30156 stocks for exchange US
+2026-03-13 05:46:49.165 +02:00 [INF] Explore returning 25 stocks
+2026-03-13 05:46:49.165 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-13 05:46:49.166 +02:00 [INF] Fetching company profile for symbol BAC
+2026-03-13 05:46:49.166 +02:00 [INF] Repository fetching company profile for symbol BAC
+2026-03-13 05:46:49.166 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-13 05:46:49.167 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-13 05:46:49.557 +02:00 [INF] Received HTTP response headers after 389.7715ms - 200
+2026-03-13 05:46:49.557 +02:00 [INF] End processing HTTP request after 390.5248ms - 200
+2026-03-13 05:46:49.557 +02:00 [INF] Company profile fetched for symbol BAC
+2026-03-13 05:46:49.558 +02:00 [INF] Fetching quote for symbol BAC
+2026-03-13 05:46:49.558 +02:00 [INF] Repository fetching quote for symbol BAC
+2026-03-13 05:46:49.558 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:46:49.558 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:46:49.727 +02:00 [INF] Received HTTP response headers after 168.198ms - 200
+2026-03-13 05:46:49.727 +02:00 [INF] End processing HTTP request after 168.8609ms - 200
+2026-03-13 05:46:49.727 +02:00 [INF] Quote fetched for symbol BAC
+2026-03-13 05:46:49.728 +02:00 [INF] Executed ViewResult - view Explore executed in 562.6913ms.
+2026-03-13 05:46:49.728 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 567.9301ms
+2026-03-13 05:46:49.728 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:46:49.728 +02:00 [INF] HTTP GET /Explore/BAC responded 200 in 568.4623 ms
+2026-03-13 05:46:49.729 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore/BAC?showAll=False - 200 null text/html; charset=utf-8 569.2293ms
+2026-03-13 05:46:52.240 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore/HD?showAll=False - null null
+2026-03-13 05:46:52.240 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:46:52.241 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-13 05:46:52.241 +02:00 [INF] Explore requested for stock HD. ShowAll=false
+2026-03-13 05:46:52.241 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-13 05:46:52.242 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-13 05:46:52.242 +02:00 [INF] Fetched 30156 stocks for exchange US
+2026-03-13 05:46:52.246 +02:00 [INF] Explore returning 25 stocks
+2026-03-13 05:46:52.247 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-13 05:46:52.247 +02:00 [INF] Fetching company profile for symbol HD
+2026-03-13 05:46:52.248 +02:00 [INF] Repository fetching company profile for symbol HD
+2026-03-13 05:46:52.248 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-13 05:46:52.248 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-13 05:46:52.496 +02:00 [INF] Received HTTP response headers after 248.059ms - 200
+2026-03-13 05:46:52.496 +02:00 [INF] End processing HTTP request after 248.5675ms - 200
+2026-03-13 05:46:52.497 +02:00 [INF] Company profile fetched for symbol HD
+2026-03-13 05:46:52.497 +02:00 [INF] Fetching quote for symbol HD
+2026-03-13 05:46:52.497 +02:00 [INF] Repository fetching quote for symbol HD
+2026-03-13 05:46:52.497 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:46:52.497 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:46:52.698 +02:00 [INF] Received HTTP response headers after 201.0699ms - 200
+2026-03-13 05:46:52.699 +02:00 [INF] End processing HTTP request after 201.535ms - 200
+2026-03-13 05:46:52.699 +02:00 [INF] Quote fetched for symbol HD
+2026-03-13 05:46:52.699 +02:00 [INF] Executed ViewResult - view Explore executed in 452.7606ms.
+2026-03-13 05:46:52.699 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 458.747ms
+2026-03-13 05:46:52.700 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:46:52.700 +02:00 [INF] HTTP GET /Explore/HD responded 200 in 459.3539 ms
+2026-03-13 05:46:52.700 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore/HD?showAll=False - 200 null text/html; charset=utf-8 459.9175ms
+2026-03-13 05:46:54.799 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Index/HD - null null
+2026-03-13 05:46:54.800 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-13 05:46:54.800 +02:00 [INF] Route matched with {action = "Index", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-13 05:46:54.800 +02:00 [INF] Trade index requested for symbol HD
+2026-03-13 05:46:54.801 +02:00 [INF] Fetching company profile for symbol HD
+2026-03-13 05:46:54.801 +02:00 [INF] Repository fetching company profile for symbol HD
+2026-03-13 05:46:54.801 +02:00 [INF] Company profile fetched for symbol HD
+2026-03-13 05:46:54.801 +02:00 [INF] Fetching quote for symbol HD
+2026-03-13 05:46:54.801 +02:00 [INF] Repository fetching quote for symbol HD
+2026-03-13 05:46:54.801 +02:00 [INF] Quote fetched for symbol HD
+2026-03-13 05:46:54.801 +02:00 [INF] Loaded trade model for symbol HD with company Home Depot Inc and price 338.93
+2026-03-13 05:46:54.801 +02:00 [INF] Executing ViewResult, running view Index.
+2026-03-13 05:46:54.802 +02:00 [INF] Executed ViewResult - view Index executed in 1.0638ms.
+2026-03-13 05:46:54.802 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Index (StocksApp) in 2.3616ms
+2026-03-13 05:46:54.802 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-13 05:46:54.802 +02:00 [INF] HTTP GET /Trade/Index/HD responded 200 in 2.8368 ms
+2026-03-13 05:46:54.803 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Index/HD - 200 null text/html; charset=utf-8 3.216ms
+2026-03-13 05:46:54.821 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Scripts/ChartScript.js - null null
+2026-03-13 05:46:54.821 +02:00 [INF] The file /Scripts/ChartScript.js was not modified
+2026-03-13 05:46:54.822 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Scripts/ChartScript.js - 304 null text/javascript 0.9728ms
+2026-03-13 05:49:42.493 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore - null null
+2026-03-13 05:49:42.494 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:49:42.494 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-13 05:49:42.495 +02:00 [INF] Explore requested for stock null. ShowAll=false
+2026-03-13 05:49:42.495 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-13 05:49:42.495 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-13 05:49:42.495 +02:00 [INF] Fetched 30156 stocks for exchange US
+2026-03-13 05:49:42.505 +02:00 [INF] Explore returning 25 stocks
+2026-03-13 05:49:42.506 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-13 05:49:42.509 +02:00 [INF] Executed ViewResult - view Explore executed in 2.9485ms.
+2026-03-13 05:49:42.509 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 14.8303ms
+2026-03-13 05:49:42.510 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:49:42.510 +02:00 [INF] HTTP GET /Explore responded 200 in 16.2609 ms
+2026-03-13 05:49:42.511 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore - 200 null text/html; charset=utf-8 17.2303ms
+2026-03-13 05:49:42.562 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/StyleSheet.css - null null
+2026-03-13 05:49:42.563 +02:00 [INF] The file /StyleSheet.css was not modified
+2026-03-13 05:49:42.564 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/StyleSheet.css - 304 null text/css 1.8521ms
+2026-03-13 05:49:44.952 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore/COST?showAll=False - null null
+2026-03-13 05:49:44.953 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:49:44.953 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-13 05:49:44.954 +02:00 [INF] Explore requested for stock COST. ShowAll=false
+2026-03-13 05:49:44.954 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-13 05:49:44.954 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-13 05:49:44.954 +02:00 [INF] Fetched 30156 stocks for exchange US
+2026-03-13 05:49:44.957 +02:00 [INF] Explore returning 25 stocks
+2026-03-13 05:49:44.958 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-13 05:49:44.958 +02:00 [INF] Fetching company profile for symbol COST
+2026-03-13 05:49:44.958 +02:00 [INF] Repository fetching company profile for symbol COST
+2026-03-13 05:49:44.959 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-13 05:49:44.959 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-13 05:49:45.379 +02:00 [INF] Received HTTP response headers after 419.82ms - 200
+2026-03-13 05:49:45.379 +02:00 [INF] End processing HTTP request after 420.3798ms - 200
+2026-03-13 05:49:45.380 +02:00 [INF] Company profile fetched for symbol COST
+2026-03-13 05:49:45.380 +02:00 [INF] Fetching quote for symbol COST
+2026-03-13 05:49:45.380 +02:00 [INF] Repository fetching quote for symbol COST
+2026-03-13 05:49:45.380 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:49:45.380 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:49:45.608 +02:00 [INF] Received HTTP response headers after 228.2356ms - 200
+2026-03-13 05:49:45.609 +02:00 [INF] End processing HTTP request after 228.7226ms - 200
+2026-03-13 05:49:45.609 +02:00 [INF] Quote fetched for symbol COST
+2026-03-13 05:49:45.610 +02:00 [INF] Executed ViewResult - view Explore executed in 652.3036ms.
+2026-03-13 05:49:45.610 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 656.7505ms
+2026-03-13 05:49:45.610 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:49:45.610 +02:00 [INF] HTTP GET /Explore/COST responded 200 in 657.3371 ms
+2026-03-13 05:49:45.610 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore/COST?showAll=False - 200 null text/html; charset=utf-8 657.8929ms
+2026-03-13 05:49:49.521 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore/DIS?showAll=False - null null
+2026-03-13 05:49:49.522 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:49:49.522 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-13 05:49:49.522 +02:00 [INF] Explore requested for stock DIS. ShowAll=false
+2026-03-13 05:49:49.523 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-13 05:49:49.523 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-13 05:49:49.523 +02:00 [INF] Fetched 30156 stocks for exchange US
+2026-03-13 05:49:49.527 +02:00 [INF] Explore returning 25 stocks
+2026-03-13 05:49:49.527 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-13 05:49:49.528 +02:00 [INF] Fetching company profile for symbol DIS
+2026-03-13 05:49:49.528 +02:00 [INF] Repository fetching company profile for symbol DIS
+2026-03-13 05:49:49.528 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-13 05:49:49.528 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-13 05:49:49.678 +02:00 [INF] Received HTTP response headers after 149.4953ms - 200
+2026-03-13 05:49:49.678 +02:00 [INF] End processing HTTP request after 149.943ms - 200
+2026-03-13 05:49:49.681 +02:00 [INF] Company profile fetched for symbol DIS
+2026-03-13 05:49:49.681 +02:00 [INF] Fetching quote for symbol DIS
+2026-03-13 05:49:49.681 +02:00 [INF] Repository fetching quote for symbol DIS
+2026-03-13 05:49:49.681 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:49:49.681 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:49:49.828 +02:00 [INF] Received HTTP response headers after 146.6232ms - 200
+2026-03-13 05:49:49.828 +02:00 [INF] End processing HTTP request after 147.1127ms - 200
+2026-03-13 05:49:49.830 +02:00 [INF] Quote fetched for symbol DIS
+2026-03-13 05:49:49.830 +02:00 [INF] Executed ViewResult - view Explore executed in 302.9339ms.
+2026-03-13 05:49:49.830 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 308.2636ms
+2026-03-13 05:49:49.830 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:49:49.831 +02:00 [INF] HTTP GET /Explore/DIS responded 200 in 308.8076 ms
+2026-03-13 05:49:49.831 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore/DIS?showAll=False - 200 null text/html; charset=utf-8 309.3244ms
+2026-03-13 05:49:59.340 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore/HD?showAll=False - null null
+2026-03-13 05:49:59.341 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:49:59.341 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-13 05:49:59.342 +02:00 [INF] Explore requested for stock HD. ShowAll=false
+2026-03-13 05:49:59.342 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-13 05:49:59.342 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-13 05:49:59.342 +02:00 [INF] Fetched 30156 stocks for exchange US
+2026-03-13 05:49:59.346 +02:00 [INF] Explore returning 25 stocks
+2026-03-13 05:49:59.346 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-13 05:49:59.347 +02:00 [INF] Fetching company profile for symbol HD
+2026-03-13 05:49:59.347 +02:00 [INF] Repository fetching company profile for symbol HD
+2026-03-13 05:49:59.347 +02:00 [INF] Company profile fetched for symbol HD
+2026-03-13 05:49:59.347 +02:00 [INF] Fetching quote for symbol HD
+2026-03-13 05:49:59.347 +02:00 [INF] Repository fetching quote for symbol HD
+2026-03-13 05:49:59.348 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:49:59.348 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:49:59.608 +02:00 [INF] Received HTTP response headers after 260.297ms - 200
+2026-03-13 05:49:59.608 +02:00 [INF] End processing HTTP request after 260.8536ms - 200
+2026-03-13 05:49:59.609 +02:00 [INF] Quote fetched for symbol HD
+2026-03-13 05:49:59.609 +02:00 [INF] Executed ViewResult - view Explore executed in 263.2464ms.
+2026-03-13 05:49:59.610 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 268.6688ms
+2026-03-13 05:49:59.610 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:49:59.610 +02:00 [INF] HTTP GET /Explore/HD responded 200 in 269.2977 ms
+2026-03-13 05:49:59.610 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore/HD?showAll=False - 200 null text/html; charset=utf-8 269.9151ms
+2026-03-13 05:51:19.646 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Index - null null
+2026-03-13 05:51:19.646 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-13 05:51:19.647 +02:00 [INF] Route matched with {action = "Index", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-13 05:51:19.648 +02:00 [INF] Trade index requested for symbol null
+2026-03-13 05:51:19.648 +02:00 [INF] No stock symbol supplied. Falling back to default symbol MSFT
+2026-03-13 05:51:19.648 +02:00 [INF] Fetching company profile for symbol MSFT
+2026-03-13 05:51:19.648 +02:00 [INF] Repository fetching company profile for symbol MSFT
+2026-03-13 05:51:19.648 +02:00 [INF] Company profile fetched for symbol MSFT
+2026-03-13 05:51:19.648 +02:00 [INF] Fetching quote for symbol MSFT
+2026-03-13 05:51:19.648 +02:00 [INF] Repository fetching quote for symbol MSFT
+2026-03-13 05:51:19.649 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:51:19.649 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:51:19.929 +02:00 [INF] Received HTTP response headers after 279.8403ms - 200
+2026-03-13 05:51:19.929 +02:00 [INF] End processing HTTP request after 280.5428ms - 200
+2026-03-13 05:51:19.930 +02:00 [INF] Quote fetched for symbol MSFT
+2026-03-13 05:51:19.930 +02:00 [INF] Loaded trade model for symbol MSFT with company Microsoft Corp and price 401.86
+2026-03-13 05:51:19.930 +02:00 [INF] Executing ViewResult, running view Index.
+2026-03-13 05:51:19.931 +02:00 [INF] Executed ViewResult - view Index executed in 1.4804ms.
+2026-03-13 05:51:19.932 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Index (StocksApp) in 284.6474ms
+2026-03-13 05:51:19.932 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-13 05:51:19.932 +02:00 [INF] HTTP GET /Trade/Index responded 200 in 285.5068 ms
+2026-03-13 05:51:19.932 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Index - 200 null text/html; charset=utf-8 286.3398ms
+2026-03-13 05:51:19.955 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Scripts/ChartScript.js - null null
+2026-03-13 05:51:19.956 +02:00 [INF] The file /Scripts/ChartScript.js was not modified
+2026-03-13 05:51:19.956 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Scripts/ChartScript.js - 304 null text/javascript 1.0424ms
+2026-03-13 05:51:21.963 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore - null null
+2026-03-13 05:51:21.964 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:51:21.964 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-13 05:51:21.964 +02:00 [INF] Explore requested for stock null. ShowAll=false
+2026-03-13 05:51:21.964 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-13 05:51:21.964 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-13 05:51:21.964 +02:00 [INF] Fetched 30156 stocks for exchange US
+2026-03-13 05:51:21.968 +02:00 [INF] Explore returning 25 stocks
+2026-03-13 05:51:21.968 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-13 05:51:21.969 +02:00 [INF] Executed ViewResult - view Explore executed in 0.6738ms.
+2026-03-13 05:51:21.969 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 4.8579ms
+2026-03-13 05:51:21.969 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:51:21.969 +02:00 [INF] HTTP GET /Explore responded 200 in 5.4099 ms
+2026-03-13 05:51:21.969 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore - 200 null text/html; charset=utf-8 5.9291ms
+2026-03-13 05:51:25.883 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Orders - null null
+2026-03-13 05:51:25.884 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Orders (StocksApp)'
+2026-03-13 05:51:25.884 +02:00 [INF] Route matched with {action = "Orders", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Orders() on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-13 05:51:25.885 +02:00 [INF] Orders page requested
+2026-03-13 05:51:25.931 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[DateAndTimeOfOrder], [b].[Price], [b].[Quantity], [b].[StockName], [b].[StockSymbol]
+FROM [BuyOrders] AS [b]
+ORDER BY [b].[DateAndTimeOfOrder] DESC
+2026-03-13 05:51:25.931 +02:00 [INF] Loaded 3 buy orders from database
+2026-03-13 05:51:25.931 +02:00 [INF] Retrieved 3 buy orders
+2026-03-13 05:51:25.932 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DateAndTimeOfOrder], [s].[Price], [s].[Quantity], [s].[StockName], [s].[StockSymbol]
+FROM [SellOrders] AS [s]
+ORDER BY [s].[DateAndTimeOfOrder] DESC
+2026-03-13 05:51:25.932 +02:00 [INF] Loaded 3 sell orders from database
+2026-03-13 05:51:25.933 +02:00 [INF] Retrieved 3 sell orders
+2026-03-13 05:51:25.933 +02:00 [INF] Orders page loaded with 3 buy orders and 3 sell orders
+2026-03-13 05:51:25.933 +02:00 [INF] Executing ViewResult, running view Orders.
+2026-03-13 05:51:25.934 +02:00 [INF] Executed ViewResult - view Orders executed in 1.0796ms.
+2026-03-13 05:51:25.934 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Orders (StocksApp) in 49.7959ms
+2026-03-13 05:51:25.934 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Orders (StocksApp)'
+2026-03-13 05:51:25.934 +02:00 [INF] HTTP GET /Trade/Orders responded 200 in 50.5005 ms
+2026-03-13 05:51:25.934 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Orders - 200 null text/html; charset=utf-8 51.0086ms
+2026-03-13 05:51:26.831 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore - null null
+2026-03-13 05:51:26.832 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:51:26.832 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-13 05:51:26.832 +02:00 [INF] Explore requested for stock null. ShowAll=false
+2026-03-13 05:51:26.832 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-13 05:51:26.832 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-13 05:51:26.832 +02:00 [INF] Fetched 30156 stocks for exchange US
+2026-03-13 05:51:26.835 +02:00 [INF] Explore returning 25 stocks
+2026-03-13 05:51:26.835 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-13 05:51:26.836 +02:00 [INF] Executed ViewResult - view Explore executed in 0.5367ms.
+2026-03-13 05:51:26.836 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 3.8359ms
+2026-03-13 05:51:26.836 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:51:26.836 +02:00 [INF] HTTP GET /Explore responded 200 in 4.2833 ms
+2026-03-13 05:51:26.836 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore - 200 null text/html; charset=utf-8 4.6369ms
+2026-03-13 05:51:27.684 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Orders - null null
+2026-03-13 05:51:27.684 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Orders (StocksApp)'
+2026-03-13 05:51:27.685 +02:00 [INF] Route matched with {action = "Orders", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Orders() on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-13 05:51:27.685 +02:00 [INF] Orders page requested
+2026-03-13 05:51:27.687 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[DateAndTimeOfOrder], [b].[Price], [b].[Quantity], [b].[StockName], [b].[StockSymbol]
+FROM [BuyOrders] AS [b]
+ORDER BY [b].[DateAndTimeOfOrder] DESC
+2026-03-13 05:51:27.687 +02:00 [INF] Loaded 3 buy orders from database
+2026-03-13 05:51:27.688 +02:00 [INF] Retrieved 3 buy orders
+2026-03-13 05:51:27.689 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DateAndTimeOfOrder], [s].[Price], [s].[Quantity], [s].[StockName], [s].[StockSymbol]
+FROM [SellOrders] AS [s]
+ORDER BY [s].[DateAndTimeOfOrder] DESC
+2026-03-13 05:51:27.689 +02:00 [INF] Loaded 3 sell orders from database
+2026-03-13 05:51:27.689 +02:00 [INF] Retrieved 3 sell orders
+2026-03-13 05:51:27.689 +02:00 [INF] Orders page loaded with 3 buy orders and 3 sell orders
+2026-03-13 05:51:27.689 +02:00 [INF] Executing ViewResult, running view Orders.
+2026-03-13 05:51:27.691 +02:00 [INF] Executed ViewResult - view Orders executed in 1.457ms.
+2026-03-13 05:51:27.691 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Orders (StocksApp) in 6.3052ms
+2026-03-13 05:51:27.691 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Orders (StocksApp)'
+2026-03-13 05:51:27.691 +02:00 [INF] HTTP GET /Trade/Orders responded 200 in 6.7942 ms
+2026-03-13 05:51:27.691 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Orders - 200 null text/html; charset=utf-8 7.208ms
+2026-03-13 05:51:32.042 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore - null null
+2026-03-13 05:51:32.042 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:51:32.042 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-13 05:51:32.042 +02:00 [INF] Explore requested for stock null. ShowAll=false
+2026-03-13 05:51:32.042 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-13 05:51:32.042 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-13 05:51:32.042 +02:00 [INF] Fetched 30156 stocks for exchange US
+2026-03-13 05:51:32.045 +02:00 [INF] Explore returning 25 stocks
+2026-03-13 05:51:32.045 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-13 05:51:32.046 +02:00 [INF] Executed ViewResult - view Explore executed in 0.4585ms.
+2026-03-13 05:51:32.046 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 3.7719ms
+2026-03-13 05:51:32.046 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:51:32.046 +02:00 [INF] HTTP GET /Explore responded 200 in 4.2461 ms
+2026-03-13 05:51:32.046 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore - 200 null text/html; charset=utf-8 4.672ms
+2026-03-13 05:53:17.389 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Index - null null
+2026-03-13 05:53:17.389 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-13 05:53:17.390 +02:00 [INF] Route matched with {action = "Index", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-13 05:53:17.390 +02:00 [INF] Trade index requested for symbol null
+2026-03-13 05:53:17.391 +02:00 [INF] No stock symbol supplied. Falling back to default symbol MSFT
+2026-03-13 05:53:17.391 +02:00 [INF] Fetching company profile for symbol MSFT
+2026-03-13 05:53:17.391 +02:00 [INF] Repository fetching company profile for symbol MSFT
+2026-03-13 05:53:17.391 +02:00 [INF] Company profile fetched for symbol MSFT
+2026-03-13 05:53:17.391 +02:00 [INF] Fetching quote for symbol MSFT
+2026-03-13 05:53:17.391 +02:00 [INF] Repository fetching quote for symbol MSFT
+2026-03-13 05:53:17.392 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:53:17.392 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-13 05:53:17.862 +02:00 [INF] Received HTTP response headers after 469.6095ms - 200
+2026-03-13 05:53:17.862 +02:00 [INF] End processing HTTP request after 470.6329ms - 200
+2026-03-13 05:53:17.863 +02:00 [INF] Quote fetched for symbol MSFT
+2026-03-13 05:53:17.863 +02:00 [INF] Loaded trade model for symbol MSFT with company Microsoft Corp and price 401.86
+2026-03-13 05:53:17.863 +02:00 [INF] Executing ViewResult, running view Index.
+2026-03-13 05:53:17.865 +02:00 [INF] Executed ViewResult - view Index executed in 2.2952ms.
+2026-03-13 05:53:17.866 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Index (StocksApp) in 475.8523ms
+2026-03-13 05:53:17.866 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-13 05:53:17.866 +02:00 [INF] HTTP GET /Trade/Index responded 200 in 476.7784 ms
+2026-03-13 05:53:17.866 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Index - 200 null text/html; charset=utf-8 477.5765ms
+2026-03-13 05:53:17.889 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/StyleSheet.css - null null
+2026-03-13 05:53:17.889 +02:00 [INF] The file /StyleSheet.css was not modified
+2026-03-13 05:53:17.890 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/StyleSheet.css - 304 null text/css 0.637ms
+2026-03-13 05:53:17.895 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Scripts/ChartScript.js - null null
+2026-03-13 05:53:17.896 +02:00 [INF] The file /Scripts/ChartScript.js was not modified
+2026-03-13 05:53:17.896 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Scripts/ChartScript.js - 304 null text/javascript 0.5766ms
+2026-03-13 05:53:19.005 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Orders - null null
+2026-03-13 05:53:19.005 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Orders (StocksApp)'
+2026-03-13 05:53:19.005 +02:00 [INF] Route matched with {action = "Orders", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Orders() on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-13 05:53:19.006 +02:00 [INF] Orders page requested
+2026-03-13 05:53:19.008 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[DateAndTimeOfOrder], [b].[Price], [b].[Quantity], [b].[StockName], [b].[StockSymbol]
+FROM [BuyOrders] AS [b]
+ORDER BY [b].[DateAndTimeOfOrder] DESC
+2026-03-13 05:53:19.009 +02:00 [INF] Loaded 3 buy orders from database
+2026-03-13 05:53:19.009 +02:00 [INF] Retrieved 3 buy orders
+2026-03-13 05:53:19.010 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DateAndTimeOfOrder], [s].[Price], [s].[Quantity], [s].[StockName], [s].[StockSymbol]
+FROM [SellOrders] AS [s]
+ORDER BY [s].[DateAndTimeOfOrder] DESC
+2026-03-13 05:53:19.010 +02:00 [INF] Loaded 3 sell orders from database
+2026-03-13 05:53:19.011 +02:00 [INF] Retrieved 3 sell orders
+2026-03-13 05:53:19.011 +02:00 [INF] Orders page loaded with 3 buy orders and 3 sell orders
+2026-03-13 05:53:19.011 +02:00 [INF] Executing ViewResult, running view Orders.
+2026-03-13 05:53:19.011 +02:00 [INF] Executed ViewResult - view Orders executed in 0.5575ms.
+2026-03-13 05:53:19.012 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Orders (StocksApp) in 6.1504ms
+2026-03-13 05:53:19.012 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Orders (StocksApp)'
+2026-03-13 05:53:19.012 +02:00 [INF] HTTP GET /Trade/Orders responded 200 in 6.7456 ms
+2026-03-13 05:53:19.012 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Orders - 200 null text/html; charset=utf-8 7.2979ms
+2026-03-13 05:53:20.078 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Index - null null
+2026-03-13 05:53:20.079 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-13 05:53:20.079 +02:00 [INF] Route matched with {action = "Index", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-13 05:53:20.079 +02:00 [INF] Trade index requested for symbol null
+2026-03-13 05:53:20.080 +02:00 [INF] No stock symbol supplied. Falling back to default symbol MSFT
+2026-03-13 05:53:20.080 +02:00 [INF] Fetching company profile for symbol MSFT
+2026-03-13 05:53:20.080 +02:00 [INF] Repository fetching company profile for symbol MSFT
+2026-03-13 05:53:20.080 +02:00 [INF] Company profile fetched for symbol MSFT
+2026-03-13 05:53:20.080 +02:00 [INF] Fetching quote for symbol MSFT
+2026-03-13 05:53:20.080 +02:00 [INF] Repository fetching quote for symbol MSFT
+2026-03-13 05:53:20.080 +02:00 [INF] Quote fetched for symbol MSFT
+2026-03-13 05:53:20.080 +02:00 [INF] Loaded trade model for symbol MSFT with company Microsoft Corp and price 401.86
+2026-03-13 05:53:20.080 +02:00 [INF] Executing ViewResult, running view Index.
+2026-03-13 05:53:20.082 +02:00 [INF] Executed ViewResult - view Index executed in 1.2876ms.
+2026-03-13 05:53:20.082 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Index (StocksApp) in 2.7269ms
+2026-03-13 05:53:20.082 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-13 05:53:20.082 +02:00 [INF] HTTP GET /Trade/Index responded 200 in 3.4725 ms
+2026-03-13 05:53:20.082 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Index - 200 null text/html; charset=utf-8 4.0108ms
+2026-03-13 05:53:20.899 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore - null null
+2026-03-13 05:53:20.899 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:53:20.900 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-13 05:53:20.900 +02:00 [INF] Explore requested for stock null. ShowAll=false
+2026-03-13 05:53:20.900 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-13 05:53:20.900 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-13 05:53:20.900 +02:00 [INF] Fetched 30156 stocks for exchange US
+2026-03-13 05:53:20.904 +02:00 [INF] Explore returning 25 stocks
+2026-03-13 05:53:20.905 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-13 05:53:20.905 +02:00 [INF] Executed ViewResult - view Explore executed in 0.5495ms.
+2026-03-13 05:53:20.905 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 5.6517ms
+2026-03-13 05:53:20.905 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-13 05:53:20.905 +02:00 [INF] HTTP GET /Explore responded 200 in 6.1998 ms
+2026-03-13 05:53:20.906 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore - 200 null text/html; charset=utf-8 6.7387ms

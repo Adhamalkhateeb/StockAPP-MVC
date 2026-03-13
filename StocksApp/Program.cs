@@ -1,48 +1,26 @@
-using Core.Validators;
-using Entities.Data;
-using FluentValidation;
-using FluentValidation.AspNetCore;
-using Microsoft.EntityFrameworkCore;
-using Repositories;
-using RepositoryContracts;
 using Rotativa.AspNetCore;
 using Serilog;
-using ServiceContracts;
-using Services;
-using StocksApp;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
-builder.Services.Configure<TradingOptions>(builder.Configuration.GetSection("TradingOptions"));
-builder.Services.AddScoped<IFinnhubRepository, FinnhubRepository>();
-builder.Services.AddScoped<IStocksRepository, StocksRepository>();
-builder.Services.AddScoped<IFinnhubService, FinnhubService>();
-builder.Services.AddScoped<IStocksService, StockService>();
+builder.Host.UseSerilog(
+    (context, services, loggingConfig) =>
+    {
+        loggingConfig.ReadFrom.Configuration(builder.Configuration).ReadFrom.Services(services);
+    }
+);
+
+builder.Services.AddServices(builder.Configuration);
 
 if (!builder.Environment.IsEnvironment("Test"))
 {
-    builder.Services.AddDbContext<StockMarketDbContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-    );
-
-    builder.Host.UseSerilog(
-        (context, services, loggingConfig) =>
-        {
-            loggingConfig.ReadFrom.Configuration(builder.Configuration).ReadFrom.Services(services);
-        }
-    );
+    builder.Services.AddDatabase(builder.Configuration);
+    RotativaConfiguration.Setup("wwwroot", "Rotativa");
 }
 
-builder.Services.AddFluentValidationAutoValidation();
-builder.Services.AddValidatorsFromAssemblyContaining<OrderRequestValidator>();
-
 builder.Services.AddHttpClient();
-builder.Services.AddMemoryCache();
 
 var app = builder.Build();
-
-RotativaConfiguration.Setup("/usr/bin", "");
 
 app.UseStaticFiles();
 
@@ -54,6 +32,23 @@ if (!app.Environment.IsEnvironment("Test"))
 
 app.UseRouting();
 app.MapControllers();
+
+app.MapGet(
+    "/api/history/{symbol}",
+    async (string symbol, HttpClient http) =>
+    {
+        var url =
+            $"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?interval=1m&range=1d";
+
+        var request = new HttpRequestMessage(HttpMethod.Get, url);
+        request.Headers.Add("User-Agent", "Mozilla/5.0");
+
+        var response = await http.SendAsync(request);
+        var json = await response.Content.ReadAsStringAsync();
+
+        return Results.Content(json, "application/json");
+    }
+);
 
 app.Run();
 

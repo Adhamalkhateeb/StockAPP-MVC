@@ -23,18 +23,20 @@
                     <h4 class="text-grey mb">Stocks</h4>
                 </div>
                 <div class="flex-1 text-right">
-                    <a asp-action="@nameof(StocksController.Explore)" asp-controller="Stocks" class="mr" asp-route-showAll="true" >Show all stocks</a>
+                    @{
+                        string? show = Context.Request.Query["showAll"];
+                        bool showAll = show == "true" || show ==  "True";
+                    }
+                    <div class="toggle-row">
+                        <label class="toggle-wrap">
+                            <input type="checkbox" id="showAllToggle" @(showAll ? "checked" : "") />
+                            <span class="toggle-track"></span>
+                        </label>
+                        <span class="toggle-text">Show All Stocks</span>
+                    </div>
                 </div>
             </div>
             <ul class="list">
-                @{
-
-                    var showAll = false;
-                    if(Context.Request.Query.ContainsKey("showAll") && Context.Request.Query["showAll"] == true)
-                    {
-                        showAll = true;
-                    }
-                }
                 @foreach(var stock in Model){
                     <li>
                         <a asp-action="@nameof(StocksController.Explore)" asp-controller="Stocks" asp-route-stock="@stock.StockSymbol" asp-route-showAll="@showAll">
@@ -47,7 +49,10 @@
 
             @if(!Model.Any())
             {
-               <div class="mt text-blue">No stocks</div>
+                <div class="mt text-grey">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    No stocks found
+                </div>
             }
         </div>
     </div>
@@ -57,3 +62,18 @@
         }
     </div>
 </div>
+
+@section scripts{
+    <script>
+        document.getElementById("showAllToggle")
+            .addEventListener("change",function(){
+                const isChecked = this.checked;
+                const url = new URL(window.location.href);
+
+                url.searchParams.set("showAll", isChecked);
+
+                window.location.href = url.toString();
+            });
+
+    </script>
+}

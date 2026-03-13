@@ -4,6 +4,9 @@ namespace StocksApp.Models;
 
 public class Company
 {
-    public CompanyProfileResponse companyProfile { get; set; } = new();
-    public decimal currentStockPrice { get; set; }
+    public string? RequestedStockSymbol { get; set; }
+    public CompanyProfileResponse? CompanyProfile { get; set; }
+    public decimal? CurrentStockPrice { get; set; }
+    public bool IsLiveDataAvailable { get; set; }
+    public string? DataUnavailableMessage { get; set; }
 }

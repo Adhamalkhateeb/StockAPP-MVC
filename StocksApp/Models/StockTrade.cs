@@ -9,4 +9,6 @@ public class StockTrade
     public string? StockName { get; set; }
     public decimal Price { get; set; } = 0;
     public uint Quantity { get; set; } = 0;
+    public bool CanTrade { get; set; }
+    public string? DataUnavailableMessage { get; set; }
 }

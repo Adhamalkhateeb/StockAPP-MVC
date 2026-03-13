@@ -1,6 +1,6 @@
+using Core.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using ServiceContracts;
 using StocksApp;
 
@@ -8,7 +8,6 @@ public class StocksController : Controller
 {
     private readonly IFinnhubService _finnhubService;
     private readonly TradingOptions _tradingOptions;
-
     private readonly ILogger<StocksController> _logger;
 
     public StocksController(
@@ -22,29 +21,70 @@ public class StocksController : Controller
         _tradingOptions = options.Value;
     }
 
+    [HttpGet]
     [Route("/")]
-    [Route("[action]/{stock:alpha?}")]
+    [Route("[action]/{stock?}")]
     public async Task<IActionResult> Explore(string? stock, bool showAll = false)
     {
         _logger.LogInformation(
-            "Explore requested for stock {StockSymbol}. ShowAll={ShowAll}",
+            "Explore requested. Stock={Stock} ShowAll={ShowAll}",
             stock,
             showAll
         );
 
-        var apiStocks = await _finnhubService.GetStocksAsync("US");
-        var stocks = showAll
-            ? apiStocks?.ToList()
-            : apiStocks
-                ?.Where(s => s.Symbol != null && _tradingOptions.PopularStocks.Contains(s.Symbol))
-                .Take(25)
-                .ToList();
+        IEnumerable<Stock> stocks;
 
-        _logger.LogInformation("Explore returning {StocksCount} stocks", stocks?.Count ?? 0);
+        if (!string.IsNullOrWhiteSpace(stock) && !showAll)
+        {
+            var symbols = await _finnhubService.SearchStocksAsync(stock);
+
+            stocks =
+                symbols.Result?.Select(s => new Stock
+                {
+                    StockSymbol = s.Symbol,
+                    StockName = s.Description,
+                }) ?? Enumerable.Empty<Stock>();
+
+            _logger.LogInformation(
+                "Search returned {Count} results for {Stock}",
+                stocks.Count(),
+                stock
+            );
+        }
+        else
+        {
+            var apiStocks = await _finnhubService.GetStocksAsync("US") ?? [];
+
+            var filteredStocks = showAll
+                ? apiStocks
+                : apiStocks
+                    .Where(s =>
+                        s.Symbol != null && _tradingOptions.PopularStocks.Contains(s.Symbol)
+                    )
+                    .Take(25);
+
+            stocks = filteredStocks.Select(s => new Stock
+            {
+                StockSymbol = s.Symbol,
+                StockName = s.Description,
+            });
+
+            _logger.LogInformation("Explore returned {Count} stocks", stocks.Count());
+        }
 
         ViewBag.Stock = stock;
-        return View(
-            stocks?.Select(s => new Stock { StockSymbol = s.Symbol, StockName = s.Description })
-        );
+        return View(stocks);
+    }
+
+    [HttpPost]
+    [Route("[action]")]
+    public async Task<IActionResult> Search(string? stock)
+    {
+        _logger.LogInformation("Search requested for {Stock}", stock);
+
+        if (string.IsNullOrWhiteSpace(stock))
+            return RedirectToAction(nameof(Explore));
+
+        return RedirectToAction(nameof(Explore), new { stock });
     }
 }

@@ -28,14 +28,15 @@ public class TradeControllerIntegrationTests : IClassFixture<CustomWebApplicatio
         _mockStocksService = new Mock<IStocksService>();
 
         _mockFinnhubService
-            .Setup(s => s.GetCompanyProfileAsync(It.IsAny<string>()))
+            .Setup(s => s.GetStockSnapshotAsync(It.IsAny<string>()))
             .ReturnsAsync(
-                new CompanyProfileResponse { Name = "Microsoft Corporation", Country = "US" }
+                new StockSnapshotResponse
+                {
+                    CompanyProfile = new CompanyProfileResponse { Name = "Microsoft Corporation", Country = "US" },
+                    StockQuote = new StockQuoteResponse { CurrentPrice = 300.50m },
+                    IsLiveDataAvailable = true,
+                }
             );
-
-        _mockFinnhubService
-            .Setup(s => s.GetStockPriceQuoteAsync(It.IsAny<string>()))
-            .ReturnsAsync(new StockQuoteResponse { CurrentPrice = 300.50m });
 
         _mockStocksService
             .Setup(s => s.GetBuyOrdersAsync())
@@ -145,12 +146,16 @@ public class TradeControllerIntegrationTests : IClassFixture<CustomWebApplicatio
     public async Task Index_WithCustomSymbol_ReturnsOkWithSymbolData()
     {
         _mockFinnhubService
-            .Setup(s => s.GetCompanyProfileAsync("AAPL"))
-            .ReturnsAsync(new CompanyProfileResponse { Name = "Apple Inc.", Country = "US" });
-
-        _mockFinnhubService
-            .Setup(s => s.GetStockPriceQuoteAsync("AAPL"))
-            .ReturnsAsync(new StockQuoteResponse { CurrentPrice = 175.25m });
+            .Setup(s => s.GetStockSnapshotAsync("AAPL"))
+            .ReturnsAsync(
+                new StockSnapshotResponse
+                {
+                    StockSymbol = "AAPL",
+                    CompanyProfile = new CompanyProfileResponse { Name = "Apple Inc.", Country = "US" },
+                    StockQuote = new StockQuoteResponse { CurrentPrice = 175.25m },
+                    IsLiveDataAvailable = true,
+                }
+            );
 
         var client = CreateClientWithMockedServices();
 
@@ -163,21 +168,29 @@ public class TradeControllerIntegrationTests : IClassFixture<CustomWebApplicatio
     }
 
     [Fact]
-    public async Task Index_WhenServicesReturnNull_ReturnsOkWithEmptyStockTrade()
+    public async Task Index_WhenLiveDataIsUnavailable_ReturnsFallbackMessage()
     {
         _mockFinnhubService
-            .Setup(s => s.GetCompanyProfileAsync(It.IsAny<string>()))
-            .ReturnsAsync((CompanyProfileResponse?)null);
-
-        _mockFinnhubService
-            .Setup(s => s.GetStockPriceQuoteAsync(It.IsAny<string>()))
-            .ReturnsAsync((StockQuoteResponse?)null);
+            .Setup(s => s.GetStockSnapshotAsync(It.IsAny<string>()))
+            .ReturnsAsync(
+                new StockSnapshotResponse
+                {
+                    StockSymbol = "MSFT",
+                    IsLiveDataAvailable = false,
+                    IsAccessDenied = true,
+                    UserMessage = "Live market data is temporarily unavailable for this symbol. Please try again shortly or pick another stock.",
+                }
+            );
 
         var client = CreateClientWithMockedServices();
 
         var response = await client.GetAsync("/Trade/Index");
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var html = await response.Content.ReadAsStringAsync();
+        html.Should().Contain("Live market data is temporarily unavailable");
+        html.Should().NotContain("Buy");
     }
 
     #endregion

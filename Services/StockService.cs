@@ -26,7 +26,7 @@ public class StockService : IStocksService
             request?.Quantity
         );
 
-        await ValidateRequest(request);
+        ValidateRequest(request);
 
         var buyOrder = request!.ToBuyOrder();
         buyOrder.Id = Guid.NewGuid();
@@ -50,7 +50,7 @@ public class StockService : IStocksService
             request?.Quantity
         );
 
-        await ValidateRequest(request);
+        ValidateRequest(request);
 
         var sellOrder = request!.ToSellOrder();
         sellOrder.Id = Guid.NewGuid();
@@ -108,12 +108,13 @@ public class StockService : IStocksService
         return sellOrders;
     }
 
-    private async Task ValidateRequest(OrderRequest? request)
+    // FIX 1: Was async with a pointless await Task.CompletedTask at the end.
+    // Validation is purely synchronous — no I/O, no async work.
+    private void ValidateRequest(OrderRequest? request)
     {
         try
         {
             ArgumentNullException.ThrowIfNull(request);
-
             ValidationHelper.Validate(request);
         }
         catch (Exception ex)
@@ -125,7 +126,5 @@ public class StockService : IStocksService
             );
             throw;
         }
-
-        await Task.CompletedTask;
     }
 }

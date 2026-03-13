@@ -43,6 +43,13 @@ namespace ServiceContracts
         /// <param name="query">Query text to search for, e.g., 'Apple' or 'US0378331005'</param>
         /// <param name="exchange">Optional exchange filter, e.g., US</param>
         /// <returns>Search results containing matching symbols as DTOs.</returns>
-        Task<SymbolLookupResultDto?> SearchStocksAsync(string query, string? exchange = null);
+        Task<SymbolLookupResultDto> SearchStocksAsync(string query, string? exchange = null);
+
+        /// <summary>
+        /// Returns a company profile and quote together with availability metadata for UI fallbacks.
+        /// </summary>
+        /// <param name="stockSymbol">Stock symbol to search, e.g., AAPL</param>
+        /// <returns>Combined live market data result for the requested stock.</returns>
+        Task<StockSnapshotResponse> GetStockSnapshotAsync(string stockSymbol);
     }
 }

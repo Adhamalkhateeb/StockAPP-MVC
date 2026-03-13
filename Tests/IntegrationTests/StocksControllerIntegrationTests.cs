@@ -28,12 +28,20 @@ public class StocksControllerIntegrationTests : IClassFixture<CustomWebApplicati
             .ReturnsAsync(new List<StockSymbolResponse>());
 
         _mockFinnhubService
-            .Setup(s => s.GetCompanyProfileAsync(It.IsAny<string>()))
-            .ReturnsAsync(new CompanyProfileResponse { Name = "Microsoft", Country = "US" });
-
-        _mockFinnhubService
-            .Setup(s => s.GetStockPriceQuoteAsync(It.IsAny<string>()))
-            .ReturnsAsync(new StockQuoteResponse { CurrentPrice = 300.50m });
+            .Setup(s => s.GetStockSnapshotAsync(It.IsAny<string>()))
+            .ReturnsAsync(
+                new StockSnapshotResponse
+                {
+                    CompanyProfile = new CompanyProfileResponse
+                    {
+                        Name = "Microsoft",
+                        Country = "US",
+                        Ticker = "MSFT",
+                    },
+                    StockQuote = new StockQuoteResponse { CurrentPrice = 300.50m },
+                    IsLiveDataAvailable = true,
+                }
+            );
     }
 
     private HttpClient CreateClientWithMockedService(IEnumerable<string>? popularStocks = null)
@@ -165,5 +173,45 @@ public class StocksControllerIntegrationTests : IClassFixture<CustomWebApplicati
 
         var html = await response.Content.ReadAsStringAsync();
         html.Should().Contain("(MSFT)");
+    }
+
+    [Fact]
+    public async Task Explore_SelectedStock_WhenLiveDataIsUnavailable_ShowsFallbackMessage()
+    {
+        _mockFinnhubService
+            .Setup(s => s.SearchStocksAsync("AAPL.NE", null))
+            .ReturnsAsync(
+                new SymbolLookupResultDto
+                {
+                    Count = 1,
+                    Result = new List<SymbolLookupItemDto>
+                    {
+                        new() { Symbol = "AAPL.NE", Description = "Apple Canada" },
+                    },
+                }
+            );
+
+        _mockFinnhubService
+            .Setup(s => s.GetStockSnapshotAsync("AAPL.NE"))
+            .ReturnsAsync(
+                new StockSnapshotResponse
+                {
+                    StockSymbol = "AAPL.NE",
+                    IsLiveDataAvailable = false,
+                    IsAccessDenied = true,
+                    UserMessage =
+                        "Live market data is temporarily unavailable for this symbol. Please try again shortly or pick another stock.",
+                }
+            );
+
+        var client = CreateClientWithMockedService();
+
+        var response = await client.GetAsync("/Explore/AAPL.NE");
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var html = await response.Content.ReadAsStringAsync();
+        html.Should().Contain("Live market data is temporarily unavailable");
+        html.Should().NotContain("Trade Now");
     }
 }

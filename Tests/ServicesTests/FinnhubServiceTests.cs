@@ -1,5 +1,6 @@
 using AutoFixture;
 using Core.DTOs;
+using Core.Exceptions;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -56,6 +57,20 @@ public class FinnhubServiceTests
         _finnhubRepositoryMock.Verify(x => x.GetCompanyProfileAsync(stockSymbol), Times.Once);
     }
 
+    [Fact]
+    public async Task GetCompanyProfileAsync_WhenRepositoryThrowsAccessDenied_ReturnsNull()
+    {
+        var stockSymbol = _fixture.Create<string>();
+
+        _finnhubRepositoryMock
+            .Setup(x => x.GetCompanyProfileAsync(stockSymbol))
+            .ThrowsAsync(new FinnhubAccessDeniedException("https://finnhub.io/test"));
+
+        var result = await _sut.GetCompanyProfileAsync(stockSymbol);
+
+        result.Should().BeNull();
+    }
+
     #endregion
 
     #region GetStockPriceQuote
@@ -88,6 +103,20 @@ public class FinnhubServiceTests
 
         result.Should().BeEquivalentTo(expected);
         _finnhubRepositoryMock.Verify(x => x.GetStockPriceQuoteAsync(stockSymbol), Times.Once);
+    }
+
+    [Fact]
+    public async Task GetStockPriceQuoteAsync_WhenRepositoryThrowsAccessDenied_ReturnsNull()
+    {
+        var stockSymbol = _fixture.Create<string>();
+
+        _finnhubRepositoryMock
+            .Setup(x => x.GetStockPriceQuoteAsync(stockSymbol))
+            .ThrowsAsync(new FinnhubAccessDeniedException("https://finnhub.io/test"));
+
+        var result = await _sut.GetStockPriceQuoteAsync(stockSymbol);
+
+        result.Should().BeNull();
     }
 
     #endregion
@@ -163,12 +192,30 @@ public class FinnhubServiceTests
 
         _finnhubRepositoryMock
             .Setup(x => x.SearchStocksAsync(query, null))
-            .ReturnsAsync((SymbolLookupResultDto?)null);
+            .ReturnsAsync((SymbolLookupResultDto)null!);
 
         var result = await _sut.SearchStocksAsync(query);
 
-        result.Should().BeNull();
+        result.Should().NotBeNull();
+        result.Result.Should().BeNull();
         _finnhubRepositoryMock.Verify(x => x.SearchStocksAsync(query, null), Times.Once);
+    }
+
+    [Fact]
+    public async Task GetStockSnapshotAsync_WhenRepositoryThrowsAccessDenied_ReturnsUnavailableSnapshot()
+    {
+        var stockSymbol = _fixture.Create<string>();
+
+        _finnhubRepositoryMock
+            .Setup(x => x.GetCompanyProfileAsync(stockSymbol))
+            .ThrowsAsync(new FinnhubAccessDeniedException("https://finnhub.io/test"));
+
+        var result = await _sut.GetStockSnapshotAsync(stockSymbol);
+
+        result.StockSymbol.Should().Be(stockSymbol);
+        result.IsLiveDataAvailable.Should().BeFalse();
+        result.IsAccessDenied.Should().BeTrue();
+        result.UserMessage.Should().NotBeNullOrWhiteSpace();
     }
 
     [Fact]
@@ -183,7 +230,8 @@ public class FinnhubServiceTests
 
         var result = await _sut.SearchStocksAsync(query);
 
-        result.Should().BeNull();
+        result.Should().NotBeNull();
+        result.Result.Should().BeNull();
         _finnhubRepositoryMock.Verify(x => x.SearchStocksAsync(query, null), Times.Once);
     }
 
@@ -203,7 +251,8 @@ public class FinnhubServiceTests
 
         var result = await _sut.SearchStocksAsync(query);
 
-        result.Should().BeNull();
+        result.Should().NotBeNull();
+        result.Result.Should().BeEmpty();
         _finnhubRepositoryMock.Verify(x => x.SearchStocksAsync(query, null), Times.Once);
     }
 

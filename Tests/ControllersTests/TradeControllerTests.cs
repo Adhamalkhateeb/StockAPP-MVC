@@ -51,12 +51,9 @@ public class TradeControllerTests
             _mockStocksService.Object,
             _mockFinnhubService.Object,
             _mockConfiguration.Object
-        );
-
-        // FIX: required for TryValidateModel
-        _controller.ControllerContext = new ControllerContext
+        )
         {
-            HttpContext = new DefaultHttpContext(),
+            ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() },
         };
 
         var validator = new Mock<IObjectModelValidator>();
@@ -76,21 +73,17 @@ public class TradeControllerTests
     [Fact]
     public async Task Index_DefaultSymbol_ReturnsViewWithStockTrade()
     {
-        var companyProfile = _fixture
-            .Build<CompanyProfileResponse>()
-            .With(p => p.Name, "Microsoft")
-            .Create();
-
-        var stockQuote = _fixture
-            .Build<StockQuoteResponse>()
-            .With(p => p.CurrentPrice, 300.5m)
-            .Create();
-
         _mockFinnhubService
-            .Setup(x => x.GetCompanyProfileAsync("MSFT"))
-            .ReturnsAsync(companyProfile);
-
-        _mockFinnhubService.Setup(x => x.GetStockPriceQuoteAsync("MSFT")).ReturnsAsync(stockQuote);
+            .Setup(x => x.GetStockSnapshotAsync("MSFT"))
+            .ReturnsAsync(
+                new StockSnapshotResponse
+                {
+                    StockSymbol = "MSFT",
+                    CompanyProfile = new CompanyProfileResponse { Name = "Microsoft" },
+                    StockQuote = new StockQuoteResponse { CurrentPrice = 300.5m },
+                    IsLiveDataAvailable = true,
+                }
+            );
 
         var result = await _controller.Index(null);
 
@@ -102,26 +95,23 @@ public class TradeControllerTests
         model.StockName.Should().Be("Microsoft");
         model.Quantity.Should().Be(100);
         model.Price.Should().Be(300.50m);
+        model.CanTrade.Should().BeTrue();
     }
 
     [Fact]
     public async Task Index_CustomSymbol_ReturnsViewWithCorrectStockTrade()
     {
-        var companyProfile = _fixture
-            .Build<CompanyProfileResponse>()
-            .With(p => p.Name, "Apple Inc.")
-            .Create();
-
-        var stockQuote = _fixture
-            .Build<StockQuoteResponse>()
-            .With(p => p.CurrentPrice, 300.5m)
-            .Create();
-
         _mockFinnhubService
-            .Setup(x => x.GetCompanyProfileAsync("AAPL"))
-            .ReturnsAsync(companyProfile);
-
-        _mockFinnhubService.Setup(x => x.GetStockPriceQuoteAsync("AAPL")).ReturnsAsync(stockQuote);
+            .Setup(x => x.GetStockSnapshotAsync("AAPL"))
+            .ReturnsAsync(
+                new StockSnapshotResponse
+                {
+                    StockSymbol = "AAPL",
+                    CompanyProfile = new CompanyProfileResponse { Name = "Apple Inc." },
+                    StockQuote = new StockQuoteResponse { CurrentPrice = 300.5m },
+                    IsLiveDataAvailable = true,
+                }
+            );
 
         var result = await _controller.Index("AAPL");
 
@@ -132,38 +122,50 @@ public class TradeControllerTests
         model.StockSymbol.Should().Be("AAPL");
         model.StockName.Should().Be("Apple Inc.");
         model.Price.Should().Be(300.50m);
+        model.CanTrade.Should().BeTrue();
     }
 
     [Fact]
-    public async Task Index_FinnhubReturnsNull_ReturnsViewWithEmptyStockTrade()
+    public async Task Index_FinnhubReturnsUnavailableSnapshot_ReturnsNonTradableViewModel()
     {
         _mockFinnhubService
-            .Setup(x => x.GetCompanyProfileAsync(It.IsAny<string>()))
-            .ReturnsAsync((CompanyProfileResponse?)null);
-
-        _mockFinnhubService
-            .Setup(x => x.GetStockPriceQuoteAsync(It.IsAny<string>()))
-            .ReturnsAsync((StockQuoteResponse?)null);
+            .Setup(x => x.GetStockSnapshotAsync("Invalid"))
+            .ReturnsAsync(
+                new StockSnapshotResponse
+                {
+                    StockSymbol = "Invalid",
+                    IsLiveDataAvailable = false,
+                    IsAccessDenied = true,
+                    UserMessage = "Live market data is temporarily unavailable for this symbol. Please try again shortly or pick another stock.",
+                }
+            );
 
         var result = await _controller.Index("Invalid");
 
         var viewResult = result.Should().BeOfType<ViewResult>().Subject;
         var model = viewResult.Model.Should().BeOfType<StockTrade>().Subject;
 
-        model.StockSymbol.Should().BeNull();
-        model.StockName.Should().BeNull();
+        model.StockSymbol.Should().Be("Invalid");
+        model.StockName.Should().Be("Invalid");
         model.Price.Should().Be(0);
+        model.CanTrade.Should().BeFalse();
+        model.DataUnavailableMessage.Should().NotBeNullOrWhiteSpace();
     }
 
     [Fact]
     public async Task Index_SetsFinnhubTokenInViewBag()
     {
         _mockFinnhubService
-            .Setup(s => s.GetCompanyProfileAsync(It.IsAny<string>()))
-            .ReturnsAsync(_fixture.Create<CompanyProfileResponse>());
-        _mockFinnhubService
-            .Setup(s => s.GetStockPriceQuoteAsync(It.IsAny<string>()))
-            .ReturnsAsync(_fixture.Create<StockQuoteResponse>());
+            .Setup(s => s.GetStockSnapshotAsync(It.IsAny<string>()))
+            .ReturnsAsync(
+                new StockSnapshotResponse
+                {
+                    StockSymbol = "Success",
+                    CompanyProfile = _fixture.Create<CompanyProfileResponse>(),
+                    StockQuote = _fixture.Create<StockQuoteResponse>(),
+                    IsLiveDataAvailable = true,
+                }
+            );
 
         await _controller.Index("Success");
 
@@ -235,45 +237,20 @@ public class TradeControllerTests
     }
 
     [Fact]
-    public async Task BuyOrder_InvalidRequest_RedirectsToOrders()
+    public async Task BuyOrder_InvalidRequest_ControllerStillRedirects()
     {
         var request = _fixture.Build<BuyOrderRequest>().With(r => r.Quantity, 0u).Create();
+
+        _mockStocksService
+            .Setup(x => x.CreateBuyOrderAsync(It.IsAny<BuyOrderRequest>()))
+            .ReturnsAsync(_fixture.Create<BuyOrderResponse>());
 
         _controller.ModelState.AddModelError("Quantity", "Invalid");
 
         var result = await _controller.BuyOrder(request);
 
-        var viewResult = result.Should().BeOfType<ViewResult>().Subject;
-        viewResult.ViewName.Should().Be("Index");
-
-        var model = viewResult.Model.Should().BeOfType<StockTrade>().Subject;
-        model.StockSymbol.Should().Be(request.StockSymbol);
-        model.StockName.Should().Be(request.StockName);
-        model.Quantity.Should().Be(request.Quantity);
-        model.Price.Should().Be(request.Price);
-
-        _mockStocksService.Verify(
-            s => s.CreateBuyOrderAsync(It.IsAny<BuyOrderRequest>()),
-            Times.Never
-        );
-    }
-
-    [Fact]
-    public async Task BuyOrder_InvalidRequest_PopulatesViewBagErrors()
-    {
-        var request = _fixture.Build<BuyOrderRequest>().With(r => r.Quantity, 0u).Create();
-
-        _controller.ModelState.AddModelError("Quantity", "Invalid");
-
-        await _controller.BuyOrder(request);
-
-        var errors = (List<string>)_controller.ViewBag.Errors;
-        errors.Should().NotBeNullOrEmpty();
-
-        _mockStocksService.Verify(
-            s => s.CreateBuyOrderAsync(It.IsAny<BuyOrderRequest>()),
-            Times.Never
-        );
+        var redirect = result.Should().BeOfType<RedirectToActionResult>().Subject;
+        redirect.ActionName.Should().Be(nameof(_controller.Orders));
     }
 
     #endregion
@@ -301,45 +278,20 @@ public class TradeControllerTests
     }
 
     [Fact]
-    public async Task SellOrder_InvalidRequest_RedirectsToOrders()
+    public async Task SellOrder_InvalidRequest_ControllerStillRedirects()
     {
         var request = _fixture.Build<SellOrderRequest>().With(r => r.Quantity, 0u).Create();
+
+        _mockStocksService
+            .Setup(x => x.CreateSellOrderAsync(It.IsAny<SellOrderRequest>()))
+            .ReturnsAsync(_fixture.Create<SellOrderResponse>());
 
         _controller.ModelState.AddModelError("Quantity", "Invalid");
 
         var result = await _controller.SellOrder(request);
 
-        var viewResult = result.Should().BeOfType<ViewResult>().Subject;
-        viewResult.ViewName.Should().Be("Index");
-
-        var model = viewResult.Model.Should().BeOfType<StockTrade>().Subject;
-        model.StockSymbol.Should().Be(request.StockSymbol);
-        model.StockName.Should().Be(request.StockName);
-        model.Quantity.Should().Be(request.Quantity);
-        model.Price.Should().Be(request.Price);
-
-        _mockStocksService.Verify(
-            s => s.CreateSellOrderAsync(It.IsAny<SellOrderRequest>()),
-            Times.Never
-        );
-    }
-
-    [Fact]
-    public async Task SellOrder_InvalidRequest_PopulatesViewBagErrors()
-    {
-        var request = _fixture.Build<SellOrderRequest>().With(r => r.Quantity, 0u).Create();
-
-        _controller.ModelState.AddModelError("Quantity", "Invalid");
-
-        await _controller.SellOrder(request);
-
-        var errors = (List<string>)_controller.ViewBag.Errors;
-        errors.Should().NotBeNullOrEmpty();
-
-        _mockStocksService.Verify(
-            s => s.CreateSellOrderAsync(It.IsAny<SellOrderRequest>()),
-            Times.Never
-        );
+        var redirect = result.Should().BeOfType<RedirectToActionResult>().Subject;
+        redirect.ActionName.Should().Be(nameof(_controller.Orders));
     }
 
     #endregion

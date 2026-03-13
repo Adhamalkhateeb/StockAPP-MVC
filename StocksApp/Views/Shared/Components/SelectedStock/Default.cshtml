@@ -1,11 +1,21 @@
 
 @model Company
 
+@if (Model.IsLiveDataAvailable && Model.CompanyProfile != null && Model.CurrentStockPrice.HasValue)
+{
+	<img src="@Model.CompanyProfile.Logo" width="200px">
+	<h1>@Model.CompanyProfile.Name (@Model.CompanyProfile.Ticker)</h1>
+	<span class="pill">@Model.CompanyProfile.FinnhubIndustry</span>
+	<h3 class="mb">Exchange: <span class="pill">@Model.CompanyProfile.Exchange</span></h3>
 
-<img src="@Model.companyProfile.Logo" width="200px">
-<h1>@Model.companyProfile.Name (@Model.companyProfile.Ticker)</h1>
-<span class="pill">@Model.companyProfile.FinnhubIndustry</span>
-<h3 class="mb">Exchange: <span class="pill">@Model.companyProfile.Exchange</span></h3>
-
-<h1 class="stock-price"><span class="text-grey">$</span> @Model.currentStockPrice</h1>
-<a class="button-link button-blue-back" id="trade-button" asp-action="@nameof(TradeController.Index)" asp-controller="Trade" asp-route-stockSymbol="@Model.companyProfile.Ticker">Trade Now</a>
+	<h1 class="stock-price"><span class="text-grey">$</span> @Model.CurrentStockPrice.Value</h1>
+	<a class="button-link button-blue-back" id="trade-button" asp-action="@nameof(TradeController.Index)" asp-controller="Trade" asp-route-stockSymbol="@Model.CompanyProfile.Ticker">Trade Now</a>
+}
+else
+{
+	<div class="box">
+		<h2 class="mb">@Model.RequestedStockSymbol</h2>
+		<p class="text-grey mb">@Model.DataUnavailableMessage</p>
+		<a class="button-link button-blue-back" asp-action="@nameof(StocksController.Explore)" asp-controller="Stocks" asp-route-stock="">Browse available stocks</a>
+	</div>
+}

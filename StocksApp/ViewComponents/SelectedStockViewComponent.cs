@@ -6,10 +6,6 @@ public class SelectedStockViewComponent : ViewComponent
 {
     private readonly IFinnhubService _finnhubService;
 
-    /// <summary>
-    /// Constructor for TradeController that executes when a new object is created for the class
-    /// </summary>
-    /// <param name="finnhubService">Injecting FinnhubService</param>
     public SelectedStockViewComponent(IFinnhubService finnhubService)
     {
         _finnhubService = finnhubService;
@@ -17,22 +13,28 @@ public class SelectedStockViewComponent : ViewComponent
 
     public async Task<IViewComponentResult> InvokeAsync(string? stockSymbol)
     {
-        var company = new Company();
+        if (string.IsNullOrEmpty(stockSymbol))
+            return Content(string.Empty);
 
-        if (!string.IsNullOrEmpty(stockSymbol))
+        var company = new Company { RequestedStockSymbol = stockSymbol };
+
+        try
         {
-            var companyProfile = await _finnhubService.GetCompanyProfileAsync(stockSymbol);
-            var stockPrice = await _finnhubService.GetStockPriceQuoteAsync(stockSymbol);
-            if (stockPrice != null && companyProfile != null)
-            {
-                company.currentStockPrice = stockPrice.CurrentPrice.GetValueOrDefault();
-                company.companyProfile = companyProfile;
-            }
+            var snapshot = await _finnhubService.GetStockSnapshotAsync(stockSymbol);
+
+            company.IsLiveDataAvailable = snapshot.IsLiveDataAvailable;
+            company.CompanyProfile = snapshot.CompanyProfile;
+            company.CurrentStockPrice = snapshot.StockQuote?.CurrentPrice;
+            company.DataUnavailableMessage = snapshot.UserMessage;
+        }
+        catch (Exception ex)
+        {
+            _ = ex;
+            company.IsLiveDataAvailable = false;
+            company.DataUnavailableMessage =
+                "Unable to load stock data right now. Please refresh or try another stock.";
         }
 
-        if (company != null && company.companyProfile.Logo != null)
-            return View(company);
-        else
-            return Content("");
+        return View(company);
     }
 }
