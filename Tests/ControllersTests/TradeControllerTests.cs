@@ -11,6 +11,8 @@ using Microsoft.Extensions.Options;
 using Moq;
 using Rotativa.AspNetCore;
 using ServiceContracts;
+using ServiceContracts.FinnhubServices;
+using ServiceContracts.StocksServices;
 using StocksApp;
 using StocksApp.Controllers;
 using StocksApp.Models;
@@ -19,8 +21,9 @@ namespace Tests.ControllersTests;
 
 public class TradeControllerTests
 {
-    private readonly Mock<IFinnhubService> _mockFinnhubService;
-    private readonly Mock<IStocksService> _mockStocksService;
+    private readonly Mock<IFinnhubStocksService> _mockStocksService;
+    private readonly Mock<IBuyOrderService> _mockBuyOrderService;
+    private readonly Mock<ISellOrderService> _mockSellOrderService;
     private readonly Mock<IConfiguration> _mockConfiguration;
     private readonly Mock<ILogger<TradeController>> _mockLogger;
     private readonly IOptions<TradingOptions> _tradingOptions;
@@ -31,8 +34,9 @@ public class TradeControllerTests
     {
         _fixture = new Fixture();
 
-        _mockFinnhubService = new Mock<IFinnhubService>();
-        _mockStocksService = new Mock<IStocksService>();
+        _mockStocksService = new Mock<IFinnhubStocksService>();
+        _mockBuyOrderService = new Mock<IBuyOrderService>();
+        _mockSellOrderService = new Mock<ISellOrderService>();
         _mockConfiguration = new Mock<IConfiguration>();
         _mockLogger = new Mock<ILogger<TradeController>>();
 
@@ -49,7 +53,8 @@ public class TradeControllerTests
             _mockLogger.Object,
             _tradingOptions,
             _mockStocksService.Object,
-            _mockFinnhubService.Object,
+            _mockBuyOrderService.Object,
+            _mockSellOrderService.Object,
             _mockConfiguration.Object
         )
         {
@@ -73,7 +78,7 @@ public class TradeControllerTests
     [Fact]
     public async Task Index_DefaultSymbol_ReturnsViewWithStockTrade()
     {
-        _mockFinnhubService
+        _mockStocksService
             .Setup(x => x.GetStockSnapshotAsync("MSFT"))
             .ReturnsAsync(
                 new StockSnapshotResponse
@@ -101,7 +106,7 @@ public class TradeControllerTests
     [Fact]
     public async Task Index_CustomSymbol_ReturnsViewWithCorrectStockTrade()
     {
-        _mockFinnhubService
+        _mockStocksService
             .Setup(x => x.GetStockSnapshotAsync("AAPL"))
             .ReturnsAsync(
                 new StockSnapshotResponse
@@ -128,7 +133,7 @@ public class TradeControllerTests
     [Fact]
     public async Task Index_FinnhubReturnsUnavailableSnapshot_ReturnsNonTradableViewModel()
     {
-        _mockFinnhubService
+        _mockStocksService
             .Setup(x => x.GetStockSnapshotAsync("Invalid"))
             .ReturnsAsync(
                 new StockSnapshotResponse
@@ -136,7 +141,8 @@ public class TradeControllerTests
                     StockSymbol = "Invalid",
                     IsLiveDataAvailable = false,
                     IsAccessDenied = true,
-                    UserMessage = "Live market data is temporarily unavailable for this symbol. Please try again shortly or pick another stock.",
+                    UserMessage =
+                        "Live market data is temporarily unavailable for this symbol. Please try again shortly or pick another stock.",
                 }
             );
 
@@ -155,7 +161,7 @@ public class TradeControllerTests
     [Fact]
     public async Task Index_SetsFinnhubTokenInViewBag()
     {
-        _mockFinnhubService
+        _mockStocksService
             .Setup(s => s.GetStockSnapshotAsync(It.IsAny<string>()))
             .ReturnsAsync(
                 new StockSnapshotResponse
@@ -182,8 +188,8 @@ public class TradeControllerTests
         var buyOrders = _fixture.CreateMany<BuyOrderResponse>(2).ToList();
         var sellOrders = _fixture.CreateMany<SellOrderResponse>(1).ToList();
 
-        _mockStocksService.Setup(x => x.GetBuyOrdersAsync()).ReturnsAsync(buyOrders);
-        _mockStocksService.Setup(x => x.GetSellOrdersAsync()).ReturnsAsync(sellOrders);
+        _mockBuyOrderService.Setup(x => x.GetBuyOrdersAsync()).ReturnsAsync(buyOrders);
+        _mockSellOrderService.Setup(x => x.GetSellOrdersAsync()).ReturnsAsync(sellOrders);
 
         var expectedModel = new Orders { BuyOrders = buyOrders, SellOrders = sellOrders };
         var result = await _controller.Orders();
@@ -197,10 +203,10 @@ public class TradeControllerTests
     [Fact]
     public async Task Orders_EmptyOrders_ReturnsViewWithEmptyLists()
     {
-        _mockStocksService
+        _mockBuyOrderService
             .Setup(x => x.GetBuyOrdersAsync())
             .ReturnsAsync(new List<BuyOrderResponse>());
-        _mockStocksService
+        _mockSellOrderService
             .Setup(x => x.GetSellOrdersAsync())
             .ReturnsAsync(new List<SellOrderResponse>());
 
@@ -221,7 +227,7 @@ public class TradeControllerTests
     {
         var request = _fixture.Create<BuyOrderRequest>();
 
-        _mockStocksService
+        _mockBuyOrderService
             .Setup(x => x.CreateBuyOrderAsync(It.IsAny<BuyOrderRequest>()))
             .ReturnsAsync(_fixture.Create<BuyOrderResponse>());
 
@@ -230,7 +236,7 @@ public class TradeControllerTests
         var redirect = result.Should().BeOfType<RedirectToActionResult>().Subject;
         redirect.ActionName.Should().Be(nameof(_controller.Orders));
 
-        _mockStocksService.Verify(
+        _mockBuyOrderService.Verify(
             x => x.CreateBuyOrderAsync(It.IsAny<BuyOrderRequest>()),
             Times.Once
         );
@@ -241,7 +247,7 @@ public class TradeControllerTests
     {
         var request = _fixture.Build<BuyOrderRequest>().With(r => r.Quantity, 0u).Create();
 
-        _mockStocksService
+        _mockBuyOrderService
             .Setup(x => x.CreateBuyOrderAsync(It.IsAny<BuyOrderRequest>()))
             .ReturnsAsync(_fixture.Create<BuyOrderResponse>());
 
@@ -264,14 +270,14 @@ public class TradeControllerTests
         var request = _fixture.Create<SellOrderRequest>();
         var response = request.ToSellOrder().ToSellOrderResponse();
 
-        _mockStocksService.Setup(x => x.CreateSellOrderAsync(request)).ReturnsAsync(response);
+        _mockSellOrderService.Setup(x => x.CreateSellOrderAsync(request)).ReturnsAsync(response);
 
         var result = await _controller.SellOrder(request);
 
         var redirectResult = result.Should().BeOfType<RedirectToActionResult>().Subject;
         redirectResult.ActionName.Should().Be(nameof(_controller.Orders));
 
-        _mockStocksService.Verify(
+        _mockSellOrderService.Verify(
             s => s.CreateSellOrderAsync(It.IsAny<SellOrderRequest>()),
             Times.Once
         );
@@ -282,7 +288,7 @@ public class TradeControllerTests
     {
         var request = _fixture.Build<SellOrderRequest>().With(r => r.Quantity, 0u).Create();
 
-        _mockStocksService
+        _mockSellOrderService
             .Setup(x => x.CreateSellOrderAsync(It.IsAny<SellOrderRequest>()))
             .ReturnsAsync(_fixture.Create<SellOrderResponse>());
 
@@ -302,10 +308,10 @@ public class TradeControllerTests
     public async Task OrdersPDF_ReturnsPdfResult()
     {
         // Arrange
-        _mockStocksService
+        _mockBuyOrderService
             .Setup(s => s.GetBuyOrdersAsync())
             .ReturnsAsync(_fixture.CreateMany<BuyOrderResponse>(1).ToList());
-        _mockStocksService
+        _mockSellOrderService
             .Setup(s => s.GetSellOrdersAsync())
             .ReturnsAsync(_fixture.CreateMany<SellOrderResponse>(1).ToList());
 
@@ -337,8 +343,8 @@ public class TradeControllerTests
             .CreateMany(1)
             .ToList();
 
-        _mockStocksService.Setup(s => s.GetBuyOrdersAsync()).ReturnsAsync(buyOrders);
-        _mockStocksService.Setup(s => s.GetSellOrdersAsync()).ReturnsAsync(sellOrders);
+        _mockBuyOrderService.Setup(s => s.GetBuyOrdersAsync()).ReturnsAsync(buyOrders);
+        _mockSellOrderService.Setup(s => s.GetSellOrdersAsync()).ReturnsAsync(sellOrders);
 
         // Act
         var result = await _controller.OrdersPDF();
@@ -354,10 +360,10 @@ public class TradeControllerTests
     public async Task OrdersPDF_EmptyOrders_ReturnsEmptyPdf()
     {
         // Arrange
-        _mockStocksService
+        _mockBuyOrderService
             .Setup(s => s.GetBuyOrdersAsync())
             .ReturnsAsync(new List<BuyOrderResponse>());
-        _mockStocksService
+        _mockSellOrderService
             .Setup(s => s.GetSellOrdersAsync())
             .ReturnsAsync(new List<SellOrderResponse>());
 

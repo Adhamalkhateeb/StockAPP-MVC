@@ -4,6 +4,8 @@ using Microsoft.Extensions.Options;
 using Rotativa.AspNetCore;
 using Rotativa.AspNetCore.Options;
 using ServiceContracts;
+using ServiceContracts.FinnhubServices;
+using ServiceContracts.StocksServices;
 using StocksApp.Models;
 
 namespace StocksApp.Controllers
@@ -13,8 +15,9 @@ namespace StocksApp.Controllers
     {
         private readonly TradingOptions _tradingOptions;
         private readonly ILogger<TradeController> _logger;
-        private readonly IFinnhubService _finnhubService;
-        private readonly IStocksService _stocksService;
+        private readonly IFinnhubStocksService _stocksService;
+        private readonly IBuyOrderService _buyOrderService;
+        private readonly ISellOrderService _sellOrderService;
         private readonly IConfiguration _configuration;
 
         /// <summary>
@@ -27,15 +30,17 @@ namespace StocksApp.Controllers
         public TradeController(
             ILogger<TradeController> logger,
             IOptions<TradingOptions> tradingOptions,
-            IStocksService stocksService,
-            IFinnhubService finnhubService,
+            IFinnhubStocksService stocksService,
+            IBuyOrderService buyOrderService,
+            ISellOrderService sellOrderService,
             IConfiguration configuration
         )
         {
             _logger = logger;
             _tradingOptions = tradingOptions.Value;
             _stocksService = stocksService;
-            _finnhubService = finnhubService;
+            _buyOrderService = buyOrderService;
+            _sellOrderService = sellOrderService;
             _configuration = configuration;
         }
 
@@ -54,7 +59,7 @@ namespace StocksApp.Controllers
                 );
             }
 
-            var snapshot = await _finnhubService.GetStockSnapshotAsync(stockSymbol);
+            var snapshot = await _stocksService.GetStockSnapshotAsync(stockSymbol);
 
             var stockTrade = new StockTrade
             {
@@ -102,8 +107,8 @@ namespace StocksApp.Controllers
 
             var orders = new Orders
             {
-                BuyOrders = await _stocksService.GetBuyOrdersAsync(),
-                SellOrders = await _stocksService.GetSellOrdersAsync(),
+                BuyOrders = await _buyOrderService.GetBuyOrdersAsync(),
+                SellOrders = await _sellOrderService.GetSellOrdersAsync(),
             };
 
             _logger.LogInformation(
@@ -129,7 +134,7 @@ namespace StocksApp.Controllers
 
             request.DateAndTimeOfOrder = DateTime.UtcNow;
 
-            var buyOrderResponse = await _stocksService.CreateBuyOrderAsync(request);
+            var buyOrderResponse = await _buyOrderService.CreateBuyOrderAsync(request);
 
             _logger.LogInformation(
                 "Buy order created successfully. BuyOrderId={BuyOrderId}, Symbol={StockSymbol}, Quantity={Quantity}",
@@ -155,7 +160,7 @@ namespace StocksApp.Controllers
 
             request.DateAndTimeOfOrder = DateTime.UtcNow;
 
-            var sellOrderResponse = await _stocksService.CreateSellOrderAsync(request);
+            var sellOrderResponse = await _sellOrderService.CreateSellOrderAsync(request);
 
             _logger.LogInformation(
                 "Sell order created successfully. SellOrderId={SellOrderId}, Symbol={StockSymbol}, Quantity={Quantity}",
@@ -174,8 +179,8 @@ namespace StocksApp.Controllers
 
             var orders = new List<OrderResponse>();
 
-            orders.AddRange(await _stocksService.GetBuyOrdersAsync());
-            orders.AddRange(await _stocksService.GetSellOrdersAsync());
+            orders.AddRange(await _buyOrderService.GetBuyOrdersAsync());
+            orders.AddRange(await _sellOrderService.GetSellOrdersAsync());
 
             orders = orders.OrderByDescending(o => o.DateAndTimeOfOrder).ToList();
 

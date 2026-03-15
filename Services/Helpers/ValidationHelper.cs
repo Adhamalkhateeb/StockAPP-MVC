@@ -1,6 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Core.DTOs;
 using FluentValidation;
+using Microsoft.Extensions.Logging;
 
 namespace Services.Helpers;
 

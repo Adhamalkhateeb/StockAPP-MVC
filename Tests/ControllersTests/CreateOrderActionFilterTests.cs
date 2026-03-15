@@ -11,6 +11,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 using ServiceContracts;
+using ServiceContracts.FinnhubServices;
+using ServiceContracts.StocksServices;
 using StocksApp;
 using StocksApp.Controllers;
 using StocksApp.Models;
@@ -31,8 +33,9 @@ public class CreateOrderActionFilterTests
         _filter = new CreateOrderActionFilter(filterLogger.Object);
 
         var controllerLogger = new Mock<ILogger<TradeController>>();
-        var mockFinnhub = new Mock<IFinnhubService>();
-        var mockStocks = new Mock<IStocksService>();
+        var mockFinnhub = new Mock<IFinnhubStocksService>();
+        var mockBuyOrders = new Mock<IBuyOrderService>();
+        var mockSellOrders = new Mock<ISellOrderService>();
         var mockConfig = new Mock<IConfiguration>();
         var tradingOptions = Options.Create(
             _fixture.Build<TradingOptions>().With(o => o.DefaultOrderQuantity, 100u).Create()
@@ -41,8 +44,9 @@ public class CreateOrderActionFilterTests
         _controller = new TradeController(
             controllerLogger.Object,
             tradingOptions,
-            mockStocks.Object,
             mockFinnhub.Object,
+            mockBuyOrders.Object,
+            mockSellOrders.Object,
             mockConfig.Object
         )
         {

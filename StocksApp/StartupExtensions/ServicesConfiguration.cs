@@ -6,7 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using Repositories;
 using RepositoryContracts;
 using ServiceContracts;
+using ServiceContracts.FinnhubServices;
+using ServiceContracts.StocksServices;
 using Services;
+using Services.StocksService;
+using StockMarketSolution.Middleware;
 using StocksApp;
 
 public static class ServicesConfiguration
@@ -22,10 +26,15 @@ public static class ServicesConfiguration
 
         services.AddScoped<IFinnhubRepository, FinnhubRepository>();
         services.AddScoped<IStocksRepository, StocksRepository>();
-        services.AddScoped<IFinnhubService, FinnhubService>();
-        services.AddScoped<IStocksService, StockService>();
+        services.AddScoped<IFinnhubCompanyProfileService, FinnhubCompanyProfileService>();
+        services.AddScoped<IFinnhubSearchStocksService, FinnhubSearchStocksService>();
+        services.AddScoped<IFinnhubStockPriceQuoteService, FinnhubStockPriceQuoteService>();
+        services.AddScoped<IFinnhubStocksService, FinnhubStocksService>();
+        services.AddScoped<IBuyOrderService, StocksBuyOrderService>();
+        services.AddScoped<ISellOrderService, StocksSellOrderService>();
 
         services.AddTransient<CreateOrderActionFilter>();
+        services.AddTransient<ExceptionHandlingMiddleware>();
 
         services.AddFluentValidationAutoValidation();
         services.AddValidatorsFromAssemblyContaining<OrderRequestValidator>();

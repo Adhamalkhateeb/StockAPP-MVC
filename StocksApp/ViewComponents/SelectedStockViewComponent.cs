@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using ServiceContracts;
+using ServiceContracts.FinnhubServices;
 using StocksApp.Models;
 
 public class SelectedStockViewComponent : ViewComponent
 {
-    private readonly IFinnhubService _finnhubService;
+    private readonly IFinnhubStocksService _finnhubService;
 
-    public SelectedStockViewComponent(IFinnhubService finnhubService)
+    public SelectedStockViewComponent(IFinnhubStocksService finnhubService)
     {
         _finnhubService = finnhubService;
     }

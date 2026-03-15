@@ -1,0 +1,269 @@
+2026-03-14 11:15:00.112 +02:00 [INF] User profile is available. Using '/home/adhamalkhateeb/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2026-03-14 11:15:00.281 +02:00 [INF] Now listening on: http://localhost:5231
+2026-03-14 11:15:00.284 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-03-14 11:15:00.285 +02:00 [INF] Hosting environment: Development
+2026-03-14 11:15:00.285 +02:00 [INF] Content root path: /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/StocksApp
+2026-03-14 11:15:02.856 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/ - null null
+2026-03-14 11:15:02.921 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-14 11:15:02.972 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-14 11:15:03.020 +02:00 [INF] Explore requested. Stock=null ShowAll=false
+2026-03-14 11:15:03.023 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-14 11:15:03.026 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-14 11:15:03.045 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/stock/symbol?*
+2026-03-14 11:15:03.048 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/stock/symbol?*
+2026-03-14 11:15:43.058 +02:00 [ERR] Finnhub request timed out for https://finnhub.io/api/v1/stock/symbol?exchange=US&token=cc676uaad3i9rj8tb1s0
+System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 40 seconds elapsing.
+ ---> System.TimeoutException: A task was canceled.
+ ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at Repositories.FinnhubRepository.GetFinnhubApiResultAsync[T](String apiUrl) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/FinnhubRepository.cs:line 150
+2026-03-14 11:15:43.068 +02:00 [ERR] Failed to fetch stocks for exchange US
+System.InvalidOperationException: Finnhub request timed out for URL: https://finnhub.io/api/v1/stock/symbol?exchange=US&token=cc676uaad3i9rj8tb1s0
+ ---> System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 40 seconds elapsing.
+ ---> System.TimeoutException: A task was canceled.
+ ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at Repositories.FinnhubRepository.GetFinnhubApiResultAsync[T](String apiUrl) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/FinnhubRepository.cs:line 150
+   --- End of inner exception stack trace ---
+   at Repositories.FinnhubRepository.GetFinnhubApiResultAsync[T](String apiUrl) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/FinnhubRepository.cs:line 158
+   at Repositories.FinnhubRepository.<>c__DisplayClass10_0`1.<<GetOrSetCacheAsync>b__0>d.MoveNext() in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/FinnhubRepository.cs:line 238
+--- End of stack trace from previous location ---
+   at Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreateAsync[TItem](IMemoryCache cache, Object key, Func`2 factory, MemoryCacheEntryOptions createOptions)
+   at Repositories.FinnhubRepository.GetStocksAsync(String exchange, String mic, String securityType, String currency) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/FinnhubRepository.cs:line 101
+   at Services.FinnhubService.GetStocksAsync(String exchange, String mic, String securityType, String currency) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Services/FinnhubService.cs:line 182
+2026-03-14 11:15:43.076 +02:00 [INF] Explore returned 0 stocks
+2026-03-14 11:15:43.158 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-14 11:15:43.297 +02:00 [INF] Executed ViewResult - view Explore executed in 142.2754ms.
+2026-03-14 11:15:43.299 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 40324.7503ms
+2026-03-14 11:15:43.299 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-14 11:15:43.302 +02:00 [INF] HTTP GET / responded 200 in 40425.1258 ms
+2026-03-14 11:15:43.307 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/ - 200 null text/html; charset=utf-8 40455.7798ms
+2026-03-14 11:15:43.324 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/StyleSheet.css - null null
+2026-03-14 11:15:43.340 +02:00 [INF] The file /StyleSheet.css was not modified
+2026-03-14 11:15:43.342 +02:00 [INF] HTTP GET /StyleSheet.css responded 304 in 16.2608 ms
+2026-03-14 11:15:43.345 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/StyleSheet.css - 304 null text/css 22.2913ms
+2026-03-14 11:15:43.444 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/favicon.ico - null null
+2026-03-14 11:15:43.453 +02:00 [INF] HTTP GET /favicon.ico responded 404 in 5.0382 ms
+2026-03-14 11:15:43.455 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/favicon.ico - 404 0 null 10.5773ms
+2026-03-14 11:15:43.457 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5231/favicon.ico, Response status code: 404
+2026-03-14 11:15:54.851 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/?showAll=true - null null
+2026-03-14 11:15:54.853 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-14 11:15:54.853 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-14 11:15:54.870 +02:00 [INF] Explore requested. Stock=null ShowAll=true
+2026-03-14 11:15:54.871 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-14 11:15:54.871 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-14 11:15:54.872 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/stock/symbol?*
+2026-03-14 11:15:54.872 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/stock/symbol?*
+2026-03-14 11:15:56.310 +02:00 [INF] Received HTTP response headers after 1430.2888ms - 200
+2026-03-14 11:15:56.311 +02:00 [INF] End processing HTTP request after 1439.1415ms - 200
+2026-03-14 11:16:04.198 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/?showAll=false - null null
+2026-03-14 11:16:04.199 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-14 11:16:04.200 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-14 11:16:04.208 +02:00 [INF] Explore requested. Stock=null ShowAll=false
+2026-03-14 11:16:04.208 +02:00 [INF] Fetching stocks list for exchange US
+2026-03-14 11:16:04.209 +02:00 [INF] Repository fetching stocks for exchange US
+2026-03-14 11:16:04.210 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/stock/symbol?*
+2026-03-14 11:16:04.210 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/stock/symbol?*
+2026-03-14 11:16:05.969 +02:00 [INF] Received HTTP response headers after 1757.9761ms - 200
+2026-03-14 11:16:05.969 +02:00 [INF] End processing HTTP request after 1759.8107ms - 200
+2026-03-14 11:17:10.599 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Index - null null
+2026-03-14 11:17:10.602 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-14 11:17:10.618 +02:00 [INF] Route matched with {action = "Index", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-14 11:17:10.762 +02:00 [INF] Trade index requested for symbol null
+2026-03-14 11:17:10.763 +02:00 [INF] No stock symbol supplied. Falling back to default symbol MSFT
+2026-03-14 11:17:10.765 +02:00 [INF] Repository fetching company profile for symbol MSFT
+2026-03-14 11:17:10.766 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-14 11:17:10.766 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-14 11:17:10.767 +02:00 [INF] Repository fetching quote for symbol MSFT
+2026-03-14 11:17:10.768 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-14 11:17:10.768 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-14 11:17:50.768 +02:00 [ERR] Finnhub request timed out for https://finnhub.io/api/v1/stock/profile2?symbol=MSFT&token=cc676uaad3i9rj8tb1s0
+System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 40 seconds elapsing.
+ ---> System.TimeoutException: A task was canceled.
+ ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at Repositories.FinnhubRepository.GetFinnhubApiResultAsync[T](String apiUrl) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/FinnhubRepository.cs:line 150
+2026-03-14 11:17:50.770 +02:00 [ERR] Finnhub request timed out for https://finnhub.io/api/v1/quote?symbol=MSFT&token=cc676uaad3i9rj8tb1s0
+System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 40 seconds elapsing.
+ ---> System.TimeoutException: A task was canceled.
+ ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at Repositories.FinnhubRepository.GetFinnhubApiResultAsync[T](String apiUrl) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/FinnhubRepository.cs:line 150
+2026-03-14 11:17:50.772 +02:00 [ERR] Unexpected error loading snapshot for symbol MSFT
+System.InvalidOperationException: Finnhub request timed out for URL: https://finnhub.io/api/v1/stock/profile2?symbol=MSFT&token=cc676uaad3i9rj8tb1s0
+ ---> System.Threading.Tasks.TaskCanceledException: The request was canceled due to the configured HttpClient.Timeout of 40 seconds elapsing.
+ ---> System.TimeoutException: A task was canceled.
+ ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|4_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at Repositories.FinnhubRepository.GetFinnhubApiResultAsync[T](String apiUrl) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/FinnhubRepository.cs:line 150
+   --- End of inner exception stack trace ---
+   at Repositories.FinnhubRepository.GetFinnhubApiResultAsync[T](String apiUrl) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/FinnhubRepository.cs:line 158
+   at Repositories.FinnhubRepository.<>c__DisplayClass10_0`1.<<GetOrSetCacheAsync>b__0>d.MoveNext() in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/FinnhubRepository.cs:line 238
+--- End of stack trace from previous location ---
+   at Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreateAsync[TItem](IMemoryCache cache, Object key, Func`2 factory, MemoryCacheEntryOptions createOptions)
+   at Repositories.FinnhubRepository.GetCompanyProfileAsync(String stockSymbol) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Repoistories/FinnhubRepository.cs:line 51
+   at Services.FinnhubService.GetStockSnapshotAsync(String stockSymbol) in /home/adhamalkhateeb/Adham/Adham Web/MVC_Projects/StockApp/Services/FinnhubService.cs:line 118
+2026-03-14 11:17:50.777 +02:00 [WRN] Could not fully load trade data for symbol MSFT. CompanyProfileFound=false, StockQuoteFound=false, AccessDenied=false
+2026-03-14 11:17:50.783 +02:00 [INF] Executing ViewResult, running view Index.
+2026-03-14 11:17:50.844 +02:00 [INF] Executed ViewResult - view Index executed in 62.7473ms.
+2026-03-14 11:17:50.844 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Index (StocksApp) in 40225.2418ms
+2026-03-14 11:17:50.844 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-14 11:17:50.844 +02:00 [INF] HTTP GET /Trade/Index responded 200 in 40244.9201 ms
+2026-03-14 11:17:50.847 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Index - 200 null text/html; charset=utf-8 40247.912ms
+2026-03-14 11:18:21.133 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore/MSFT - null null
+2026-03-14 11:18:21.134 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-14 11:18:21.155 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-14 11:18:21.159 +02:00 [INF] Explore requested. Stock=MSFT ShowAll=false
+2026-03-14 11:18:21.162 +02:00 [INF] Searching stocks with query MSFT and exchange null
+2026-03-14 11:18:21.166 +02:00 [INF] Repository searching stocks for query MSFT
+2026-03-14 11:18:21.167 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/search?*
+2026-03-14 11:18:21.167 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/search?*
+2026-03-14 11:18:24.813 +02:00 [INF] Received HTTP response headers after 3644.7444ms - 200
+2026-03-14 11:18:24.813 +02:00 [INF] End processing HTTP request after 3645.9957ms - 200
+2026-03-14 11:18:24.851 +02:00 [INF] Stock search returned 12 results for query MSFT
+2026-03-14 11:18:24.852 +02:00 [INF] Search returned 12 results for MSFT
+2026-03-14 11:18:24.855 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-14 11:18:24.880 +02:00 [INF] Repository fetching company profile for symbol MSFT
+2026-03-14 11:18:24.880 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-14 11:18:24.881 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-14 11:18:24.881 +02:00 [INF] Repository fetching quote for symbol MSFT
+2026-03-14 11:18:24.881 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-14 11:18:24.881 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-14 11:18:25.123 +02:00 [INF] Received HTTP response headers after 242.1915ms - 200
+2026-03-14 11:18:25.123 +02:00 [INF] End processing HTTP request after 242.8415ms - 200
+2026-03-14 11:18:25.302 +02:00 [INF] Received HTTP response headers after 420.4487ms - 200
+2026-03-14 11:18:25.302 +02:00 [INF] End processing HTTP request after 420.9691ms - 200
+2026-03-14 11:18:25.331 +02:00 [INF] Executed ViewResult - view Explore executed in 475.6306ms.
+2026-03-14 11:18:25.332 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 4176.5425ms
+2026-03-14 11:18:25.333 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-14 11:18:25.333 +02:00 [INF] HTTP GET /Explore/MSFT responded 200 in 4199.5016 ms
+2026-03-14 11:18:25.334 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore/MSFT - 200 null text/html; charset=utf-8 4200.5389ms
+2026-03-14 11:18:30.254 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Index/MSFT - null null
+2026-03-14 11:18:30.256 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-14 11:18:30.256 +02:00 [INF] Route matched with {action = "Index", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-14 11:18:30.275 +02:00 [INF] Trade index requested for symbol MSFT
+2026-03-14 11:18:30.275 +02:00 [INF] Repository fetching company profile for symbol MSFT
+2026-03-14 11:18:30.275 +02:00 [INF] Repository fetching quote for symbol MSFT
+2026-03-14 11:18:30.276 +02:00 [INF] Loaded trade model for symbol MSFT with company Microsoft Corp and price 395.55
+2026-03-14 11:18:30.277 +02:00 [INF] Executing ViewResult, running view Index.
+2026-03-14 11:18:30.327 +02:00 [INF] Executed ViewResult - view Index executed in 50.1511ms.
+2026-03-14 11:18:30.327 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Index (StocksApp) in 71.1722ms
+2026-03-14 11:18:30.328 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-14 11:18:30.328 +02:00 [INF] HTTP GET /Trade/Index/MSFT responded 200 in 73.6447 ms
+2026-03-14 11:18:30.328 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Index/MSFT - 200 null text/html; charset=utf-8 74.3625ms
+2026-03-14 11:18:30.351 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Scripts/FinnhubScript.js - null null
+2026-03-14 11:18:30.353 +02:00 [INF] The file /Scripts/FinnhubScript.js was not modified
+2026-03-14 11:18:30.353 +02:00 [INF] HTTP GET /Scripts/FinnhubScript.js responded 304 in 1.7352 ms
+2026-03-14 11:18:30.354 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Scripts/FinnhubScript.js - 304 null text/javascript 3.2881ms
+2026-03-14 11:18:30.417 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/api/history/MSFT - null null
+2026-03-14 11:18:30.418 +02:00 [INF] Executing endpoint 'HTTP: GET /api/history/{symbol}'
+2026-03-14 11:18:30.421 +02:00 [INF] Start processing HTTP request GET https://query1.finance.yahoo.com/v8/finance/chart/MSFT?*
+2026-03-14 11:18:30.421 +02:00 [INF] Sending HTTP request GET https://query1.finance.yahoo.com/v8/finance/chart/MSFT?*
+2026-03-14 11:18:30.841 +02:00 [INF] Received HTTP response headers after 419.456ms - 200
+2026-03-14 11:18:30.841 +02:00 [INF] End processing HTTP request after 420.1144ms - 200
+2026-03-14 11:18:31.372 +02:00 [INF] Write content with HTTP Response ContentType of application/json
+2026-03-14 11:18:31.373 +02:00 [INF] Executed endpoint 'HTTP: GET /api/history/{symbol}'
+2026-03-14 11:18:31.373 +02:00 [INF] HTTP GET /api/history/MSFT responded 200 in 955.9034 ms
+2026-03-14 11:18:31.373 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/api/history/MSFT - 200 35521 application/json 956.6945ms
+2026-03-14 11:20:20.844 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Orders - null null
+2026-03-14 11:20:20.845 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Orders (StocksApp)'
+2026-03-14 11:20:20.877 +02:00 [INF] Route matched with {action = "Orders", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Orders() on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-14 11:20:20.899 +02:00 [INF] Orders page requested
+2026-03-14 11:20:21.908 +02:00 [INF] Executed DbCommand (34ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[DateAndTimeOfOrder], [b].[Price], [b].[Quantity], [b].[StockName], [b].[StockSymbol]
+FROM [BuyOrders] AS [b]
+ORDER BY [b].[DateAndTimeOfOrder] DESC
+2026-03-14 11:20:21.935 +02:00 [INF] Loaded 7 buy orders from database
+2026-03-14 11:20:21.937 +02:00 [INF] Retrieved 7 buy orders
+2026-03-14 11:20:21.952 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DateAndTimeOfOrder], [s].[Price], [s].[Quantity], [s].[StockName], [s].[StockSymbol]
+FROM [SellOrders] AS [s]
+ORDER BY [s].[DateAndTimeOfOrder] DESC
+2026-03-14 11:20:21.953 +02:00 [INF] Loaded 5 sell orders from database
+2026-03-14 11:20:21.955 +02:00 [INF] Retrieved 5 sell orders
+2026-03-14 11:20:21.955 +02:00 [INF] Orders page loaded with 7 buy orders and 5 sell orders
+2026-03-14 11:20:21.957 +02:00 [INF] Executing ViewResult, running view Orders.
+2026-03-14 11:20:21.977 +02:00 [INF] Executed ViewResult - view Orders executed in 21.218ms.
+2026-03-14 11:20:21.977 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Orders (StocksApp) in 1098.0024ms
+2026-03-14 11:20:21.977 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Orders (StocksApp)'
+2026-03-14 11:20:21.978 +02:00 [INF] HTTP GET /Trade/Orders responded 200 in 1132.2446 ms
+2026-03-14 11:20:21.987 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Orders - 200 null text/html; charset=utf-8 1142.5222ms
+2026-03-14 11:20:24.992 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Index/MSFT - null null
+2026-03-14 11:20:24.993 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-14 11:20:24.993 +02:00 [INF] Route matched with {action = "Index", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-14 11:20:24.994 +02:00 [INF] Trade index requested for symbol MSFT
+2026-03-14 11:20:24.995 +02:00 [INF] Repository fetching company profile for symbol MSFT
+2026-03-14 11:20:24.995 +02:00 [INF] Repository fetching quote for symbol MSFT
+2026-03-14 11:20:24.996 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-14 11:20:24.996 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-14 11:20:27.457 +02:00 [INF] Received HTTP response headers after 2460.396ms - 200
+2026-03-14 11:20:27.457 +02:00 [INF] End processing HTTP request after 2461.0779ms - 200
+2026-03-14 11:20:27.458 +02:00 [INF] Loaded trade model for symbol MSFT with company Microsoft Corp and price 395.55
+2026-03-14 11:20:27.458 +02:00 [INF] Executing ViewResult, running view Index.
+2026-03-14 11:20:27.464 +02:00 [INF] Executed ViewResult - view Index executed in 5.9027ms.
+2026-03-14 11:20:27.465 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Index (StocksApp) in 2471.2394ms
+2026-03-14 11:20:27.465 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-14 11:20:27.465 +02:00 [INF] HTTP GET /Trade/Index/MSFT responded 200 in 2472.4311 ms
+2026-03-14 11:20:27.466 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Index/MSFT - 200 null text/html; charset=utf-8 2473.3888ms
+2026-03-14 11:20:46.286 +02:00 [INF] Fetched 30157 stocks for exchange US
+2026-03-14 11:20:46.288 +02:00 [INF] Explore returned 30157 stocks
+2026-03-14 11:20:46.289 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-14 11:20:46.641 +02:00 [INF] Executed ViewResult - view Explore executed in 352.4539ms.
+2026-03-14 11:20:46.641 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 291787.867ms
+2026-03-14 11:20:46.642 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-14 11:20:46.642 +02:00 [INF] HTTP GET / responded 200 in 291789.4703 ms
+2026-03-14 11:20:46.646 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/?showAll=true - 200 null text/html; charset=utf-8 291794.6768ms

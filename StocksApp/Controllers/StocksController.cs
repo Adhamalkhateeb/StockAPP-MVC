@@ -1,23 +1,28 @@
 using Core.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Primitives;
 using ServiceContracts;
+using ServiceContracts.FinnhubServices;
 using StocksApp;
 
 public class StocksController : Controller
 {
-    private readonly IFinnhubService _finnhubService;
+    private readonly IFinnhubSearchStocksService _searchStocksService;
+    private readonly IFinnhubStocksService _stocksService;
     private readonly TradingOptions _tradingOptions;
     private readonly ILogger<StocksController> _logger;
 
     public StocksController(
         ILogger<StocksController> logger,
         IOptions<TradingOptions> options,
-        IFinnhubService finnhubService
+        IFinnhubSearchStocksService searchStocksService,
+        IFinnhubStocksService stocksService
     )
     {
         _logger = logger;
-        _finnhubService = finnhubService;
+        _searchStocksService = searchStocksService;
+        _stocksService = stocksService;
         _tradingOptions = options.Value;
     }
 
@@ -36,7 +41,7 @@ public class StocksController : Controller
 
         if (!string.IsNullOrWhiteSpace(stock) && !showAll)
         {
-            var symbols = await _finnhubService.SearchStocksAsync(stock);
+            var symbols = await _searchStocksService.SearchStocksAsync(stock);
 
             stocks =
                 symbols.Result?.Select(s => new Stock
@@ -53,7 +58,7 @@ public class StocksController : Controller
         }
         else
         {
-            var apiStocks = await _finnhubService.GetStocksAsync("US") ?? [];
+            var apiStocks = await _stocksService.GetStocksAsync("US") ?? [];
 
             var filteredStocks = showAll
                 ? apiStocks

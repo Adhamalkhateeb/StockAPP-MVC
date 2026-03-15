@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Moq;
 using ServiceContracts;
+using ServiceContracts.FinnhubServices;
 using StocksApp;
 
 namespace Tests.IntegrationTests;
@@ -16,18 +17,20 @@ namespace Tests.IntegrationTests;
 public class StocksControllerIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly CustomWebApplicationFactory _factory;
-    private readonly Mock<IFinnhubService> _mockFinnhubService;
+    private readonly Mock<IFinnhubSearchStocksService> _mockSearchStocksService;
+    private readonly Mock<IFinnhubStocksService> _mockStocksService;
 
     public StocksControllerIntegrationTests(CustomWebApplicationFactory factory)
     {
         _factory = factory;
-        _mockFinnhubService = new Mock<IFinnhubService>();
+        _mockStocksService = new Mock<IFinnhubStocksService>();
+        _mockSearchStocksService = new Mock<IFinnhubSearchStocksService>();
 
-        _mockFinnhubService
+        _mockStocksService
             .Setup(s => s.GetStocksAsync("US"))
             .ReturnsAsync(new List<StockSymbolResponse>());
 
-        _mockFinnhubService
+        _mockStocksService
             .Setup(s => s.GetStockSnapshotAsync(It.IsAny<string>()))
             .ReturnsAsync(
                 new StockSnapshotResponse
@@ -54,8 +57,10 @@ public class StocksControllerIntegrationTests : IClassFixture<CustomWebApplicati
             {
                 builder.ConfigureTestServices(services =>
                 {
-                    services.RemoveAll<IFinnhubService>();
-                    services.AddSingleton(_mockFinnhubService.Object);
+                    services.RemoveAll<IFinnhubStocksService>();
+                    services.RemoveAll<IFinnhubSearchStocksService>();
+                    services.AddSingleton(_mockStocksService.Object);
+                    services.AddSingleton(_mockSearchStocksService.Object);
 
                     services.PostConfigure<TradingOptions>(options =>
                     {
@@ -83,7 +88,7 @@ public class StocksControllerIntegrationTests : IClassFixture<CustomWebApplicati
             new() { Symbol = "ZZZZ", Description = "Non Popular Corp" },
         };
 
-        _mockFinnhubService.Setup(s => s.GetStocksAsync("US")).ReturnsAsync(symbols);
+        _mockStocksService.Setup(s => s.GetStocksAsync("US")).ReturnsAsync(symbols);
 
         var client = CreateClientWithMockedService(new[] { "MSFT", "AAPL", "GOOG" });
 
@@ -115,7 +120,7 @@ public class StocksControllerIntegrationTests : IClassFixture<CustomWebApplicati
             new() { Symbol = "ZZZZ", Description = "Non Popular Corp" },
         };
 
-        _mockFinnhubService.Setup(s => s.GetStocksAsync("US")).ReturnsAsync(symbols);
+        _mockStocksService.Setup(s => s.GetStocksAsync("US")).ReturnsAsync(symbols);
 
         var client = CreateClientWithMockedService(new[] { "MSFT", "AAPL", "GOOG" });
 
@@ -139,7 +144,7 @@ public class StocksControllerIntegrationTests : IClassFixture<CustomWebApplicati
     [Fact]
     public async Task Explore_EmptyStocks_ReturnsNoStocksMessage()
     {
-        _mockFinnhubService
+        _mockStocksService
             .Setup(s => s.GetStocksAsync("US"))
             .ReturnsAsync(new List<StockSymbolResponse>());
 
@@ -156,7 +161,7 @@ public class StocksControllerIntegrationTests : IClassFixture<CustomWebApplicati
     [Fact]
     public async Task Explore_RootRoute_ReturnsOk()
     {
-        _mockFinnhubService
+        _mockStocksService
             .Setup(s => s.GetStocksAsync("US"))
             .ReturnsAsync(
                 new List<StockSymbolResponse>
@@ -178,7 +183,7 @@ public class StocksControllerIntegrationTests : IClassFixture<CustomWebApplicati
     [Fact]
     public async Task Explore_SelectedStock_WhenLiveDataIsUnavailable_ShowsFallbackMessage()
     {
-        _mockFinnhubService
+        _mockSearchStocksService
             .Setup(s => s.SearchStocksAsync("AAPL.NE", null))
             .ReturnsAsync(
                 new SymbolLookupResultDto
@@ -191,7 +196,7 @@ public class StocksControllerIntegrationTests : IClassFixture<CustomWebApplicati
                 }
             );
 
-        _mockFinnhubService
+        _mockStocksService
             .Setup(s => s.GetStockSnapshotAsync("AAPL.NE"))
             .ReturnsAsync(
                 new StockSnapshotResponse

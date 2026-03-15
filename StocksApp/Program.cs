@@ -1,5 +1,6 @@
 using Rotativa.AspNetCore;
 using Serilog;
+using StockMarketSolution.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,14 +23,18 @@ builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
-app.UseStaticFiles();
-
-if (!app.Environment.IsEnvironment("Test"))
+if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    app.UseSerilogRequestLogging();
+}
+else
+{
+    app.UseExceptionHandler("/Error");
+    app.UseExceptionHandlingMiddleware();
 }
 
+app.UseSerilogRequestLogging();
+app.UseStaticFiles();
 app.UseRouting();
 app.MapControllers();
 

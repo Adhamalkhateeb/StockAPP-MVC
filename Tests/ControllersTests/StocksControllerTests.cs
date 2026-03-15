@@ -6,13 +6,15 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 using ServiceContracts;
+using ServiceContracts.FinnhubServices;
 using StocksApp;
 
 namespace Tests.ControllersTests;
 
 public class StocksControllerTests
 {
-    private readonly Mock<IFinnhubService> _mockFinnhubService;
+    private readonly Mock<IFinnhubSearchStocksService> _mockSearchStocksService;
+    private readonly Mock<IFinnhubStocksService> _mockStocksService;
     private readonly Mock<ILogger<StocksController>> _mockLogger;
 
     private readonly IFixture _fixture;
@@ -21,7 +23,8 @@ public class StocksControllerTests
     {
         _fixture = new Fixture();
 
-        _mockFinnhubService = new Mock<IFinnhubService>();
+        _mockStocksService = new Mock<IFinnhubStocksService>();
+        _mockSearchStocksService = new Mock<IFinnhubSearchStocksService>();
         _mockLogger = new Mock<ILogger<StocksController>>();
     }
 
@@ -38,7 +41,8 @@ public class StocksControllerTests
         return new StocksController(
             _mockLogger.Object,
             Options.Create(tradingOptions),
-            _mockFinnhubService.Object
+            _mockSearchStocksService.Object,
+            _mockStocksService.Object
         );
     }
 
@@ -54,7 +58,7 @@ public class StocksControllerTests
             .Concat(_fixture.CreateMany<StockSymbolResponse>(5))
             .ToList();
 
-        _mockFinnhubService.Setup(x => x.GetStocksAsync("US")).ReturnsAsync(apiStocks);
+        _mockStocksService.Setup(x => x.GetStocksAsync("US")).ReturnsAsync(apiStocks);
 
         var controller = CreateController(popularSymbols);
 
@@ -72,7 +76,7 @@ public class StocksControllerTests
     {
         var apiStocks = _fixture.CreateMany<StockSymbolResponse>(10).ToList();
 
-        _mockFinnhubService.Setup(s => s.GetStocksAsync("US")).ReturnsAsync(apiStocks);
+        _mockStocksService.Setup(s => s.GetStocksAsync("US")).ReturnsAsync(apiStocks);
 
         var controller = CreateController();
 
@@ -89,7 +93,7 @@ public class StocksControllerTests
     public async Task Explore_SetsViewBagStock_WhenStockProvided()
     {
         // Arrange
-        _mockFinnhubService
+        _mockStocksService
             .Setup(s => s.GetStocksAsync("US"))
             .ReturnsAsync(_fixture.CreateMany<StockSymbolResponse>(1).ToList());
 
@@ -105,10 +109,10 @@ public class StocksControllerTests
     }
 
     [Fact]
-    public async Task Explore_FinnhubReturnsNull_ReturnsViewWithNullModel()
+    public async Task Explore_FinnhubReturnsNull_ReturnsViewWithEmptyModel()
     {
         // Arrange
-        _mockFinnhubService
+        _mockStocksService
             .Setup(s => s.GetStocksAsync("US"))
             .ReturnsAsync((List<StockSymbolResponse>?)null);
 
@@ -119,7 +123,9 @@ public class StocksControllerTests
 
         // Assert
         var viewResult = result.Should().BeOfType<ViewResult>().Subject;
-        viewResult.Model.Should().BeNull();
+        var model = viewResult.Model.Should().BeAssignableTo<IEnumerable<Stock>>().Subject;
+
+        model.Should().BeEmpty();
     }
 
     #endregion
