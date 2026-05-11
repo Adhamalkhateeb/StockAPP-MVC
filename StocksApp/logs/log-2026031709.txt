@@ -1,0 +1,183 @@
+2026-03-17 09:12:34.015 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Index/AAPL - null null
+2026-03-17 09:12:34.029 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-17 09:12:34.035 +02:00 [INF] Route matched with {action = "Index", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-17 09:12:34.044 +02:00 [INF] Trade index requested for symbol AAPL
+2026-03-17 09:12:34.047 +02:00 [INF] Repository fetching company profile for symbol AAPL
+2026-03-17 09:12:34.050 +02:00 [INF] Repository fetching quote for symbol AAPL
+2026-03-17 09:12:34.054 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-17 09:12:34.066 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-17 09:12:34.606 +02:00 [INF] Received HTTP response headers after 535.5347ms - 200
+2026-03-17 09:12:34.608 +02:00 [INF] End processing HTTP request after 554.2087ms - 200
+2026-03-17 09:12:34.615 +02:00 [INF] Loaded trade model for symbol AAPL with company Apple Inc and price 252.82
+2026-03-17 09:12:34.621 +02:00 [INF] Executing ViewResult, running view Index.
+2026-03-17 09:12:34.627 +02:00 [INF] Executed ViewResult - view Index executed in 6.6789ms.
+2026-03-17 09:12:34.631 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Index (StocksApp) in 589.6925ms
+2026-03-17 09:12:34.633 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-17 09:12:34.635 +02:00 [INF] HTTP GET /Trade/Index/AAPL responded 200 in 606.1113 ms
+2026-03-17 09:12:34.639 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Index/AAPL - 200 null text/html; charset=utf-8 623.294ms
+2026-03-17 09:12:34.665 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Scripts/FinnhubScript.js - null null
+2026-03-17 09:12:34.676 +02:00 [INF] The file /Scripts/FinnhubScript.js was not modified
+2026-03-17 09:12:34.682 +02:00 [INF] HTTP GET /Scripts/FinnhubScript.js responded 304 in 8.4365 ms
+2026-03-17 09:12:34.688 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Scripts/FinnhubScript.js - 304 null text/javascript 23.092ms
+2026-03-17 09:12:34.703 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/api/history/AAPL - null null
+2026-03-17 09:12:34.708 +02:00 [INF] Executing endpoint 'HTTP: GET /api/history/{symbol}'
+2026-03-17 09:12:34.711 +02:00 [INF] Start processing HTTP request GET https://query1.finance.yahoo.com/v8/finance/chart/AAPL?*
+2026-03-17 09:12:34.714 +02:00 [INF] Sending HTTP request GET https://query1.finance.yahoo.com/v8/finance/chart/AAPL?*
+2026-03-17 09:12:35.299 +02:00 [INF] Received HTTP response headers after 582.232ms - 200
+2026-03-17 09:12:35.303 +02:00 [INF] End processing HTTP request after 592.4549ms - 200
+2026-03-17 09:12:35.402 +02:00 [INF] Write content with HTTP Response ContentType of application/json
+2026-03-17 09:12:35.406 +02:00 [INF] Executed endpoint 'HTTP: GET /api/history/{symbol}'
+2026-03-17 09:12:35.408 +02:00 [INF] HTTP GET /api/history/AAPL responded 200 in 700.9132 ms
+2026-03-17 09:12:35.417 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/api/history/AAPL - 200 36142 application/json 713.0924ms
+2026-03-17 09:12:39.019 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5231/Trade/BuyOrder - application/x-www-form-urlencoded 265
+2026-03-17 09:12:39.033 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.BuyOrder (StocksApp)'
+2026-03-17 09:12:39.125 +02:00 [INF] Route matched with {action = "BuyOrder", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] BuyOrder(Core.DTOs.BuyOrderRequest) on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-17 09:12:39.185 +02:00 [INF] Buy order request received for symbol AAPL, quantity 97, price 252.82
+2026-03-17 09:12:39.192 +02:00 [INF] Create buy order requested for symbol AAPL, quantity 97
+2026-03-17 09:12:39.208 +02:00 [INF] Persisting buy order for symbol AAPL, quantity 97
+2026-03-17 09:12:39.400 +02:00 [INF] Executed DbCommand (13ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime2), @p2='?' (Precision = 15) (Scale = 2) (DbType = Decimal), @p3='?' (DbType = Int64), @p4='?' (Size = 100), @p5='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [BuyOrders] ([Id], [DateAndTimeOfOrder], [Price], [Quantity], [StockName], [StockSymbol])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-03-17 09:12:39.410 +02:00 [INF] Buy order persisted with id "dca33599-c07c-4649-a20d-84187b21c6f5"
+2026-03-17 09:12:39.414 +02:00 [INF] Buy order persisted with id "dca33599-c07c-4649-a20d-84187b21c6f5" for symbol AAPL
+2026-03-17 09:12:39.418 +02:00 [INF] Buy order created successfully. BuyOrderId="dca33599-c07c-4649-a20d-84187b21c6f5", Symbol=AAPL, Quantity=97
+2026-03-17 09:12:39.423 +02:00 [INF] Executing RedirectResult, redirecting to /Trade/Orders.
+2026-03-17 09:12:39.429 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.BuyOrder (StocksApp) in 273.5289ms
+2026-03-17 09:12:39.436 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.BuyOrder (StocksApp)'
+2026-03-17 09:12:39.440 +02:00 [INF] HTTP POST /Trade/BuyOrder responded 302 in 407.6241 ms
+2026-03-17 09:12:39.450 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5231/Trade/BuyOrder - 302 0 null 431.3664ms
+2026-03-17 09:12:39.457 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Orders - null null
+2026-03-17 09:12:39.466 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Orders (StocksApp)'
+2026-03-17 09:12:39.470 +02:00 [INF] Route matched with {action = "Orders", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Orders() on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-17 09:12:39.474 +02:00 [INF] Orders page requested
+2026-03-17 09:12:39.514 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[DateAndTimeOfOrder], [b].[Price], [b].[Quantity], [b].[StockName], [b].[StockSymbol]
+FROM [BuyOrders] AS [b]
+ORDER BY [b].[DateAndTimeOfOrder] DESC
+2026-03-17 09:12:39.533 +02:00 [INF] Loaded 7 buy orders from database
+2026-03-17 09:12:39.537 +02:00 [INF] Retrieved 7 buy orders
+2026-03-17 09:12:39.552 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DateAndTimeOfOrder], [s].[Price], [s].[Quantity], [s].[StockName], [s].[StockSymbol]
+FROM [SellOrders] AS [s]
+ORDER BY [s].[DateAndTimeOfOrder] DESC
+2026-03-17 09:12:39.566 +02:00 [INF] Loaded 2 sell orders from database
+2026-03-17 09:12:39.584 +02:00 [INF] Retrieved 2 sell orders
+2026-03-17 09:12:39.591 +02:00 [INF] Orders page loaded with 7 buy orders and 2 sell orders
+2026-03-17 09:12:39.600 +02:00 [INF] Executing ViewResult, running view Orders.
+2026-03-17 09:12:39.609 +02:00 [INF] Executed ViewResult - view Orders executed in 9.263ms.
+2026-03-17 09:12:39.619 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Orders (StocksApp) in 145.0762ms
+2026-03-17 09:12:39.622 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Orders (StocksApp)'
+2026-03-17 09:12:39.629 +02:00 [INF] HTTP GET /Trade/Orders responded 200 in 163.3867 ms
+2026-03-17 09:12:39.637 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Orders - 200 null text/html; charset=utf-8 179.8631ms
+2026-03-17 09:15:47.885 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5231/Search - application/x-www-form-urlencoded 193
+2026-03-17 09:15:47.890 +02:00 [INF] Executing endpoint 'StocksController.Search (StocksApp)'
+2026-03-17 09:15:47.892 +02:00 [INF] Route matched with {action = "Search", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Search(System.String) on controller StocksController (StocksApp).
+2026-03-17 09:15:47.896 +02:00 [INF] Search requested for AAPL
+2026-03-17 09:15:47.898 +02:00 [INF] Executing RedirectResult, redirecting to /Explore/AAPL.
+2026-03-17 09:15:47.902 +02:00 [INF] Executed action StocksController.Search (StocksApp) in 6.9419ms
+2026-03-17 09:15:47.905 +02:00 [INF] Executed endpoint 'StocksController.Search (StocksApp)'
+2026-03-17 09:15:47.907 +02:00 [INF] HTTP POST /Search responded 302 in 16.9101 ms
+2026-03-17 09:15:47.910 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5231/Search - 302 0 null 24.7128ms
+2026-03-17 09:15:47.916 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Explore/AAPL - null null
+2026-03-17 09:15:47.923 +02:00 [INF] Executing endpoint 'StocksController.Explore (StocksApp)'
+2026-03-17 09:15:47.926 +02:00 [INF] Route matched with {action = "Explore", controller = "Stocks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Explore(System.String, Boolean) on controller StocksController (StocksApp).
+2026-03-17 09:15:47.934 +02:00 [INF] Explore requested. Stock=AAPL ShowAll=false
+2026-03-17 09:15:47.939 +02:00 [INF] Searching stocks with query AAPL and exchange null
+2026-03-17 09:15:47.942 +02:00 [INF] Repository searching stocks for query AAPL
+2026-03-17 09:15:47.946 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/search?*
+2026-03-17 09:15:47.950 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/search?*
+2026-03-17 09:15:48.289 +02:00 [INF] Received HTTP response headers after 335.8675ms - 200
+2026-03-17 09:15:48.292 +02:00 [INF] End processing HTTP request after 345.4694ms - 200
+2026-03-17 09:15:48.298 +02:00 [INF] Stock search returned 8 results for query AAPL
+2026-03-17 09:15:48.303 +02:00 [INF] Search returned 8 results for AAPL
+2026-03-17 09:15:48.306 +02:00 [INF] Executing ViewResult, running view Explore.
+2026-03-17 09:15:48.308 +02:00 [INF] Repository fetching company profile for symbol AAPL
+2026-03-17 09:15:48.312 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-17 09:15:48.315 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/stock/profile2?*
+2026-03-17 09:15:48.319 +02:00 [INF] Repository fetching quote for symbol AAPL
+2026-03-17 09:15:48.321 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-17 09:15:48.324 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-17 09:15:48.554 +02:00 [INF] Received HTTP response headers after 235.8017ms - 200
+2026-03-17 09:15:48.559 +02:00 [INF] End processing HTTP request after 247.7312ms - 200
+2026-03-17 09:15:48.697 +02:00 [INF] Received HTTP response headers after 370.4493ms - 200
+2026-03-17 09:15:48.703 +02:00 [INF] End processing HTTP request after 381.6556ms - 200
+2026-03-17 09:15:48.710 +02:00 [INF] Executed ViewResult - view Explore executed in 404.225ms.
+2026-03-17 09:15:48.716 +02:00 [INF] Executed action StocksController.Explore (StocksApp) in 782.3848ms
+2026-03-17 09:15:48.719 +02:00 [INF] Executed endpoint 'StocksController.Explore (StocksApp)'
+2026-03-17 09:15:48.722 +02:00 [INF] HTTP GET /Explore/AAPL responded 200 in 799.5634 ms
+2026-03-17 09:15:48.788 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/StyleSheet.css - null null
+2026-03-17 09:15:48.812 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Explore/AAPL - 200 null text/html; charset=utf-8 895.9355ms
+2026-03-17 09:15:48.846 +02:00 [INF] The file /StyleSheet.css was not modified
+2026-03-17 09:15:48.863 +02:00 [INF] HTTP GET /StyleSheet.css responded 304 in 17.2697 ms
+2026-03-17 09:15:48.867 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/StyleSheet.css - 304 null text/css 78.791ms
+2026-03-17 09:16:34.723 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Index/AAPL - null null
+2026-03-17 09:16:34.728 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-17 09:16:34.730 +02:00 [INF] Route matched with {action = "Index", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-17 09:16:34.737 +02:00 [INF] Trade index requested for symbol AAPL
+2026-03-17 09:16:34.738 +02:00 [INF] Repository fetching company profile for symbol AAPL
+2026-03-17 09:16:34.740 +02:00 [INF] Repository fetching quote for symbol AAPL
+2026-03-17 09:16:34.742 +02:00 [INF] Start processing HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-17 09:16:34.745 +02:00 [INF] Sending HTTP request GET https://finnhub.io/api/v1/quote?*
+2026-03-17 09:16:35.038 +02:00 [INF] Received HTTP response headers after 289.7142ms - 200
+2026-03-17 09:16:35.042 +02:00 [INF] End processing HTTP request after 299.5509ms - 200
+2026-03-17 09:16:35.045 +02:00 [INF] Loaded trade model for symbol AAPL with company Apple Inc and price 252.82
+2026-03-17 09:16:35.048 +02:00 [INF] Executing ViewResult, running view Index.
+2026-03-17 09:16:35.055 +02:00 [INF] Executed ViewResult - view Index executed in 6.5859ms.
+2026-03-17 09:16:35.057 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Index (StocksApp) in 320.6384ms
+2026-03-17 09:16:35.059 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Index (StocksApp)'
+2026-03-17 09:16:35.063 +02:00 [INF] HTTP GET /Trade/Index/AAPL responded 200 in 335.1881 ms
+2026-03-17 09:16:35.068 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Index/AAPL - 200 null text/html; charset=utf-8 344.6999ms
+2026-03-17 09:16:35.104 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/api/history/AAPL - null null
+2026-03-17 09:16:35.109 +02:00 [INF] Executing endpoint 'HTTP: GET /api/history/{symbol}'
+2026-03-17 09:16:35.112 +02:00 [INF] Start processing HTTP request GET https://query1.finance.yahoo.com/v8/finance/chart/AAPL?*
+2026-03-17 09:16:35.114 +02:00 [INF] Sending HTTP request GET https://query1.finance.yahoo.com/v8/finance/chart/AAPL?*
+2026-03-17 09:16:35.464 +02:00 [INF] Received HTTP response headers after 348.0447ms - 200
+2026-03-17 09:16:35.467 +02:00 [INF] End processing HTTP request after 354.3742ms - 200
+2026-03-17 09:16:35.630 +02:00 [INF] Write content with HTTP Response ContentType of application/json
+2026-03-17 09:16:35.634 +02:00 [INF] Executed endpoint 'HTTP: GET /api/history/{symbol}'
+2026-03-17 09:16:35.643 +02:00 [INF] HTTP GET /api/history/AAPL responded 200 in 533.8012 ms
+2026-03-17 09:16:35.653 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/api/history/AAPL - 200 36142 application/json 548.3097ms
+2026-03-17 09:16:37.861 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5231/Trade/SellOrder - application/x-www-form-urlencoded 266
+2026-03-17 09:16:37.868 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.SellOrder (StocksApp)'
+2026-03-17 09:16:37.872 +02:00 [INF] Route matched with {action = "SellOrder", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] SellOrder(Core.DTOs.SellOrderRequest) on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-17 09:16:37.879 +02:00 [INF] Sell order request received for symbol AAPL, quantity 100, price 252.82
+2026-03-17 09:16:37.884 +02:00 [INF] Create sell order requested for symbol AAPL, quantity 100
+2026-03-17 09:16:37.893 +02:00 [INF] Persisting sell order for symbol AAPL, quantity 100
+2026-03-17 09:16:37.933 +02:00 [INF] Executed DbCommand (34ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime2), @p2='?' (Precision = 15) (Scale = 2) (DbType = Decimal), @p3='?' (DbType = Int64), @p4='?' (Size = 100), @p5='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [SellOrders] ([Id], [DateAndTimeOfOrder], [Price], [Quantity], [StockName], [StockSymbol])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-03-17 09:16:37.940 +02:00 [INF] Sell order persisted with id "a96fcdad-3dda-41e5-88ad-e2f9abebbe7d"
+2026-03-17 09:16:37.944 +02:00 [INF] Sell order persisted with id "a96fcdad-3dda-41e5-88ad-e2f9abebbe7d" for symbol AAPL
+2026-03-17 09:16:37.948 +02:00 [INF] Sell order created successfully. SellOrderId="a96fcdad-3dda-41e5-88ad-e2f9abebbe7d", Symbol=AAPL, Quantity=100
+2026-03-17 09:16:37.954 +02:00 [INF] Executing RedirectResult, redirecting to /Trade/Orders.
+2026-03-17 09:16:37.958 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.SellOrder (StocksApp) in 81.7072ms
+2026-03-17 09:16:37.964 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.SellOrder (StocksApp)'
+2026-03-17 09:16:37.968 +02:00 [INF] HTTP POST /Trade/SellOrder responded 302 in 99.9952 ms
+2026-03-17 09:16:37.974 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5231/Trade/SellOrder - 302 0 null 113.1624ms
+2026-03-17 09:16:37.985 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5231/Trade/Orders - null null
+2026-03-17 09:16:37.999 +02:00 [INF] Executing endpoint 'StocksApp.Controllers.TradeController.Orders (StocksApp)'
+2026-03-17 09:16:38.002 +02:00 [INF] Route matched with {action = "Orders", controller = "Trade"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Orders() on controller StocksApp.Controllers.TradeController (StocksApp).
+2026-03-17 09:16:38.007 +02:00 [INF] Orders page requested
+2026-03-17 09:16:38.013 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[DateAndTimeOfOrder], [b].[Price], [b].[Quantity], [b].[StockName], [b].[StockSymbol]
+FROM [BuyOrders] AS [b]
+ORDER BY [b].[DateAndTimeOfOrder] DESC
+2026-03-17 09:16:38.022 +02:00 [INF] Loaded 7 buy orders from database
+2026-03-17 09:16:38.025 +02:00 [INF] Retrieved 7 buy orders
+2026-03-17 09:16:38.031 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DateAndTimeOfOrder], [s].[Price], [s].[Quantity], [s].[StockName], [s].[StockSymbol]
+FROM [SellOrders] AS [s]
+ORDER BY [s].[DateAndTimeOfOrder] DESC
+2026-03-17 09:16:38.036 +02:00 [INF] Loaded 3 sell orders from database
+2026-03-17 09:16:38.039 +02:00 [INF] Retrieved 3 sell orders
+2026-03-17 09:16:38.042 +02:00 [INF] Orders page loaded with 7 buy orders and 3 sell orders
+2026-03-17 09:16:38.049 +02:00 [INF] Executing ViewResult, running view Orders.
+2026-03-17 09:16:38.058 +02:00 [INF] Executed ViewResult - view Orders executed in 9.4583ms.
+2026-03-17 09:16:38.069 +02:00 [INF] Executed action StocksApp.Controllers.TradeController.Orders (StocksApp) in 62.4082ms
+2026-03-17 09:16:38.078 +02:00 [INF] Executed endpoint 'StocksApp.Controllers.TradeController.Orders (StocksApp)'
+2026-03-17 09:16:38.082 +02:00 [INF] HTTP GET /Trade/Orders responded 200 in 82.7309 ms
+2026-03-17 09:16:38.087 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5231/Trade/Orders - 200 null text/html; charset=utf-8 102.1605ms

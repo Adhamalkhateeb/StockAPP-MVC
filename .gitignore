@@ -44,3 +44,37 @@ Thumbs.db
 ## Resharper
 _ReSharper*/
 *.DotSettings.user
+
+## Coverage
+coverage/
+*.coverage
+*.opencover.xml
+
+## NuGet
+*.nupkg
+*.snupkg
+.nuget/
+
+## Local configuration
+appsettings.*.local.json
+appsettings.local.json
+
+## Build directories and artifacts
+artifacts/
+dist/
+*.trx
+
+## OS and IDE temp files
+*.swp
+*.swo
+*~
+.classpath
+.project
+.settings/
+.vscode-test/
+*.pot
+
+## Package manager lock files (optional - uncomment if using multiple package managers)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml

@@ -26,14 +26,11 @@ namespace StockMarketSolution.Middleware
             catch (FinnhubAccessDeniedException ex)
             {
                 LogException(ex);
-                ;
-
                 throw;
             }
             catch (Exception ex)
             {
                 LogException(ex);
-
                 throw;
             }
         }
@@ -52,7 +49,7 @@ namespace StockMarketSolution.Middleware
 
                     _diagnosticContext.Set(
                         "Exception",
-                        $"{ex.InnerException.InnerException.GetType().ToString()}, {ex.InnerException.InnerException.Message}, {ex.InnerException.InnerException.StackTrace}"
+                        $"{ex.InnerException.InnerException.GetType()}, {ex.InnerException.InnerException.Message}, {ex.InnerException.InnerException.StackTrace}"
                     );
                 }
                 else

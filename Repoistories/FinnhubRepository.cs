@@ -138,8 +138,6 @@ namespace Repositories
         /// </summary>
         private async Task<T?> GetFinnhubApiResultAsync<T>(string apiUrl)
         {
-            _logger.LogDebug("Calling Finnhub endpoint {Endpoint}", apiUrl);
-
             var client = _clientFactory.CreateClient();
             client.Timeout = TimeSpan.FromSeconds(40);
 
@@ -178,11 +176,6 @@ namespace Repositories
                     $"Finnhub returned HTTP {(int)responseMessage.StatusCode} for URL: {apiUrl}"
                 );
             }
-
-            _logger.LogDebug(
-                "Finnhub response received with status code {StatusCode}",
-                (int)responseMessage.StatusCode
-            );
 
             var json = await responseMessage.Content.ReadAsStringAsync();
 
@@ -234,9 +227,7 @@ namespace Repositories
                     async entry =>
                     {
                         entry.AbsoluteExpirationRelativeToNow = absoluteExpiration;
-                        _logger.LogDebug("Cache miss for key {CacheKey}", cacheKey);
                         var value = await factory();
-                        _logger.LogDebug("Cache populated for key {CacheKey}", cacheKey);
                         return value;
                     }
                 ) ?? throw new InvalidOperationException("Unable to store data in cache");
